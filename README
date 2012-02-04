@@ -1,0 +1,16 @@
+What is this?
+This is a 2D Role-Playing-Game project, written by Mislav Blazevic (https://github.com/krofna) for Software Development Contest, 'Infokup' ( https://www.infokup.hr/ )
+It is open source program, and its source is avaliable at https://github.com/krofna/2D-Game-Project
+
+Thanks and Acknowledgements:
+- Laurent Gomila (https://github.com/laurentgomila) for Simple and Fast Multimedia Library (https://github.com/LaurentGomila/SFML)
+Without you, this project would not be possible
+
+License:
+http://www.gnu.org/copyleft/gpl.html
+
+System Requirements:
+- 128Mb of RAM or higher
+- Display Resolution 1024*768 (1280x960 for Map Editor) or higher
+- Microsoft Windows or Linux
+- Microsoft Visual C++ 2010 Redistributable Package
