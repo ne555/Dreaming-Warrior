@@ -1,0 +1,39 @@
+Generic structure:
+<Item ID> <Item Type> <Item Name> <Icon File Name>
+
+Potion additions:
+<Value>
+
+Quest additions:
+<Quest ID>
+
+Equipment additions:
+
+
+Item ID:
+Unique item ID.
+
+Item Type:
+
+ITEM_QUEST		= 0,
+ITEM_HEALTH_POTION	= 1,
+ITEM_POWER_POTION	= 2,
+ITEM_HEAD		= 3,
+ITEM_SHOULDERS		= 4,
+ITEM_CHEST		= 5,
+ITEM_HANDS		= 6,
+ITEM_LEGS		= 7,
+ITEM_FOOT		= 8,
+ITEM_MAINHAND		= 9,
+ITEM_OFFHAND		= 10
+
+Item Name:
+Name of item shown in game. Not necessarily unique.
+
+Icon File Name:
+File name of icon tile in Graphics/Items/
+For example, Graphics/Items/MyPotion.png
+
+Value:
+In case of potion, amount of health or power replenished.
+Generaly, value by which specific attribute is increased
