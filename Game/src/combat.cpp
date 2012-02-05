@@ -222,6 +222,7 @@ bool Combat::SpellCast(const Buff &Buff, Creature &Caster, Creature &Target)
         return false;
 
     Target.ApplyBuff(Buff);
+    return true;
 }
 
 bool Combat::RunIfCan()

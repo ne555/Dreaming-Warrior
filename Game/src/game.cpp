@@ -43,6 +43,18 @@ void Game::DrawAll()
         Sprite.SetPosition((float)itr->GetX()*32, (float)itr->GetY()*32);
         Window.Draw(Sprite);
     }
+    for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
+    {
+        sf::Sprite Sprite(itr->MapTexture);
+        Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
+        Window.Draw(Sprite);
+    }
+    for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
+    {
+        sf::Sprite Sprite(itr->MapTexture);
+        Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
+        Window.Draw(Sprite);
+    }
 }
 
 void Game::RandomEncounter()

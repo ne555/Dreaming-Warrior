@@ -1,5 +1,8 @@
 #include "game.h"
 
+Item GetItemFromDatabase(int ID);
+Quest GetQuestFromDatabase(int ID);
+
 //todo: Pojednostavi.. & loading screen :D
 //todo: render texture neradi na svim hardware, mozda capture image i nju load, a ne tile
 void Game::LoadMap(std::string PathToMap)
@@ -98,13 +101,13 @@ void Game::LoadMap(std::string PathToMap)
 
     //Ucitaj cudovista
     int Atk, Def, HP, Level;
-    std::string Alive, Combat, Name;
+    std::string CreatureMapTexture, Combat, Name;
 
     Enemies.clear();
     File.open(PathToMap + "Enemies.txt");
-    while(File >> Atk >> Def >> HP >> x >> y >> Alive >> Combat >> Level >> Name)
+    while(File >> Atk >> Def >> HP >> x >> y >> CreatureMapTexture >> Combat >> Level >> Name)
     {
-        Enemies.push_back(Enemy(Atk, Def, HP, x, y, Alive, Combat, Level, Name));
+        Enemies.push_back(Enemy(Atk, Def, HP, x, y, CreatureMapTexture, Combat, Level, Name));
     }
     File.close();
 
@@ -142,7 +145,7 @@ void Game::LoadMap(std::string PathToMap)
                 Vendor.MapTexture.LoadFromFile(buffer);
                 break;
             default:
-                //Vendor.Items.push_back(GetItemFromDatabase(StringToInt(buffer)));
+                Vendor.Items.push_back(GetItemFromDatabase(StringToInt(buffer)));
             }
             a++; c++;
             buffer.clear();
@@ -153,8 +156,35 @@ void Game::LoadMap(std::string PathToMap)
 
     QuestGivers.clear();
     File.open(PathToMap + "QuestGivers.txt");
-    //while()
+    a = 0; c = 0;
+    QuestGiver QuestGiver;
+    while(getline(File, line))
     {
+        while(a != line.size())
+        {
+            while(line[a] != ' ')
+            {
+                buffer = line[a];
+                a++;
+            }
+            switch(c)
+            {
+            case 0:
+                QuestGiver.x = StringToInt(buffer);
+                break;
+            case 1:
+                QuestGiver.y = StringToInt(buffer);
+                break;
+            case 2:
+                QuestGiver.MapTexture.LoadFromFile(buffer);
+                break;
+            default:
+                QuestGiver.Quests.push_back(GetQuestFromDatabase(StringToInt(buffer)));
+            }
+            a++; c++;
+            buffer.clear();
+        }
+        Vendors.push_back(Vendor);
     }
     File.close();
 

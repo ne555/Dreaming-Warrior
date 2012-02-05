@@ -1,0 +1,26 @@
+Generic structure:
+<Quest ID> <Quest Name> <Quest Text> <Level Requirement> <Quest Requirement> + unlimited amount of objectives
+
+Slay objective:
+0 <Enemy ID> <Count>
+
+Collect objective:
+1 <Item ID> <Count>
+
+Quest ID:
+Unique ID of a quest.
+
+Quest Name:
+Name of quest shown in game. Not necessarily unique.
+Replace spaces with _.
+
+Quest Text:
+Quest story shown in quest log or when accepting the quest.
+
+Level Requirement:
+
+Quest Requirement:
+
+Enemy ID:
+
+Count:

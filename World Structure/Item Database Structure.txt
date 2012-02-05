@@ -1,17 +1,20 @@
 Generic structure:
 <Item ID> <Item Type> <Item Name> <Icon File Name>
 
-Potion additions:
-<Value>
+Potion structure:
+Generic structure + <Buy Price> <Sell Price> <Value>
 
-Quest additions:
-<Quest ID>
+Quest structure:
+Generic structure + <Quest ID> (You may specify unlimited amount of quests)
 
-Equipment additions:
-
+Equipment structure:
+Generic structure + <Buy Price> <Sell Price> <Attribute> <Value> (You may specify up to 4 attributes)
 
 Item ID:
 Unique item ID.
+
+Quest ID:
+Unique ID of a quest.
 
 Item Type:
 
@@ -27,8 +30,18 @@ ITEM_FOOT		= 8,
 ITEM_MAINHAND		= 9,
 ITEM_OFFHAND		= 10
 
+Attribute:
+
+NO_ATTRIBUTE	= 0,
+HEALTH		= 1,
+POWER		= 2,
+ATTACK_POWER	= 3, // Melee or Spell Power
+ARMOR		= 4,
+INT_OR_STR	= 5
+
 Item Name:
 Name of item shown in game. Not necessarily unique.
+Replace spaces with _.
 
 Icon File Name:
 File name of icon tile in Graphics/Items/

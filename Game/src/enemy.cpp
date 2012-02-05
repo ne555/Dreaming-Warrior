@@ -1,9 +1,9 @@
 #include "enemy.h"
 
-Enemy::Enemy(int Atk, int Armor, int Health, int x, int y, std::string Alive, std::string Combat, int Level, std::string Name)
+Enemy::Enemy(int Atk, int Armor, int Health, int x, int y, std::string MapTexture, std::string Combat, int Level, std::string Name)
     : Creature(Atk, Armor, Health, x, y, Level, Name)
 {
-    CreatureMapTexture.LoadFromFile(Alive);
+    CreatureMapTexture.LoadFromFile(MapTexture);
     CreatureCombatTexture.LoadFromFile(Combat);
 }
 

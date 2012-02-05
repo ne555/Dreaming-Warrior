@@ -9,7 +9,7 @@ struct Enemy;
 
 struct Enemy : public Creature
 {
-    Enemy(int Atk, int Def, int Health, int x, int y, std::string Alive, std::string Combat, int Level, std::string Name);
+    Enemy(int Atk, int Def, int Health, int x, int y, std::string MapTexture, std::string Combat, int Level, std::string Name);
     Enemy(int Atk, int Def, int Health, std::string Combat, int Level, std::string Name);
     ~Enemy();
 

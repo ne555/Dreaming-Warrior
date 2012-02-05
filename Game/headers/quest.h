@@ -5,27 +5,28 @@
 
 /*
 Type: Item gathering or slaying quest
-Objective: Name of Item or Enemy required to complete the quest
+ID: ID of Item or Enemy required to complete the quest (TODO: Enemy needs ID)
 ReqProgress: Count of Items or Enemies required
-Progress: Current Progress
+CurrentProgress: Current Progress
 
 LevelReq: Level required to accept this quest
 QuestReq: Quest required to complete before accepting this quest
 */
+struct QuestObjective
+{
+    QuestType Type;
+    int ReqProgress;
+    int CurrentProgress;
+    int ID; 
+};
+
 struct Quest
 {
-    Quest(QuestType Type, std::string Objective, int ReqProgress, int Progress, int LevelReq, std::string QuestReq = " ")
-        : Type(Type), Objective(Objective), ReqProgress(ReqProgress), Progress(Progress), LevelReq(LevelReq), QuestReq(QuestReq)
-    {
-    }
-
-    QuestType Type;
-    std::string Objective;
-    int ReqProgress;
-    int Progress;
-
     int LevelReq;
-    std::string QuestReq;
+    int QuestReq;
+    std::string Name;
+    std::string Text;
+    std::vector<QuestObjective> Objectives;
 };
 
 #endif
