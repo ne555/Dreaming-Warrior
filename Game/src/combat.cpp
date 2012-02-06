@@ -117,7 +117,7 @@ int Combat::MainLoop()
         window.Draw(ArrowSprite);
         DrawPlayerStats();
         DrawCommandText(CommandList);
-        for(auto itr = CombatTexts.begin(); itr != CombatTexts.end(); itr++)
+        for(auto itr = CombatTexts.begin(); itr != CombatTexts.end(); ++itr)
             window.Draw(*itr);
         window.Display();
     }
@@ -249,7 +249,7 @@ bool Combat::RunIfCan()
 
 void Combat::DropLoot()
 {
-    /*for(auto itr = Enemy->Loot.begin(); itr != Enemy->Loot.end(); itr++)
+    /*for(auto itr = Enemy->Loot.begin(); itr != Enemy->Loot.end(); ++itr)
     {
         if(urand(0, itr->Chance) == 0)
         {
@@ -274,7 +274,7 @@ void Combat::HandleCombatText(string CombatString)
     if(CombatTexts.size() > 5)
     {
         CombatTexts.erase(CombatTexts.begin());
-        for(vector<sf::Text>::iterator itr = CombatTexts.begin(); itr != CombatTexts.end(); itr++)
+        for(vector<sf::Text>::iterator itr = CombatTexts.begin(); itr != CombatTexts.end(); ++itr)
             itr->SetPosition(235.0f, itr->GetPosition().y - 35.00f);
         TextY -= 35;
     }
@@ -370,7 +370,7 @@ void Combat::DrawCommandText(int WhatText)
         case 3:
         {
             float PosY = 60.0f;
-            for(auto itr = player.GetSpells().begin(); itr != player.GetSpells().end(); itr++)
+            for(auto itr = player.GetSpells().begin(); itr != player.GetSpells().end(); ++itr)
             {
                 sf::Text SpellText(itr->Name);
                 SpellText.SetPosition(850.0f, PosY);

@@ -22,6 +22,10 @@
 
 struct Vendor
 {
+    Vendor(int x, int y, string TextureFileName) : x(x), y(y)
+    {
+        MapTexture.LoadFromFile(TextureFileName);
+    }
     int x;
     int y;
     sf::Texture MapTexture;

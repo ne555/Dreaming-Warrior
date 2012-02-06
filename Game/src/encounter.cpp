@@ -27,7 +27,7 @@ void Game::Encounter(Orientation Direction)
         switch(Player.InteractsWith)
         {
         case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
+            for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
             {
                 if(itr->GetX() == Player.GetX()/32 && itr->GetY() == Player.GetY()/32-1)
                 {
@@ -50,7 +50,7 @@ void Game::Encounter(Orientation Direction)
             }
             break;
         case VENDOR:
-            for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
+            for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
@@ -63,7 +63,7 @@ void Game::Encounter(Orientation Direction)
             }
             break;
         case QUEST:
-            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
+            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
@@ -81,7 +81,7 @@ void Game::Encounter(Orientation Direction)
         switch(Player.InteractsWith)
         {
         case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
+            for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
             {
                 if(itr->GetX() == Player.GetX()/32 && itr->GetY() == Player.GetY()/32+1)
                 {
@@ -104,7 +104,7 @@ void Game::Encounter(Orientation Direction)
             }
             break;
         case VENDOR:
-            for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
+            for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
@@ -117,7 +117,7 @@ void Game::Encounter(Orientation Direction)
             }
             break;
         case QUEST:
-            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
+            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
@@ -135,7 +135,7 @@ void Game::Encounter(Orientation Direction)
         switch(Player.InteractsWith)
         {
         case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
+            for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
             {
                 if(itr->GetX() == Player.GetX()/32+1 && itr->GetY() == Player.GetY()/32)
                 {
@@ -158,7 +158,7 @@ void Game::Encounter(Orientation Direction)
             }
             break;
         case VENDOR:
-            for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
+            for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
@@ -171,7 +171,7 @@ void Game::Encounter(Orientation Direction)
             }
             break;
         case QUEST:
-            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
+            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
@@ -189,7 +189,7 @@ void Game::Encounter(Orientation Direction)
         switch(Player.InteractsWith)
         {
         case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
+            for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
             {
                 if(itr->GetX() == Player.GetX()/32-1 && itr->GetY() == Player.GetY()/32)
                 {
@@ -212,7 +212,7 @@ void Game::Encounter(Orientation Direction)
             }
             break;
         case VENDOR:
-            for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
+            for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
@@ -225,7 +225,7 @@ void Game::Encounter(Orientation Direction)
             }
             break;
         case QUEST:
-            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
+            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {

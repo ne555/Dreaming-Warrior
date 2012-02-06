@@ -18,6 +18,12 @@
 #include "quest.h"
 #include "database.h"
 
+/*
+TODO: 
+- Pojednostaviti: Pogledaj map.cpp
+- Quest Giver nije testiran
+*/
+
 Item GetItemFromDatabase(string World, int ID)
 {
     Item Item;

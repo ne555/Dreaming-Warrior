@@ -24,19 +24,19 @@ void Game::DrawAll()
     PlayerSprite.SetPosition((float)Player.GetX(), (float)Player.GetY());
     Window.Draw(PlayerSprite);
 
-    for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
+    for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
     {
         sf::Sprite Sprite(itr->CreatureMapTexture);
         Sprite.SetPosition((float)itr->GetX()*32, (float)itr->GetY()*32);
         Window.Draw(Sprite);
     }
-    for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
+    for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
     {
         sf::Sprite Sprite(itr->MapTexture);
         Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
         Window.Draw(Sprite);
     }
-    for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
+    for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
     {
         sf::Sprite Sprite(itr->MapTexture);
         Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
@@ -169,92 +169,46 @@ void Game::LoadMap(string PathToMap)
     }
     File.close();
     
-    /*
-    Mem leak u vendorima i q giverima; a moze biti i u load item, naci
-    */
     Vendors.clear();
     File.open(PathToMap + "Vendors.txt");
-    string line, buffer = "";
-    int a = 0, c = 0;
-    Vendor Vendor;
-    while(getline(File, line))
+    int a;
+    while(File >> x >> y >> CreatureMapTexture >> a)
     {
-        while(a < line.size())
+        Vendor Vendor(x, y, CreatureMapTexture);
+        for(int c=0; c<a; ++c)
         {
-            while(line[a] != ' ')
-            {
-                buffer += line[a];
-                a++;
-            }
-            cout << buffer << endl;
-            switch(c)
-            {
-            case 0:
-                Vendor.x = StringToInt(buffer);
-                break;
-            case 1:
-                Vendor.y = StringToInt(buffer);
-                break;
-            case 2:
-                Vendor.MapTexture.LoadFromFile(buffer);
-                break;
-            default:
-                Vendor.Items.push_back(GetItemFromDatabase(World, StringToInt(buffer)));
-                break;
-            }
-            a++; c++;
-            buffer.clear();
+            int ItemID;
+            File >> ItemID;
+            Vendor.Items.push_back(GetItemFromDatabase(World, ItemID));
         }
         Vendors.push_back(Vendor);
-        a = 0; c = 0;
     }
     File.close();
-    /*
+    
     QuestGivers.clear();
     File.open(PathToMap + "QuestGivers.txt");
-    a = 0; c = 0;
-    QuestGiver QuestGiver;
-    while(getline(File, line))
+    while(File >> x >> y >> CreatureMapTexture >> a)
     {
-        while(a != line.size())
+        QuestGiver QuestGiver;
+        for(int c=0; c<a; ++c)
         {
-            while(line[a] != ' ')
-            {
-                buffer += line[a];
-                a++;
-            }
-            switch(c)
-            {
-            case 0:
-                QuestGiver.x = StringToInt(buffer);
-                break;
-            case 1:
-                QuestGiver.y = StringToInt(buffer);
-                break;
-            case 2:
-                QuestGiver.MapTexture.LoadFromFile(buffer);
-                break;
-            default:
-                QuestGiver.Quests.push_back(GetQuestFromDatabase(World, StringToInt(buffer)));
-                break;
-            }
-            a++; c++;
-            buffer.clear();
+            int QuestID;
+            File >> QuestID;
+            QuestGiver.Quests.push_back(GetQuestFromDatabase(World, QuestID));
         }
-        QuestGivers.push_back(Vendor);
-        a = 0; c = 0;
+        QuestGivers.push_back(QuestGiver);
     }
-    File.close();*/
+    File.close();
 
-    for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
+    for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
     {
         CreatureGrid[itr->GetY()][itr->GetX()] = ENEMY;
     }
-    for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
+    for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
     {
         CreatureGrid[itr->y][itr->x] = VENDOR;
     }
-    for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
+    for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
     {
         CreatureGrid[itr->y][itr->x] = ENEMY;
     }
@@ -290,7 +244,7 @@ bool Game::CheckCollision(int x, int y, Orientation Direction)
 bool Game::CheckPortals(int x, int y)
 {
     sf::IntRect RectPlayer(x, y, 32, 32);
-    for(auto itr = Portals.begin(); itr != Portals.end(); itr++)
+    for(auto itr = Portals.begin(); itr != Portals.end(); ++itr)
     {
         if(RectPlayer.Intersects(itr->PortalRect))
         {

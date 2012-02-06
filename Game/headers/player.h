@@ -54,8 +54,8 @@ public:
     {
         int NumHealthPots = 0;
 
-        for(auto iter = Items.begin(); iter != Items.end(); iter++)
-            if((*iter)->Type == ITEM_HEALTH_POTION)
+        for(auto itr = Items.begin(); itr != Items.end(); ++itr)
+            if((*itr)->Type == ITEM_HEALTH_POTION)
                 NumHealthPots++;
 
         return NumHealthPots;
@@ -65,8 +65,8 @@ public:
     {
         int NumManaPots = 0;
 
-        for(auto iter = Items.begin(); iter != Items.end(); iter++)
-            if((*iter)->Type == ITEM_POWER_POTION)
+        for(auto itr = Items.begin(); itr != Items.end(); ++itr)
+            if((*itr)->Type == ITEM_POWER_POTION)
                 NumManaPots++;
 
         return NumManaPots;
@@ -77,15 +77,15 @@ public:
     */
     bool UseHealthPotIfCan()
     {
-        for(auto iter = Items.begin(); iter != Items.end(); iter++)
+        for(auto itr = Items.begin(); itr != Items.end(); ++itr)
         {
-            if((*iter)->Type == ITEM_HEALTH_POTION)
+            if((*itr)->Type == ITEM_HEALTH_POTION)
             {
-                SetHealth(GetHealth()+(*iter)->Value);
+                SetHealth(GetHealth()+(*itr)->Value);
                 if(GetHealth() > GetMaxHealth())
                     SetHealth(GetMaxHealth());
-                delete *iter;
-                Items.erase(iter);
+                delete *itr;
+                Items.erase(itr);
                 return true;
             }
         }
@@ -94,15 +94,15 @@ public:
 
     bool UsePowerPotIfCan()
     {
-        for(auto iter = Items.begin(); iter != Items.end(); iter++)
+        for(auto itr = Items.begin(); itr != Items.end(); ++itr)
         {
-            if((*iter)->Type == ITEM_POWER_POTION)
+            if((*itr)->Type == ITEM_POWER_POTION)
             {
-                SetPower(GetPower() + (*iter)->Value);
+                SetPower(GetPower() + (*itr)->Value);
                 if(GetPower() > GetMaxPower())
                     SetPower(GetMaxPower());
-                delete *iter;
-                Items.erase(iter);
+                delete *itr;
+                Items.erase(itr);
                 return true;
             }
         }
@@ -152,7 +152,7 @@ public:
 
     void RemoveItem(string Name)
     {
-        for(auto itr = Items.begin(); itr != Items.end(); itr++)
+        for(auto itr = Items.begin(); itr != Items.end(); ++itr)
         {
             if((*itr)->Name == Name)
             {
@@ -165,9 +165,9 @@ public:
 
     void CalculateStatsFromEquip()
     {
-        for(auto itr = EquipedItems.begin(); itr != EquipedItems.end(); itr++)
+        for(auto itr = EquipedItems.begin(); itr != EquipedItems.end(); ++itr)
         {
-            for(auto iter = (*itr)->Attributes.begin(); iter != (*itr)->Attributes.end(); iter++)
+            for(auto iter = (*itr)->Attributes.begin(); iter != (*itr)->Attributes.end(); ++itr)
             {
                 switch(iter->Attribute)
                 {
