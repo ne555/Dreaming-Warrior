@@ -1,5 +1,4 @@
 #include "game.h"
-#include "combat.h"
 
 Game::Game()
 {
@@ -28,199 +27,6 @@ void Game::InitGame(MainMenuData MenuResult)
     case EXIT:
         exit(0);
     }
-}
-
-void Game::DrawAll()
-{
-    Window.Draw(sf::Sprite(MapTexture));
-    sf::Sprite PlayerSprite(PlayerTexture);
-    PlayerSprite.SetPosition((float)Player.GetX(), (float)Player.GetY());
-    Window.Draw(PlayerSprite);
-
-    for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
-    {
-        sf::Sprite Sprite(itr->CreatureMapTexture);
-        Sprite.SetPosition((float)itr->GetX()*32, (float)itr->GetY()*32);
-        Window.Draw(Sprite);
-    }
-    for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
-    {
-        sf::Sprite Sprite(itr->MapTexture);
-        Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
-        Window.Draw(Sprite);
-    }
-    for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
-    {
-        sf::Sprite Sprite(itr->MapTexture);
-        Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
-        Window.Draw(Sprite);
-    }
-}
-
-void Game::RandomEncounter()
-{
-    if(RandomEncounters.empty())
-        return;
-    std::vector<Enemy>::iterator itr = RandomEncounters.begin() + urand(0, RandomEncounters.size()-1);
-    Combat Combat(Window, Player, *itr);
-    if(Combat.MainLoop())
-        RandomEncounters.erase(itr);
-    else
-        std::cout << "Game over...";//PH!
-}
-
-void Game::Encounter(Orientation Direction)
-{
-    switch(Direction)
-    {
-    case NORTH:
-        switch(Player.InteractsWith)
-        {
-        case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
-            {
-                if(itr->GetX() == Player.GetX()/32 && itr->GetY() == Player.GetY()/32-1)
-                {
-                    Combat Combat(Window, Player, *itr);
-                    switch(Combat.MainLoop())
-                    {
-                    case 0:
-                        std::cout << "[PH] Game Over";
-                        break;
-                    case 1:
-                        CreatureGrid[itr->GetY()][itr->GetX()] = NO_CREATURE;
-                        Enemies.erase(itr);
-                        //bla bla quest objective, drop loot je u combatu hendlan
-                        break;
-                    case 2:
-                        break;
-                    }
-                    return;
-                }
-            }
-            break;
-        case VENDOR:
-            break;
-            //...
-        }
-        break;
-    case SOUTH:
-        switch(Player.InteractsWith)
-        {
-        case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
-            {
-                if(itr->GetX() == Player.GetX()/32 && itr->GetY() == Player.GetY()/32+1)
-                {
-                    Combat Combat(Window, Player, *itr);
-                    switch(Combat.MainLoop())
-                    {
-                    case 0:
-                        std::cout << "[PH] Game Over";
-                        break;
-                    case 1:
-                        CreatureGrid[itr->GetY()][itr->GetX()] = NO_CREATURE;
-                        Enemies.erase(itr);
-                        //bla bla quest objective, drop loot je u combatu hendlan
-                        break;
-                    case 2:
-                        break;
-                    }
-                    return;
-                }
-            }
-            break;
-        case VENDOR:
-            break;
-            //...
-        }
-        break;
-    case WEST:
-        switch(Player.InteractsWith)
-        {
-        case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
-            {
-                if(itr->GetX() == Player.GetX()/32+1 && itr->GetY() == Player.GetY()/32)
-                {
-                    Combat Combat(Window, Player, *itr);
-                    switch(Combat.MainLoop())
-                    {
-                    case 0:
-                        std::cout << "[PH] Game Over";
-                        break;
-                    case 1:
-                        CreatureGrid[itr->GetY()][itr->GetX()] = NO_CREATURE;
-                        Enemies.erase(itr);
-                        //bla bla quest objective, drop loot je u combatu hendlan
-                        break;
-                    case 2:
-                        break;
-                    }
-                    return;
-                }
-            }
-            break;
-        case VENDOR:
-            break;
-            //...
-        }
-        break;
-    case EAST:
-        switch(Player.InteractsWith)
-        {
-        case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
-            {
-                if(itr->GetX() == Player.GetX()/32-1 && itr->GetY() == Player.GetY()/32)
-                {
-                    Combat Combat(Window, Player, *itr);
-                    switch(Combat.MainLoop())
-                    {
-                    case 0:
-                        std::cout << "[PH] Game Over";
-                        break;
-                    case 1:
-                        CreatureGrid[itr->GetY()][itr->GetX()] = NO_CREATURE;
-                        Enemies.erase(itr);
-                        //bla bla quest objective, drop loot je u combatu hendlan
-                        break;
-                    case 2:
-                        break;
-                    }
-                    return;
-                }
-            }
-            break;
-        case VENDOR:
-            break;
-            //...
-        }
-        break;
-    }
-}
-/*
-TODO: Pokazi lika, equipane iteme, questove i statse
-//i ovo class jer treba swap izmeðu questova
-*/
-void Game::ShowCharacterScreen()
-{
-    sf::Texture BackgroundTexture;
-    //BackgroundTexture.LoadFromFile("");
-    sf::Sprite BackgroundSprite(BackgroundTexture);
-    sf::Texture PlayerTexture;
-    //PlayerTexture.LoadFromFile("");
-    sf::Sprite PlayerSprite(PlayerTexture);
-    //PlayerSprite.SetPosition();
-
-    // bla bla PH
-}
-/*
-TODO: Pokazi lika, backpack iteme, omoguci mjenjanje statsa, omoguci mjenjanje equipa
-*/
-void Game::ShowBackpackScreen()
-{
-    BackpackScreen Screen(Player);
 }
 
 /*
@@ -277,6 +83,7 @@ int Game::Move(Orientation Direction)
         break;
     }
 
+    //TODO: Random encounter
     //if(urand(0, 1) == 0)
         //return 1;
 
@@ -350,11 +157,7 @@ void Game::GameLoop()
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::C))
             {
-                ShowCharacterScreen();
-            }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::B))
-            {
-                ShowBackpackScreen();
+                CharacterScreen Screen(Player);
             }
         }
         Window.Clear();

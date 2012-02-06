@@ -16,20 +16,20 @@ class Creature
     int Health;
     int Power;
     int Wealth;
-    std::string Name;
+    string Name;
 
-    std::vector<Buff> Buffs;
+    vector<Buff> Buffs;
 
 public:
     Creature() {}
     ~Creature() {}
 
-    Creature(int Atk, int Armor, int Health, int x, int y, int Level, std::string Name)
-        : AttackPower(Atk), Armor(Armor), Health(Health), MaxHealth(Health), x(x), y(y), Level(Level), Name(Name)
+    Creature(int Atk, int Armor, int Health, int x, int y, int Level, string Name, int Wealth)
+        : AttackPower(Atk), Armor(Armor), Health(Health), MaxHealth(Health), x(x), y(y), Level(Level), Name(Name), Wealth(Wealth)
     {
     }
-    Creature(int Atk, int Armor, int Health, int Level, std::string Name)
-        : AttackPower(Atk), Armor(Armor), Health(Health), MaxHealth(Health), Level(Level), Name(Name)
+    Creature(int Atk, int Armor, int Health, int Level, string Name, int Wealth)
+        : AttackPower(Atk), Armor(Armor), Health(Health), MaxHealth(Health), Level(Level), Name(Name), Wealth(Wealth)
     {
     }
 
@@ -43,9 +43,9 @@ public:
     int GetAttackPower() const  { return AttackPower; }
     int GetArmor() const        { return Armor; }
     int GetWealth() const       { return Wealth; }
-    std::string GetName() const { return Name;}
+    string GetName() const { return Name;}
 
-    const std::vector<Buff> &GetBuffs() const { return Buffs; }
+    const vector<Buff> &GetBuffs() const { return Buffs; }
 
     void SetX(int x)            { this->x = x; }
     void SetY(int y)            { this->y = y; }
@@ -57,7 +57,7 @@ public:
     void SetAttackPower(int Atk){ AttackPower = Atk; }
     void SetArmor(int Armor)    { this->Armor = Armor; }
     void SetWealth(int Wealth)  { this->Wealth = Wealth; }
-    void SetName(std::string Name) { this->Name = Name; }
+    void SetName(string Name) { this->Name = Name; }
 
     void ApplyBuff(Buff Buff)
     {
@@ -83,7 +83,7 @@ public:
 
     void RemoveBuffs()
     {
-        for(auto itr = Buffs.begin(); itr != Buffs.end(); itr++)
+        for(auto itr = Buffs.begin(); itr != Buffs.end(); ++itr)
         {
             switch(itr->Attribute)
             {

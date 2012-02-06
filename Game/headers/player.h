@@ -7,10 +7,10 @@
 
 class Player : public Creature
 {
-    std::vector<Item*> Items;
-    std::vector<Item*> EquipedItems;
-    std::vector<Castable> Spells;
-    std::vector<Quest> Quests;
+    vector<Item*> Items;
+    vector<Item*> EquipedItems;
+    vector<Castable> Spells;
+    vector<Quest> Quests;
 
     Class PlayerClass;
     int Exp;
@@ -21,7 +21,7 @@ public:
     Player();
     ~Player();
 
-    void LoadFromFile(std::string LoadFileName);
+    void LoadFromFile(string LoadFileName);
 
     CreatureType InteractsWith;
 
@@ -30,9 +30,9 @@ public:
 
     void SetIntStr(int IntStr) { this->IntStr = IntStr; }
 
-    const std::vector<Castable> &GetSpells() const { return Spells; }
-    const std::vector<Item*> &GetEquipedItems() const { return EquipedItems; }
-    const std::vector<Item*> &GetItems() const { return Items; }
+    const vector<Castable> &GetSpells() const { return Spells; }
+    const vector<Item*> &GetEquipedItems() const { return EquipedItems; }
+    const vector<Item*> &GetItems() const { return Items; }
 
     int GetHealthPotNum()
     {
@@ -106,7 +106,7 @@ public:
     }
 
     // Zamjena itema
-    void EquipItem(std::vector<Item*>::iterator newItem)
+    void EquipItem(vector<Item*>::iterator newItem)
     {
         for(auto oldItem = EquipedItems.begin(); oldItem != Items.end(); oldItem++)
         {
@@ -134,7 +134,7 @@ public:
         EquipedItems.push_back(Item);
     }
 
-    void RemoveItem(std::string Name)
+    void RemoveItem(string Name)
     {
         for(auto itr = Items.begin(); itr != Items.end(); itr++)
         {

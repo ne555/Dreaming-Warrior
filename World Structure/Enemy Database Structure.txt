@@ -1,0 +1,15 @@
+Generic structure:
+<Enemy ID> <Attack Power> <Defense Power> <Health> <Combat image file name> <Level> <Name> <Wealth>
+
+Enemy structure:
+Generic structure + <x> <y> <Map image file name> <Item ID> <Chance> <Item ID> <Chance> <Item ID> <Chance> <Item ID> <Chance>
+
+Random encounter structure:
+Generic structure
+
+Item ID:
+ID of an item looted upon killing the enemy.
+If you do not want to specify 4 items type NULL.
+
+Chance:
+Chance for item to drop.

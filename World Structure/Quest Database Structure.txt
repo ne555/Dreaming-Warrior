@@ -2,10 +2,10 @@ Generic structure:
 <Quest ID> <Quest Name> <Quest Text> <Level Requirement> <Quest Requirement> + unlimited amount of objectives
 
 Slay objective:
-0 <Enemy ID> <Count>
+0 <Map ID> <Enemy ID> <Count>
 
 Collect objective:
-1 <Item ID> <Count>
+1 <Map ID> <Item ID> <Count>
 
 Quest ID:
 Unique ID of a quest.
@@ -20,7 +20,10 @@ Quest story shown in quest log or when accepting the quest.
 Level Requirement:
 
 Quest Requirement:
+-1 If no requirement
 
 Enemy ID:
+
+Map ID:
 
 Count:

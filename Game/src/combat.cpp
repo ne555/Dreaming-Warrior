@@ -181,7 +181,7 @@ void Combat::MeleeAttack()
     enemy.SetHealth(enemy.GetHealth() - Damage);
 
     // Pokazi text
-    std::string CombatString = player.GetName() + " hits " + enemy.GetName() + " for " + IntToString(Damage) + " damage!";
+    string CombatString = player.GetName() + " hits " + enemy.GetName() + " for " + IntToString(Damage) + " damage!";
     HandleCombatText(CombatString);
 }
 
@@ -192,7 +192,7 @@ void Combat::CreatureAttack()
     player.SetHealth(player.GetHealth() - Damage);
 
     // Pokazi text
-    std::string CombatString = enemy.GetName() + " hits you for " + IntToString(Damage) + " damage!";
+    string CombatString = enemy.GetName() + " hits you for " + IntToString(Damage) + " damage!";
     HandleCombatText(CombatString);
 }
 
@@ -248,7 +248,7 @@ void Combat::DropLoot()
     }*/
 }
 
-void Combat::HandleCombatText(std::string CombatString)
+void Combat::HandleCombatText(string CombatString)
 {
     sf::Text CombatText(CombatString);
     CombatText.SetPosition(235.0f, TextY);
@@ -258,7 +258,7 @@ void Combat::HandleCombatText(std::string CombatString)
     if(CombatTexts.size() > 5)
     {
         CombatTexts.erase(CombatTexts.begin());
-        for(std::vector<sf::Text>::iterator itr = CombatTexts.begin(); itr != CombatTexts.end(); itr++)
+        for(vector<sf::Text>::iterator itr = CombatTexts.begin(); itr != CombatTexts.end(); itr++)
             itr->SetPosition(235.0f, itr->GetPosition().y - 35.00f);
         TextY -= 35;
     }

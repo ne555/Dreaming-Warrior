@@ -9,7 +9,7 @@ struct Vendor
     int x;
     int y;
     sf::Texture MapTexture;
-    std::vector<Item> Items;
+    vector<Item> Items;
 };
 
 #endif

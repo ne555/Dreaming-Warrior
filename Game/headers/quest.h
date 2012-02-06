@@ -24,9 +24,9 @@ struct Quest
 {
     int LevelReq;
     int QuestReq;
-    std::string Name;
-    std::string Text;
-    std::vector<QuestObjective> Objectives;
+    string Name;
+    string Text;
+    vector<QuestObjective> Objectives;
 };
 
 #endif

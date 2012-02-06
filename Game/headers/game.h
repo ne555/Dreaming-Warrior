@@ -7,7 +7,7 @@ class Game;
 #include "Include.h"
 #include "enemy.h"
 #include "mainmenu.h"
-#include "backpackscreen.h"
+#include "characterscreen.h"
 #include "vendor.h"
 #include "questgiver.h"
 
@@ -16,24 +16,21 @@ class Game
     sf::RenderWindow Window;
     Player Player;
 
-    void ShowCharacterScreen();
-    void ShowBackpackScreen();
-
     void RandomEncounter();
     void Encounter(Orientation Direction);
 
     void DrawAll();
-    std::vector<Enemy> Enemies;
-    std::vector<Vendor> Vendors;
-    std::vector<QuestGiver> QuestGivers;
-    std::vector<Enemy> RandomEncounters;
+    vector<Enemy> Enemies;
+    vector<Vendor> Vendors;
+    vector<QuestGiver> QuestGivers;
+    vector<Enemy> RandomEncounters;
 
     sf::Texture MapTexture;
-    std::string World;
+    string World;
 
     struct Portal
     {
-        Portal(int x, int y, std::string Path, int px, int py)
+        Portal(int x, int y, string Path, int px, int py)
         {
             PortalRect.Width = 32;
             PortalRect.Height = 32;
@@ -43,17 +40,18 @@ class Game
             PlayerNewY = py;
             PathToMap = Path;
         }
-        std::string PathToMap;
+        string PathToMap;
         sf::IntRect PortalRect;
         int PlayerNewX;
         int PlayerNewY;
     };
-    std::vector<Portal> Portals;
+    vector<Portal> Portals;
     sf::Texture PlayerTexture;
 
-    void LoadMap(std::string PathToMap);
+    void LoadMap(string PathToMap);
     bool CheckCollision(int x, int y, Orientation Direction);
 
+    //todo: samo jedan object grid na kojem su i creature i drva i objekti
     CreatureType CreatureGrid[24][32];
     bool CollisionGrid[24][32];
 

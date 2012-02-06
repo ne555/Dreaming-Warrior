@@ -2,13 +2,14 @@
 #define QGIVER_H
 
 #include "quest.h"
+#include <SFML\Graphics.hpp>
 
 struct QuestGiver
 {
     int x;
     int y;
     sf::Texture MapTexture;
-    std::vector<Quest> Quests;
+    vector<Quest> Quests;
 };
 
 #endif

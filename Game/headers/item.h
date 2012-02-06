@@ -13,13 +13,14 @@ struct ItemAttribute
 
 struct Item
 {
+    int ID;
     ItemType Type;
-    std::string Name;
+    string Name;
     sf::Texture Visual;
     int Value;
     int BuyPrice;
     int SellPrice;
-    std::vector<ItemAttribute> Attributes;
+    vector<ItemAttribute> Attributes;
 };
 
 #endif

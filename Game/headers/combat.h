@@ -11,7 +11,7 @@ class Combat
     Player &player;
     Enemy enemy;
 
-    std::vector<sf::Text> CombatTexts;
+    vector<sf::Text> CombatTexts;
     float TextY;
 
     void DrawPlayerStats();
@@ -25,7 +25,7 @@ class Combat
     void DropLoot();
 
     bool HandleInput(int &CommandList, int &Command, float &ArrowY, bool &PlayerMove);
-    void HandleCombatText(std::string CombatString);
+    void HandleCombatText(string CombatString);
 
 public:
     Combat(sf::RenderWindow &window, Player &player, Enemy enemy);

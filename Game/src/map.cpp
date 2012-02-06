@@ -1,11 +1,36 @@
 #include "game.h"
+#include "database.h"
 
-Item GetItemFromDatabase(int ID);
-Quest GetQuestFromDatabase(int ID);
+void Game::DrawAll()
+{
+    Window.Draw(sf::Sprite(MapTexture));
+    sf::Sprite PlayerSprite(PlayerTexture);
+    PlayerSprite.SetPosition((float)Player.GetX(), (float)Player.GetY());
+    Window.Draw(PlayerSprite);
+
+    for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
+    {
+        sf::Sprite Sprite(itr->CreatureMapTexture);
+        Sprite.SetPosition((float)itr->GetX()*32, (float)itr->GetY()*32);
+        Window.Draw(Sprite);
+    }
+    for(auto itr = Vendors.begin(); itr != Vendors.end(); itr++)
+    {
+        sf::Sprite Sprite(itr->MapTexture);
+        Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
+        Window.Draw(Sprite);
+    }
+    for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); itr++)
+    {
+        sf::Sprite Sprite(itr->MapTexture);
+        Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
+        Window.Draw(Sprite);
+    }
+}
 
 //todo: Pojednostavi.. & loading screen :D
 //todo: render texture neradi na svim hardware, mozda capture image i nju load, a ne tile
-void Game::LoadMap(std::string PathToMap)
+void Game::LoadMap(string PathToMap)
 {
     sf::RenderTexture RenderMapTexture;
     RenderMapTexture.Create(1024, 768);
@@ -14,13 +39,13 @@ void Game::LoadMap(std::string PathToMap)
     Window.Clear();
     RenderMapTexture.Clear();
     Portals.clear();
-    for(int a=0; a<24; a++)
-        for(int b=0; b<32; b++)
+    for(int a=0; a<24; ++a)
+        for(int b=0; b<32; ++b)
             CreatureGrid[a][b] = NO_CREATURE;
 
     struct Tile
     {
-        Tile(std::string FileName, bool Solid)
+        Tile(string FileName, bool Solid)
         {
             Texture.LoadFromFile(FileName);
             IsSolid = Solid;
@@ -31,11 +56,11 @@ void Game::LoadMap(std::string PathToMap)
 
     int MapTexture[24][32];
     int MapObjects[24][32];
-    std::vector<Tile> Tileset;
+    vector<Tile> Tileset;
 
     //Ucitaj Teksture
     std::ifstream File(World + "/TekstureBlokovi.txt");
-    std::string ImgFileName;
+    string ImgFileName;
     bool IsSolid;
     while(File >> ImgFileName >> IsSolid)
     {
@@ -60,9 +85,9 @@ void Game::LoadMap(std::string PathToMap)
             File >> MapTexture[y][x];
         }
     }
-    for(int y=0; y<24; y++)
+    for(int y=0; y<24; ++y)
     {
-        for(int x=0; x<32; x++)
+        for(int x=0; x<32; ++x)
         {
             File >> MapObjects[y][x];
         }
@@ -72,7 +97,7 @@ void Game::LoadMap(std::string PathToMap)
     //Ucitaj portale
     File.open(PathToMap + "PortalData.txt");
     int x, y, px, py;
-    std::string PathToNewMap;
+    string PathToNewMap;
     while(File >> x >> y >> PathToNewMap >> px >> py)
     {
         Portals.push_back(Portal(x, y, PathToNewMap, px, py));
@@ -80,9 +105,9 @@ void Game::LoadMap(std::string PathToMap)
     File.close();
 
     //Nacrtaj Mapu i napravi Collision Table
-    for(unsigned y = 0; y < 24; y++) 
+    for(unsigned y = 0; y < 24; ++y) 
     {
-        for(unsigned x = 0; x < 32; x++) 
+        for(unsigned x = 0; x < 32; ++x) 
         {
             CollisionGrid[y][x] = Tileset[MapTexture[y][x]].IsSolid;
             sf::Sprite Texture(Tileset[MapTexture[y][x]].Texture);
@@ -100,39 +125,52 @@ void Game::LoadMap(std::string PathToMap)
     PlayerTexture = Tileset[0].Texture;
 
     //Ucitaj cudovista
-    int Atk, Def, HP, Level;
-    std::string CreatureMapTexture, Combat, Name;
-
+    int ID, Atk, Def, HP, Level, Wealth;
+    int Chance[4];
+    string Item[4];
+    string CreatureMapTexture, Combat, Name;
     Enemies.clear();
     File.open(PathToMap + "Enemies.txt");
-    while(File >> Atk >> Def >> HP >> x >> y >> CreatureMapTexture >> Combat >> Level >> Name)
+    while(File >> ID >> Atk >> Def >> HP >> Combat >> Level >> Name >> Wealth >> x >> y >> CreatureMapTexture 
+        >> Item[0] >> Chance[0] >> Item[1] >> Chance[1] >> Item[2] >> Chance[2] >> Item[3] >> Chance[3])
     {
-        Enemies.push_back(Enemy(Atk, Def, HP, x, y, CreatureMapTexture, Combat, Level, Name));
+        Enemy Enemy(ID, Atk, Def, HP, Combat, Level, Name, Wealth, x, y, CreatureMapTexture);
+        for(int a = 0; Item[a] != "NULL"; ++a)
+            Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));
+        Enemies.push_back(Enemy);
     }
     File.close();
 
     RandomEncounters.clear();
     File.open(PathToMap + "RandomEncounters.txt");
-    while(File >> Atk >> Def >> HP >> Combat >> Level >> Name)
+    while(File >> ID >> Atk >> Def >> HP >> Combat >> Level >> Name >> Wealth 
+        >> Item[0] >> Chance[0] >> Item[1] >> Chance[1] >> Item[2] >> Chance[2] >> Item[3] >> Chance[3])
     {
-        RandomEncounters.push_back(Enemy(Atk, Def, HP, Combat, Level, Name));
+        Enemy Enemy(ID, Atk, Def, HP, Combat, Level, Name, Wealth);
+        for(int a = 0; Item[a] != "NULL"; ++a)
+            Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));
+        RandomEncounters.push_back(Enemy);
     }
     File.close();
-
+    
+    /*
+    Mem leak u vendorima i q giverima; a moze biti i u load item, naci
+    */
     Vendors.clear();
     File.open(PathToMap + "Vendors.txt");
-    std::string line, buffer;
+    string line, buffer = "";
     int a = 0, c = 0;
     Vendor Vendor;
     while(getline(File, line))
     {
-        while(a != line.size())
+        while(a < line.size())
         {
             while(line[a] != ' ')
             {
-                buffer = line[a];
+                buffer += line[a];
                 a++;
             }
+            cout << buffer << endl;
             switch(c)
             {
             case 0:
@@ -145,15 +183,17 @@ void Game::LoadMap(std::string PathToMap)
                 Vendor.MapTexture.LoadFromFile(buffer);
                 break;
             default:
-                Vendor.Items.push_back(GetItemFromDatabase(StringToInt(buffer)));
+                Vendor.Items.push_back(GetItemFromDatabase(World, StringToInt(buffer)));
+                break;
             }
             a++; c++;
             buffer.clear();
         }
         Vendors.push_back(Vendor);
+        a = 0; c = 0;
     }
     File.close();
-
+    /*
     QuestGivers.clear();
     File.open(PathToMap + "QuestGivers.txt");
     a = 0; c = 0;
@@ -164,7 +204,7 @@ void Game::LoadMap(std::string PathToMap)
         {
             while(line[a] != ' ')
             {
-                buffer = line[a];
+                buffer += line[a];
                 a++;
             }
             switch(c)
@@ -179,14 +219,16 @@ void Game::LoadMap(std::string PathToMap)
                 QuestGiver.MapTexture.LoadFromFile(buffer);
                 break;
             default:
-                QuestGiver.Quests.push_back(GetQuestFromDatabase(StringToInt(buffer)));
+                QuestGiver.Quests.push_back(GetQuestFromDatabase(World, StringToInt(buffer)));
+                break;
             }
             a++; c++;
             buffer.clear();
         }
-        Vendors.push_back(Vendor);
+        QuestGivers.push_back(Vendor);
+        a = 0; c = 0;
     }
-    File.close();
+    File.close();*/
 
     for(auto itr = Enemies.begin(); itr != Enemies.end(); itr++)
     {
@@ -238,7 +280,6 @@ bool Game::CheckPortals(int x, int y)
         {
             //Pokupi vrjednosti prije nego stara mapa bude unistena
             int a = itr->PlayerNewX, b = itr->PlayerNewY;
-            std::string Path = itr->PathToMap;
 
             //Napravi novu mapu
             LoadMap(itr->PathToMap);

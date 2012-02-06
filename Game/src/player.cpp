@@ -10,7 +10,7 @@ Player::~Player()
     while(!EquipedItems.empty()) delete EquipedItems.back(), EquipedItems.pop_back();
 }
 
-void Player::LoadFromFile(std::string LoadFileName = "")
+void Player::LoadFromFile(string LoadFileName = "")
 {
     std::ifstream File(LoadFileName);
     //bla bla PH

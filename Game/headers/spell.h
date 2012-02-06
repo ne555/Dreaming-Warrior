@@ -7,15 +7,15 @@
 
 struct Castable
 {
-    Castable(std::string Name, int Value, int Cost) : Name(Name), Value(Value), Cost(Cost) {}
-    std::string Name;
+    Castable(string Name, int Value, int Cost) : Name(Name), Value(Value), Cost(Cost) {}
+    string Name;
     int Value;
     int Cost;
 };
 
 struct Buff : public Castable
 {
-    Buff(std::string Name, Attribute Attribute, int Value, int Cost) : Castable(Name, Value, Cost) 
+    Buff(string Name, Attribute Attribute, int Value, int Cost) : Castable(Name, Value, Cost) 
     {
         this->Attribute = Attribute;
     }
@@ -24,7 +24,7 @@ struct Buff : public Castable
 
 struct Spell : public Castable
 {
-    Spell(SpellType Type, std::string Name, int Value, int Cost, std::string IconFileName = "NULL") : Castable(Name, Value, Cost)
+    Spell(SpellType Type, string Name, int Value, int Cost, string IconFileName = "NULL") : Castable(Name, Value, Cost)
     {
         this->Type = Type;
         Icon.LoadFromFile(IconFileName);

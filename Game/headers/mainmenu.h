@@ -6,8 +6,8 @@
 struct MainMenuData
 {
     //todo: start map std:.string
-    std::string PlayerCfgFileName;
-    std::string World; // Default ili Custom TODO: mozda da enable kolko god svjetova postoji da se loaduju
+    string PlayerCfgFileName;
+    string World; // Default ili Custom TODO: mozda da enable kolko god svjetova postoji da se loaduju
     MainMenuResult Result;
 };
 
