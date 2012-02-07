@@ -14,6 +14,10 @@
     You should have received a copy of the GNU General Public License
     along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
 */
+/*
+TODO: 
+- Ne IsSolid, nego object type
+*/
 #include "game.h"
 #include "database.h"
 
@@ -57,7 +61,7 @@ void Game::LoadMap(string PathToMap)
     Portals.clear();
     for(int a=0; a<24; ++a)
         for(int b=0; b<32; ++b)
-            CreatureGrid[a][b] = NO_CREATURE;
+            ObjectGrid[a][b] = NO_OBJECT;
 
     struct Tile
     {
@@ -125,16 +129,19 @@ void Game::LoadMap(string PathToMap)
     {
         for(unsigned x = 0; x < 32; ++x) 
         {
-            CollisionGrid[y][x] = Tileset[MapTexture[y][x]].IsSolid;
+            if(Tileset[MapTexture[y][x]].IsSolid)
+                ObjectGrid[y][x] = SOLID_OBJECT;
             sf::Sprite Texture(Tileset[MapTexture[y][x]].Texture);
             Texture.SetPosition((float)x*32, (float)y*32);
             RenderMapTexture.Draw(Texture);
             if(MapObjects[y][x] == -1)
                 continue;
-            CollisionGrid[y][x] = Tileset[MapObjects[y][x]].IsSolid;
+            if(Tileset[MapObjects[y][x]].IsSolid)
+                ObjectGrid[y][x] = SOLID_OBJECT;
             sf::Sprite Object(Tileset[MapObjects[y][x]].Texture);
             Object.SetPosition((float)x*32, (float)y*32);
             RenderMapTexture.Draw(Object);
+            //cout << "X: " << x << " Y: " << y << endl;
         }
     }
 
@@ -189,7 +196,7 @@ void Game::LoadMap(string PathToMap)
     File.open(PathToMap + "QuestGivers.txt");
     while(File >> x >> y >> CreatureMapTexture >> a)
     {
-        QuestGiver QuestGiver;
+        QuestGiver QuestGiver(x, y, CreatureMapTexture);
         for(int c=0; c<a; ++c)
         {
             int QuestID;
@@ -202,15 +209,15 @@ void Game::LoadMap(string PathToMap)
 
     for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
     {
-        CreatureGrid[itr->GetY()][itr->GetX()] = ENEMY;
+        ObjectGrid[itr->GetY()][itr->GetX()] = ENEMY;
     }
     for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
     {
-        CreatureGrid[itr->y][itr->x] = VENDOR;
+        ObjectGrid[itr->y][itr->x] = VENDOR;
     }
     for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
     {
-        CreatureGrid[itr->y][itr->x] = ENEMY;
+        ObjectGrid[itr->y][itr->x] = ENEMY;
     }
 
     RenderMapTexture.Display();
@@ -222,19 +229,19 @@ bool Game::CheckCollision(int x, int y, Orientation Direction)
     switch(Direction)
     {
     case NORTH:
-        if(CollisionGrid[y][x])
+        if(ObjectGrid[y][x] != NO_OBJECT)
             return false;
         break;
     case SOUTH:
-        if(CollisionGrid[y][x])
+        if(ObjectGrid[y][x] != NO_OBJECT)
             return false;
         break;
     case EAST:
-        if(CollisionGrid[y][x])
+        if(ObjectGrid[y][x] != NO_OBJECT)
             return false;
         break;
     case WEST:
-        if(CollisionGrid[y][x])
+        if(ObjectGrid[y][x] != NO_OBJECT)
             return false;
         break;
     }

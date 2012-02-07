@@ -39,7 +39,7 @@ public:
 
     void LoadFromFile(string LoadFileName);
 
-    CreatureType InteractsWith;
+    ObjectType InteractsWith;
 
     int GetIntStr() const   { return IntStr; }
     Class GetClass() const  { return PlayerClass;}

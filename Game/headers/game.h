@@ -68,8 +68,7 @@ class Game
     bool CheckCollision(int x, int y, Orientation Direction);
 
     //todo: samo jedan object grid na kojem su i creature i drva i objekti
-    CreatureType CreatureGrid[24][32];
-    bool CollisionGrid[24][32];
+    ObjectType ObjectGrid[24][32];
 
 public:
     Game();

@@ -55,16 +55,20 @@ int Game::Move(Orientation Direction)
     switch(Direction)
     {
     case NORTH:
-        Player.InteractsWith = CreatureGrid[Player.GetY()/32-1][Player.GetX()/32];
+        Player.InteractsWith = ObjectGrid[Player.GetY()/32-1][Player.GetX()/32];
+        break;
     case SOUTH:
-        Player.InteractsWith = CreatureGrid[Player.GetY()/32+1][Player.GetX()/32];
+        Player.InteractsWith = ObjectGrid[Player.GetY()/32+1][Player.GetX()/32];
+        break;
     case EAST:
-        Player.InteractsWith = CreatureGrid[Player.GetY()/32][Player.GetX()/32-1];
+        Player.InteractsWith = ObjectGrid[Player.GetY()/32][Player.GetX()/32-1];
+        break;
     case WEST:
-        Player.InteractsWith = CreatureGrid[Player.GetY()/32][Player.GetX()/32+1];
+        Player.InteractsWith = ObjectGrid[Player.GetY()/32][Player.GetX()/32+1];
+        break;
     }
 
-    if(Player.InteractsWith != NO_CREATURE)
+    if(Player.InteractsWith != NO_OBJECT)
         return 2;
 
     switch(Direction)

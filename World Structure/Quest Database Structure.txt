@@ -1,11 +1,11 @@
 Generic structure:
-<Quest ID> <Quest Name> <Quest Text> <Level Requirement> <Quest Requirement> + unlimited amount of objectives
+<Quest ID> <Quest Name> <Quest Text> <Level Requirement> <Quest Requirement> <Num Objectives>
 
 Slay objective:
-0 <Map ID> <Enemy ID> <Count>
+0 <Map> <Enemy ID> <Count>
 
 Collect objective:
-1 <Map ID> <Item ID> <Count>
+1 <Item ID> <Count>
 
 Quest ID:
 Unique ID of a quest.
@@ -24,6 +24,6 @@ Quest Requirement:
 
 Enemy ID:
 
-Map ID:
+Map:
 
 Count:

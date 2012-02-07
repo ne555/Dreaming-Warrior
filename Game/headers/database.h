@@ -46,6 +46,14 @@ inline ItemType GetItemType(int Type)
     }
 }
 
+inline QuestType GetQuestType(int ID)
+{
+    if(ID == 0)
+        return KILL;
+    else 
+        return ITEM;
+}
+
 inline Attribute GetAttribute(int Atr)
 {
     switch(Atr)

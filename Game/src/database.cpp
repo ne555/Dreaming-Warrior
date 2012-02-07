@@ -20,8 +20,7 @@
 
 /*
 TODO: 
-- Pojednostaviti: Pogledaj map.cpp
-- Quest Giver nije testiran
+- Pojednostaviti GetItemFromDatabse()
 */
 
 Item GetItemFromDatabase(string World, int ID)
@@ -135,100 +134,31 @@ Item GetItemFromDatabase(string World, int ID)
 
 Quest GetQuestFromDatabase(string World, int ID)
 {
-    Quest Quest;
-    std::ifstream file(World + "/QuestDatabase.txt");
-    string line, buffer;
-    while(getline(file, line))
+    std::ifstream File(World + "/QuestDatabase.txt");
+    int QID, Level_req, Quest_req, Num_Obj;
+    string Name, Text;
+    while(File >> QID >> Name >> Text >> Level_req >> Quest_req >> Num_Obj)
     {
-        auto itr = line.begin();
-
-        //Check for right quest
-        while(*itr != ' ')
-        {
-            buffer += *itr;
-            ++itr;
-        }
-        if(StringToInt(buffer) != ID)
+        if(QID != ID)
             continue;
-        ++itr;
-        buffer.clear();
-
-        //Set name
-        while(*itr != ' ')
+        Quest Quest(ID, SetSpaces(Name), SetSpaces(Text), Level_req, Quest_req, Num_Obj);
+        for(int a = 0; a<Num_Obj; ++a)
         {
-            buffer += *itr;
-            ++itr;
-        }
-        Quest.Name = buffer;
-        ++itr;
-        buffer.clear();
-
-        //Set story
-        while(*itr != ' ')
-        {
-            buffer += *itr;
-            ++itr;
-        }
-        SetSpaces(buffer);
-        Quest.Text = buffer;
-        ++itr;
-        buffer.clear();
-
-        //Set Requirements
-        while(*itr != ' ')
-        {
-            buffer += *itr;
-            ++itr;
-        }
-        Quest.LevelReq = StringToInt(buffer);
-        ++itr;
-        buffer.clear();
-        while(*itr != ' ')
-        {
-            buffer += *itr;
-            ++itr;
-        }
-        Quest.QuestReq = StringToInt(buffer);
-        ++itr;
-        buffer.clear();
-
-        //Set objectives
-        while(itr != line.end())
-        {
-            QuestObjective Objective;
-            //Set objective type
-            buffer += *itr;
-            ++itr;
-            switch(StringToInt(buffer))
+            int obj, obj_id, count;
+            string map;
+            File >> obj;
+            switch(obj)
             {
-                //Kill
             case 0:
-                Objective.Type = KILL;
+                File >> map >> obj_id >> count;
+                Quest.Objectives.push_back(QuestObjective(GetQuestType(obj), count, obj_id, map, 0));
                 break;
-                //Collect
             case 1:
-                Objective.Type = ITEM;
+                File >> obj_id >> count;
+                Quest.Objectives.push_back(QuestObjective(GetQuestType(obj), count, obj_id));
                 break;
             }
-            buffer.clear();
-            //Set ID of a quest or item requirement
-            while(*itr != ' ')
-            {
-                 buffer += *itr;
-                 ++itr;
-            }
-            Objective.ID = StringToInt(buffer);
-            buffer.clear();
-            //Set count
-            while(*itr != ' ')
-            {
-                buffer += *itr;
-                ++itr;
-            }
-            Objective.ReqProgress = StringToInt(buffer);
-            Objective.CurrentProgress = 0;
-            Quest.Objectives.push_back(Objective);
         }
+        return Quest;
     }
-    return Quest;
 }

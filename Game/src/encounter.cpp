@@ -14,6 +14,9 @@
     You should have received a copy of the GNU General Public License
     along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
 */
+/*
+TODO: Ne radi
+*/
 #include "game.h"
 #include "combat.h"
 #include "VendorEncounter.h"
@@ -38,7 +41,7 @@ void Game::Encounter(Orientation Direction)
                         std::cout << "[PH] Game Over";
                         break;
                     case 1:
-                        CreatureGrid[itr->GetY()][itr->GetX()] = NO_CREATURE;
+                        ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Enemies.erase(itr);
                         //bla bla quest objective, drop loot je u combatu hendlan
                         break;
@@ -92,7 +95,7 @@ void Game::Encounter(Orientation Direction)
                         std::cout << "[PH] Game Over";
                         break;
                     case 1:
-                        CreatureGrid[itr->GetY()][itr->GetX()] = NO_CREATURE;
+                        ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Enemies.erase(itr);
                         //bla bla quest objective, drop loot je u combatu hendlan
                         break;
@@ -146,7 +149,7 @@ void Game::Encounter(Orientation Direction)
                         std::cout << "[PH] Game Over";
                         break;
                     case 1:
-                        CreatureGrid[itr->GetY()][itr->GetX()] = NO_CREATURE;
+                        ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Enemies.erase(itr);
                         //bla bla quest objective, drop loot je u combatu hendlan
                         break;
@@ -200,7 +203,7 @@ void Game::Encounter(Orientation Direction)
                         std::cout << "[PH] Game Over";
                         break;
                     case 1:
-                        CreatureGrid[itr->GetY()][itr->GetX()] = NO_CREATURE;
+                        ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Enemies.erase(itr);
                         //bla bla quest objective, drop loot je u combatu hendlan
                         break;

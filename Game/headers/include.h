@@ -74,10 +74,10 @@ inline string IntToString(int Integer)
     return convert.str();
 }
 
-enum CreatureType
+enum ObjectType
 {
-    NO_CREATURE,
-    RANDOM_ENEMY,
+    NO_OBJECT,
+    SOLID_OBJECT,
     ENEMY,
     VENDOR,
     QUEST
