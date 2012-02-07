@@ -141,7 +141,6 @@ void Game::LoadMap(string PathToMap)
             sf::Sprite Object(Tileset[MapObjects[y][x]].Texture);
             Object.SetPosition((float)x*32, (float)y*32);
             RenderMapTexture.Draw(Object);
-            //cout << "X: " << x << " Y: " << y << endl;
         }
     }
 

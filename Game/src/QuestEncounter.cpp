@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "QuestEncoutner.h"
+#include "QuestEncounter.h"
 
 QuestEncounter::QuestEncounter()
 {

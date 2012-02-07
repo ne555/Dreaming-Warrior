@@ -67,7 +67,6 @@ class Game
     void LoadMap(string PathToMap);
     bool CheckCollision(int x, int y, Orientation Direction);
 
-    //todo: samo jedan object grid na kojem su i creature i drva i objekti
     ObjectType ObjectGrid[24][32];
 
 public:
