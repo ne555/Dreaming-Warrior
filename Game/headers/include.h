@@ -90,7 +90,7 @@ enum Orientation
     WEST,
     EAST
 };
-
+/*
 enum MainMenuResult
 {
     DEFAULT_NEW,
@@ -98,6 +98,12 @@ enum MainMenuResult
     CUSTOM_NEW,
     CUSTOM_LOAD,
     EXIT
+};*/
+
+enum GameMode
+{
+    NEW_GAME,
+    LOAD_GAME
 };
 
 enum ExpForLevel //PH

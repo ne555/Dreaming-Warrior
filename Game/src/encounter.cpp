@@ -20,7 +20,7 @@ TODO: Ne radi
 #include "game.h"
 #include "combat.h"
 #include "VendorEncounter.h"
-#include "QuestEncoutner.h"
+#include "QuestEncounter.h"
 
 void Game::Encounter(Orientation Direction)
 {

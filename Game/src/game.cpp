@@ -28,21 +28,28 @@ Game::~Game()
 
 MainMenuData Game::ShowMenu()
 {
-    MainMenu Menu;
+    MainMenu Menu(Window);
     return Menu.MainLoop();
 }
 
+//Ph!!!! napravi kopiju svijeta odma za save
 void Game::InitGame(MainMenuData MenuResult)
 {
-    //ph
-    Player.LoadFromFile(MenuResult.PlayerCfgFileName);
-    World = MenuResult.World;
-    LoadMap(World + "/Map1/");
-    switch(MenuResult.Result)
+    switch(MenuResult.Mode)
     {
-    case EXIT:
-        exit(0);
+    case NEW_GAME:
+        {
+            //TODO: save po nekom imenu [PH]
+            World = "SavedGames/New_Save";
+            CopyWorld(MenuResult.PathToWorld, World);
+            break;
+        }
+    case LOAD_GAME:
+        break;
     }
+    Player.LoadFromFile(/*World + "/PlayerCfg.txt"*/ "");
+    LoadMap(World + "/Map1/");
+    //plyr lokacija (mapa i koordinate) u world configu
 }
 
 /*

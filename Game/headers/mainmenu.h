@@ -18,21 +18,25 @@
 #define MAINMENU_H
 
 #include "Include.h"
+#include <SFML\Graphics.hpp>
 
 struct MainMenuData
 {
-    //todo: start map std:.string
-    string PlayerCfgFileName;
-    string World; // Default ili Custom TODO: mozda da enable kolko god svjetova postoji da se loaduju
-    MainMenuResult Result;
+    string PathToWorld;
+    GameMode Mode;
+    Class PlayerClass;
 };
 
 class MainMenu
 {
-    MainMenuData MenuData;
+    sf::RenderWindow &Window;
+    sf::Texture Background;
+
+    GameMode ChooseGameMode();
+    Class ChooseClass();
 
 public:
-    MainMenu();
+    MainMenu(sf::RenderWindow &Window);
     MainMenuData MainLoop();
 };
 

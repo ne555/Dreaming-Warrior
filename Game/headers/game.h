@@ -1,9 +1,3 @@
-#ifndef GAME_H
-#define GAME_H
-
-class Game;
-
-#include "player.h"
 /*
     This file is part of Game Project.
 
@@ -20,12 +14,17 @@ class Game;
     You should have received a copy of the GNU General Public License
     along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
 */
+#ifndef GAME_H
+#define GAME_H
+
+#include "player.h"
 #include "Include.h"
 #include "enemy.h"
 #include "mainmenu.h"
 #include "characterscreen.h"
 #include "vendor.h"
 #include "questgiver.h"
+#include <boost\filesystem.hpp>
 
 class Game
 {
@@ -65,6 +64,7 @@ class Game
     sf::Texture PlayerTexture;
 
     void LoadMap(string PathToMap);
+    void CopyWorld(const boost::filesystem::path& source, const boost::filesystem::path& dest);
     bool CheckCollision(int x, int y, Orientation Direction);
 
     ObjectType ObjectGrid[24][32];
