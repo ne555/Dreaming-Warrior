@@ -54,6 +54,7 @@ void Game::LoadMap(string PathToMap)
 {
     sf::RenderTexture RenderMapTexture;
     RenderMapTexture.Create(1024, 768);
+    this->PathToMap = PathToMap;
 
     //Unisti staru mapu
     Window.Clear();
@@ -177,11 +178,11 @@ void Game::LoadMap(string PathToMap)
     
     Vendors.clear();
     File.open(PathToMap + "Vendors.txt");
-    int a;
-    while(File >> x >> y >> CreatureMapTexture >> a)
+    int NumItems;
+    while(File >> x >> y >> CreatureMapTexture >> NumItems)
     {
         Vendor Vendor(x, y, CreatureMapTexture);
-        for(int c=0; c<a; ++c)
+        for(int i=0; i<NumItems; ++i)
         {
             int ItemID;
             File >> ItemID;
@@ -256,6 +257,9 @@ bool Game::CheckPortals(int x, int y)
         {
             //Pokupi vrjednosti prije nego stara mapa bude unistena
             int a = itr->PlayerNewX, b = itr->PlayerNewY;
+
+            //Save mapu
+            //SaveMap(this->PathToMap);
 
             //Napravi novu mapu
             LoadMap(itr->PathToMap);

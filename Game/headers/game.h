@@ -42,6 +42,7 @@ class Game
 
     sf::Texture MapTexture;
     string World;
+    string PathToMap;
 
     struct Portal
     {
@@ -65,6 +66,7 @@ class Game
 
     void LoadMap(string PathToMap);
     void CopyWorld(const boost::filesystem::path& source, const boost::filesystem::path& dest);
+    void SaveMap(string PathToMap);
     bool CheckCollision(int x, int y, Orientation Direction);
 
     ObjectType ObjectGrid[24][32];

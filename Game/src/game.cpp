@@ -32,7 +32,6 @@ MainMenuData Game::ShowMenu()
     return Menu.MainLoop();
 }
 
-//Ph!!!! napravi kopiju svijeta odma za save
 void Game::InitGame(MainMenuData MenuResult)
 {
     switch(MenuResult.Mode)

@@ -25,17 +25,3 @@ int main()
     Game.InitGame(Game.ShowMenu());
     Game.GameLoop();
 }
-
-/*
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <iterator>
-using namespace std;
-
-int main()
-{
-  copy(istream_iterator<int>(ifstream("entree.txt")),istream_iterator<int>(),ostream_iterator<int>(ofstream("sortie.txt"), " "));
-  return 0;
-} 
-*/
