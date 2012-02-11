@@ -84,8 +84,8 @@ int Combat::MainLoop()
                 if(HandleInput(CommandList, Command, ArrowY, PlayerMove))
                 {
                     enemy.SetHealth(enemy.GetHealth());
-                    enemy.RemoveBuffs();
-                    player.RemoveBuffs();
+                    //enemy.RemoveBuffs();
+                    //player.RemoveBuffs();
                     return 2;
                 }
                 ArrowSprite.SetPosition(810.0f, ArrowY);
@@ -231,7 +231,7 @@ bool Combat::SpellCast(const Spell &Spell, Creature &Caster, Creature &Target)
 
     return true;
 }
-
+/*
 bool Combat::SpellCast(const Buff &Buff, Creature &Caster, Creature &Target)
 {
     if(Buff.Cost > Caster.GetPower())
@@ -239,7 +239,7 @@ bool Combat::SpellCast(const Buff &Buff, Creature &Caster, Creature &Target)
 
     Target.ApplyBuff(Buff);
     return true;
-}
+}*/
 
 bool Combat::RunIfCan()
 {

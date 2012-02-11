@@ -16,6 +16,7 @@
 */
 #include "item.h"
 #include "quest.h"
+#include "spell.h"
 #include "database.h"
 
 /*
@@ -160,5 +161,19 @@ Quest GetQuestFromDatabase(string World, int ID)
             }
         }
         return Quest;
+    }
+}
+
+Spell GetSpellFromDatabase(string World, int ID)
+{
+    std::ifstream File(World + "/SpellDatabase.txt");
+    int SID, type, LevelReq, Cost, Value;
+    string Name;
+    while(File >> SID >> type >> Name >> LevelReq >> Cost >> Value)
+    {
+        if(SID != ID)
+            continue;
+        Spell Spell(ID, GetSpellType(type), Name, LevelReq, Cost, Value);
+        return Spell;
     }
 }

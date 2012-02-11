@@ -46,9 +46,8 @@ void Game::InitGame(MainMenuData MenuResult)
     case LOAD_GAME:
         break;
     }
-    Player.LoadFromFile(/*World + "/PlayerCfg.txt"*/ "");
+    Player.LoadFromFile(World);
     LoadMap(World + "/Map1/");
-    //plyr lokacija (mapa i koordinate) u world configu
 }
 
 /*

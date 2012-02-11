@@ -23,39 +23,39 @@
 
 class Player : public Creature
 {
-    vector<Item*> Items;
-    vector<Item*> EquipedItems;
-    vector<Castable> Spells;
+    vector<Item> Items;
+    vector<Item> EquipedItems;
+    vector<Spell> Spells;
     vector<Quest> Quests;
 
     Class PlayerClass;
     int Exp;
     int IntStr; // Inteligence / Strength
-    int NumItems; // Broj Itema ili Stackova Itema
 
 public:
     Player();
     ~Player();
 
-    void LoadFromFile(string LoadFileName);
+    void LoadFromFile(string World);
 
     ObjectType InteractsWith;
 
     int GetIntStr() const   { return IntStr; }
-    Class GetClass() const  { return PlayerClass;}
+    Class GetClass() const  { return PlayerClass; }
+    int GetExp() const      { return Exp; }
 
     void SetIntStr(int IntStr) { this->IntStr = IntStr; }
 
-    const vector<Castable> &GetSpells() const { return Spells; }
-    const vector<Item*> &GetEquipedItems() const { return EquipedItems; }
-    const vector<Item*> &GetItems() const { return Items; }
+    const vector<Spell> &GetSpells() const { return Spells; }
+    const vector<Item> &GetEquipedItems() const { return EquipedItems; }
+    const vector<Item> &GetItems() const { return Items; }
 
     int GetHealthPotNum()
     {
         int NumHealthPots = 0;
 
         for(auto itr = Items.begin(); itr != Items.end(); ++itr)
-            if((*itr)->Type == ITEM_HEALTH_POTION)
+            if(itr->Type == ITEM_HEALTH_POTION)
                 NumHealthPots++;
 
         return NumHealthPots;
@@ -66,25 +66,24 @@ public:
         int NumManaPots = 0;
 
         for(auto itr = Items.begin(); itr != Items.end(); ++itr)
-            if((*itr)->Type == ITEM_POWER_POTION)
+            if(itr->Type == ITEM_POWER_POTION)
                 NumManaPots++;
 
         return NumManaPots;
     }
 
     /*
-    TODO: Ove dvije po imenu jer ce biti vise vrsta potova
+    TODO: Ove dvije po IDU jer ce biti vise vrsta potova
     */
     bool UseHealthPotIfCan()
     {
         for(auto itr = Items.begin(); itr != Items.end(); ++itr)
         {
-            if((*itr)->Type == ITEM_HEALTH_POTION)
+            if(itr->Type == ITEM_HEALTH_POTION)
             {
-                SetHealth(GetHealth()+(*itr)->Value);
+                SetHealth(GetHealth()+itr->Value);
                 if(GetHealth() > GetMaxHealth())
                     SetHealth(GetMaxHealth());
-                delete *itr;
                 Items.erase(itr);
                 return true;
             }
@@ -96,12 +95,11 @@ public:
     {
         for(auto itr = Items.begin(); itr != Items.end(); ++itr)
         {
-            if((*itr)->Type == ITEM_POWER_POTION)
+            if(itr->Type == ITEM_POWER_POTION)
             {
-                SetPower(GetPower() + (*itr)->Value);
+                SetPower(GetPower() + itr->Value);
                 if(GetPower() > GetMaxPower())
                     SetPower(GetMaxPower());
-                delete *itr;
                 Items.erase(itr);
                 return true;
             }
@@ -109,12 +107,11 @@ public:
         return false;
     }
 
-    bool AddItem(Item* Item)
+    bool AddItem(Item Item)
     {
-        if(NumItems < BACKPACK_SIZE)
+        if(Items.size() + EquipedItems.size() <= BACKPACK_SIZE)
         {
             Items.push_back(Item);
-            NumItems++;
             return true;
         }
         else
@@ -122,7 +119,7 @@ public:
     }
 
     // Zamjena itema
-    void EquipItem(vector<Item*>::iterator newItem)
+    /*void EquipItem(vector<Item*>::iterator newItem)
     {
         for(auto oldItem = EquipedItems.begin(); oldItem != Items.end(); oldItem++)
         {
@@ -142,21 +139,19 @@ public:
                 return;
             }
         }
-    }
+    }*/
 
-    // Novi item (na ucitavanju igre)
-    void EquipItem(Item* Item)
+    void EquipItem(Item Item)
     {
         EquipedItems.push_back(Item);
     }
 
-    void RemoveItem(string Name)
+    void RemoveItem(int ID)
     {
         for(auto itr = Items.begin(); itr != Items.end(); ++itr)
         {
-            if((*itr)->Name == Name)
+            if(itr->ID == ID)
             {
-                delete *itr;
                 Items.erase(itr);
                 return;
             }
@@ -167,7 +162,7 @@ public:
     {
         for(auto itr = EquipedItems.begin(); itr != EquipedItems.end(); ++itr)
         {
-            for(auto iter = (*itr)->Attributes.begin(); iter != (*itr)->Attributes.end(); ++itr)
+            for(auto iter = itr->Attributes.begin(); iter != itr->Attributes.end(); ++itr)
             {
                 switch(iter->Attribute)
                 {
@@ -191,7 +186,7 @@ public:
         }
     }
 
-    void AddSpell(Castable Spell)
+    void AddSpell(Spell Spell)
     {
         Spells.push_back(Spell);
     }

@@ -15,35 +15,44 @@
     along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "player.h"
+#include "database.h"
 
-Player::Player()
+void Player::LoadFromFile(string World)
 {
-}
-
-Player::~Player()
-{
-    while(!Items.empty()) delete Items.back(), Items.pop_back();
-    while(!EquipedItems.empty()) delete EquipedItems.back(), EquipedItems.pop_back();
-}
-
-void Player::LoadFromFile(string LoadFileName = "")
-{
-    std::ifstream File(LoadFileName);
-    //bla bla PH
-    if(LoadFileName == "")
-    {
-        SetX(32);
-        SetY(32);
-        SetName("Pero");
+    std::ifstream File(World + "/Player.txt");
+    int x, y, level, exp, int_str, health, power, attack, armor, id;
+    bool _class;
+    string name;
+    File >> x >> y >> name >> _class >> level >> exp >> int_str >> health >> power >> attack >> armor;
+    SetX(x);
+    SetY(y);
+    SetName(name);
+    if(_class)
+        PlayerClass = CLASS_MAGE;
+    else
         PlayerClass = CLASS_WARRIOR;
-        SetLevel(1);
-        Exp = 0;
-        IntStr = 1;
-        SetHealth(2000);
-        SetMaxHealth(20);
-        SetPower(20);
-        SetMaxPower(20);
-        SetAttackPower(10);
-        SetArmor(5);
+    SetLevel(level);
+    Exp = exp;
+    IntStr = int_str;
+    SetHealth(health);
+    SetMaxHealth(health);
+    SetPower(power);
+    SetMaxPower(power);
+    SetAttackPower(attack);
+    SetArmor(armor);
+
+    File >> x;
+    while(x != 0)
+    {
+        File >> id;
+        AddItem(GetItemFromDatabase(World, id));
+        --x;
+    }
+    File >> y;
+    while(y != 0)
+    {
+        File >> id;
+        AddSpell(GetSpellFromDatabase(World, id));
+        --x;
     }
 }

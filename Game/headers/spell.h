@@ -21,14 +21,22 @@
 #include "include.h"
 #include <SFML\Graphics.hpp>
 
-struct Castable
+struct Spell
 {
-    Castable(string Name, int Value, int Cost) : Name(Name), Value(Value), Cost(Cost) {}
+    Spell(int ID, SpellType Type, string Name, int LevelReq, int Cost, int Value, string IconFileName = "NULL") 
+        : Name(Name), Value(Value), Cost(Cost), Type(Type), ID(ID), LevelReq(LevelReq)
+    {
+        Icon.LoadFromFile(IconFileName);
+    }
+    sf::Texture Icon;
+    SpellType Type;
     string Name;
     int Value;
     int Cost;
+    int ID;
+    int LevelReq;
 };
-
+/*
 struct Buff : public Castable
 {
     Buff(string Name, Attribute Attribute, int Value, int Cost) : Castable(Name, Value, Cost) 
@@ -48,6 +56,6 @@ struct Spell : public Castable
 
     sf::Texture Icon;
     SpellType Type;
-};
+};*/
 
 #endif

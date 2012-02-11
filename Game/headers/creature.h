@@ -34,8 +34,6 @@ class Creature
     int Wealth;
     string Name;
 
-    vector<Buff> Buffs;
-
 public:
     Creature() {}
     ~Creature() {}
@@ -61,7 +59,7 @@ public:
     int GetWealth() const       { return Wealth; }
     string GetName() const { return Name;}
 
-    const vector<Buff> &GetBuffs() const { return Buffs; }
+   // const vector<Buff> &GetBuffs() const { return Buffs; }
 
     void SetX(int x)            { this->x = x; }
     void SetY(int y)            { this->y = y; }
@@ -74,7 +72,7 @@ public:
     void SetArmor(int Armor)    { this->Armor = Armor; }
     void SetWealth(int Wealth)  { this->Wealth = Wealth; }
     void SetName(string Name) { this->Name = Name; }
-
+    /*
     void ApplyBuff(Buff Buff)
     {
         Buffs.push_back(Buff);
@@ -122,7 +120,7 @@ public:
             }
         }
         Buffs.clear();
-    }
+    }*/
 };
 
 #endif

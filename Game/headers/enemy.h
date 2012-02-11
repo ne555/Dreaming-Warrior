@@ -37,6 +37,8 @@ struct Enemy : public Creature
     // i igrac ima slicno
     sf::Texture CreatureMapTexture;
     sf::Texture CreatureCombatTexture;
+    string MapTextureFileName;
+    string CombatTextureFileName;
 
     int ID;
     vector<Loot> Loot;

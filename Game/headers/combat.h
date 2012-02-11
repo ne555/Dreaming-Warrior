@@ -36,7 +36,7 @@ class Combat
     void CreatureAttack();
     void MeleeAttack();
     bool SpellCast(const Spell &Spell, Creature &Caster, Creature &Target);
-    bool SpellCast(const Buff &Buff, Creature &Caster, Creature &Target);
+    //bool SpellCast(const Buff &Buff, Creature &Caster, Creature &Target);
     bool RunIfCan();
     void DropLoot();
 

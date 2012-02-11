@@ -90,15 +90,6 @@ enum Orientation
     WEST,
     EAST
 };
-/*
-enum MainMenuResult
-{
-    DEFAULT_NEW,
-    DEFAULT_LOAD,
-    CUSTOM_NEW,
-    CUSTOM_LOAD,
-    EXIT
-};*/
 
 enum GameMode
 {
@@ -129,6 +120,7 @@ enum SpellType
 {
     SPELL_ATTACK,
     SPELL_HEAL
+    //TODO: buff
 };
 
 enum Class

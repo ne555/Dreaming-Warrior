@@ -87,9 +87,9 @@ void Game::SaveMap(string PathToMap)
     for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
     {
         File << itr->ID << " " << itr->GetAttackPower() << " " << itr->GetArmor() << " "
-            << /*itr->CombatImageFileName TODO: save ovo << */ itr->GetLevel() << " "
+            << itr->CombatTextureFileName<<  itr->GetLevel() << " "
             << itr->GetName() << " " << itr->GetWealth() << " " << itr->GetX() << " "
-            << itr->GetY() << " " /*<< itr->MapImageFileName TODO: save ovo*/;
+            << itr->GetY() << " " << itr->MapTextureFileName;
         int ctr = 4;
         for(auto liter = itr->Loot.begin(); liter != itr->Loot.end(); ++liter)
         {
@@ -106,9 +106,10 @@ void Game::SaveMap(string PathToMap)
     File.close();
 
     File.open(PathToMap + "Vendors.txt");
+    File.clear();
     for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
     {
-        File << itr->x << " " << itr->y << " "/* << MapImageFileName*/ << " " << itr->Items.size();
+        File << itr->x << " " << itr->y << " " << itr->TextureFileName << " " << itr->Items.size();
         for(auto iitr = itr->Items.begin(); iitr != itr->Items.end(); ++iitr)
         {
             File << " " << iitr->ID;
@@ -118,14 +119,26 @@ void Game::SaveMap(string PathToMap)
     File.close();
 
     File.open(PathToMap + "QuestGivers.txt");
+    File.clear();
     for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
     {
-        File << itr->x << " " << itr->y << " "/* << MapImageFileName*/ << " " << itr->Quests.size();
+        File << itr->x << " " << itr->y << " " << itr->TextureFileName << " " << itr->Quests.size();
         for(auto iitr = itr->Quests.begin(); iitr != itr->Quests.end(); ++iitr)
         {
             File << " " << iitr->ID;
         }
         File << endl;
     }
+    File.close();
+
+    File.open(World + "/Player.txt");
+    File.clear();
+    File << Player.GetX() << " " << Player.GetY() << " " << Player.GetName() << " ";
+    if(Player.GetClass() == CLASS_WARRIOR)
+        File << "0 ";
+    else
+        File << "1 ";
+    File << Player.GetLevel() << " " << Player.GetExp() << " " << Player.GetIntStr() << " " << Player.GetMaxHealth()
+        << " " << Player.GetMaxPower() << " " << Player.GetAttackPower() << " " << Player.GetArmor() << endl;
     File.close();
 }

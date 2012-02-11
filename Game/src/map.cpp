@@ -194,10 +194,10 @@ void Game::LoadMap(string PathToMap)
     
     QuestGivers.clear();
     File.open(PathToMap + "QuestGivers.txt");
-    while(File >> x >> y >> CreatureMapTexture >> a)
+    while(File >> x >> y >> CreatureMapTexture >> NumItems)
     {
         QuestGiver QuestGiver(x, y, CreatureMapTexture);
-        for(int c=0; c<a; ++c)
+        for(int c=0; c<NumItems; ++c)
         {
             int QuestID;
             File >> QuestID;

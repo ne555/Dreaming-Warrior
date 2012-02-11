@@ -16,6 +16,7 @@
 */
 Item GetItemFromDatabase(string World, int ID);
 Quest GetQuestFromDatabase(string World, int ID);
+Spell GetSpellFromDatabase(string World, int ID);
 
 inline ItemType GetItemType(int Type)
 {
@@ -70,6 +71,17 @@ inline Attribute GetAttribute(int Atr)
         return ARMOR;
     case 5:
         return INT_OR_STR;
+    }
+}
+
+inline SpellType GetSpellType(int Type)
+{
+    switch(Type)
+    {
+    case 0:
+        return SPELL_ATTACK;
+    case 1:
+        return SPELL_HEAL;
     }
 }
 
