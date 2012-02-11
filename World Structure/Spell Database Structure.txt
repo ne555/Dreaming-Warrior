@@ -1,0 +1,1 @@
+<Spell ID> <Spell Type> <Name> <Level Req> <Power Cost> <Value>

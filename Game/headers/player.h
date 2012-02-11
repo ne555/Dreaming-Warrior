@@ -33,8 +33,6 @@ class Player : public Creature
     int IntStr; // Inteligence / Strength
 
 public:
-    Player();
-    ~Player();
 
     void LoadFromFile(string World);
 
