@@ -30,7 +30,7 @@ MainMenuData MainMenu::MainLoop()
         {
             MainMenuData MenuData;
             MenuData.Mode = NEW_GAME;
-            MenuData.PathToWorld = "DefaultWorld";
+            MenuData.PathToWorld = "World";
             MenuData.PlayerClass = ChooseClass();
             return MenuData;
         }
@@ -48,8 +48,8 @@ Class MainMenu::ChooseClass()
 {
     int Command = 1;
     sf::Texture MageTexture, WarriorTexture, ArrowTexture;
-    MageTexture.LoadFromFile("");
-    WarriorTexture.LoadFromFile("");
+    MageTexture.LoadFromFile("Mage.png");
+    WarriorTexture.LoadFromFile("Warrior.png");
     ArrowTexture.LoadFromFile("Strelica.png");
     sf::Sprite MageSprite(MageTexture), WarriorSprite(WarriorTexture), ArrowSprite(ArrowTexture);
     //MageSprite.SetPosition();

@@ -1,1 +1,4 @@
 <X> <Y> <Name> <Class> <Level> <Expirience> <Int/Str> <Health> <Power> <AttackPower> <Armor>
+<Num Items> <Item ID> ... <Num Quests> <Quest ID> ...
+
+TODO: Equiped itemi

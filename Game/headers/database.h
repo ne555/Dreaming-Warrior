@@ -41,9 +41,18 @@ inline ItemType GetItemType(int Type)
     case 8:
         return ITEM_FOOT;
     case 9:
-        return ITEM_MAINHAND;
-    case 10:
-        return ITEM_OFFHAND;
+        return ITEM_WEAPON;
+    }
+}
+
+inline Class GetPlayerClass(int ID)
+{
+    switch(ID)
+    {
+    case 1:
+        return CLASS_WARRIOR;
+    case 2:
+        return CLASS_MAGE;
     }
 }
 

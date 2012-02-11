@@ -6,7 +6,7 @@ MapEditor::MapEditor(sf::RenderWindow &Window)
     CurrentMapId = 1;
     std::stringstream convert;
     convert << CurrentMapId;
-    PathToCurrentMap = "CustomWorld/Map" + convert.str() + "/";
+    PathToCurrentMap = "World/Map" + convert.str() + "/";
     MapWindow->SetTitle(PathToCurrentMap + "MapData.txt");
     TrenutniTile = 1;
 	for(int y = 0; y < 24; y++)
@@ -62,7 +62,7 @@ void MapEditor::LoadTable()
 
 void MapEditor::LoadTileset()
 {
-    std::ifstream File("CustomWorld/TekstureBlokovi.txt");
+    std::ifstream File("World/TekstureBlokovi.txt");
     BrojTiles = 0;
     std::string ImgFileName;
     int x = 0, y = 0;
@@ -71,7 +71,7 @@ void MapEditor::LoadTileset()
     {
         sf::Texture Texture;
         Texture.LoadFromFile(ImgFileName);
-        Tileset.push_back(new Tile(Texture, false));
+        Tileset.push_back(Tile(Texture, false));
         TilesetRectTable[y][x].Height = 32;
         TilesetRectTable[y][x].Width = 32;
         TilesetRectTable[y][x].Left = 1024+(32*x);
@@ -93,14 +93,14 @@ void MapEditor::LoadTileset()
     TODO: 40*32 + 40*32 px strelica za sljedecu i proslu stranicu tileseta
     */
     File.close();
-    File.open("CustomWorld/ObjektBlokovi.txt");
+    File.open("World/ObjektBlokovi.txt");
     while(File >> ImgFileName >> IsSolid)
     {
         if(BrojTiles == 4*24)//PH, obrisat limit
             break;
         sf::Texture Texture;
         Texture.LoadFromFile(ImgFileName);
-        Tileset.push_back(new Tile(Texture, true));
+        Tileset.push_back(Tile(Texture, true));
         TilesetRectTable[y][x].Height = 32;
         TilesetRectTable[y][x].Width = 32;
         TilesetRectTable[y][x].Left = 1024+(32*x);
@@ -123,18 +123,18 @@ void MapEditor::ShowMap()
         for(int x = 0; x < 32; x++) 
         {
             sf::Sprite Sprite;
-            Sprite.SetTexture(Tileset[TextureTable[y][x]]->Texture);
+            Sprite.SetTexture(Tileset[TextureTable[y][x]].Texture);
             Sprite.SetPosition(x*32, y*32);
             MapWindow->Draw(Sprite);
             if(ObjectTable[y][x] == -1)
                 continue;
-            Sprite.SetTexture(Tileset[ObjectTable[y][x]]->Texture);
+            Sprite.SetTexture(Tileset[ObjectTable[y][x]].Texture);
             Sprite.SetPosition(x*32, y*32);
             MapWindow->Draw(Sprite);
         }
     }
 
-    std::vector<Tile*>::iterator iter = Tileset.begin();
+    std::vector<Tile>::iterator iter = Tileset.begin();
 
     /*
     TODO: objekti na jednu stranu texture na drugu
@@ -146,7 +146,7 @@ void MapEditor::ShowMap()
             if(iter == Tileset.end())
                 goto izlaz;
             sf::Sprite Sprite;
-            Sprite.SetTexture((*iter)->Texture);
+            Sprite.SetTexture(iter->Texture);
             Sprite.SetPosition(1024+(b*32), a*32);
             MapWindow->Draw(Sprite);
             iter++;
@@ -228,7 +228,7 @@ void MapEditor::SetTile(sf::IntRect ClickPosition)
         {
             if(RectTable[y][x].Contains(ClickPosition.Left, ClickPosition.Top))
             {
-                if(Tileset[TrenutniTile]->IsObject)
+                if(Tileset[TrenutniTile].IsObject)
                     ObjectTable[y][x] = TrenutniTile;
                 else
                     TextureTable[y][x] = TrenutniTile;
@@ -258,7 +258,7 @@ void MapEditor::ChangeMap(bool DoIncrement)
         CurrentMapId++;
         std::stringstream convert;
         convert << CurrentMapId;
-        PathToCurrentMap = "CustomWorld/Map" + convert.str() + "/";
+        PathToCurrentMap = "World/Map" + convert.str() + "/";
         MapWindow->SetTitle(PathToCurrentMap + "MapData.txt");
         LoadTable();
     }
@@ -267,7 +267,7 @@ void MapEditor::ChangeMap(bool DoIncrement)
         --CurrentMapId;
         std::stringstream convert;
         convert << CurrentMapId;
-        PathToCurrentMap = "CustomWorld/Map" + convert.str() + "/";
+        PathToCurrentMap = "World/Map" + convert.str() + "/";
         MapWindow->SetTitle(PathToCurrentMap + "MapData.txt");
         LoadTable();
     }

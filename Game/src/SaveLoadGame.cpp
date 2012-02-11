@@ -72,22 +72,10 @@ void Game::SaveMap(string PathToMap)
 {
     std::ofstream File(PathToMap + "Enemies.txt");
     File.clear();
-    /*
-    TODO: Prije nego clearam file ugrabiti file name za odreðene ID enemije
-    NPR:
-    struct ImageData
-    {
-        int ID;
-        string CombatImageFileName;
-        string MapImageFileName;
-    };
-    vector<ImageData> Foo;
-    i onda ih priljepiti dole
-    */
     for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
     {
         File << itr->ID << " " << itr->GetAttackPower() << " " << itr->GetArmor() << " "
-            << itr->CombatTextureFileName<<  itr->GetLevel() << " "
+            << itr->CombatTextureFileName <<  itr->GetLevel() << " "
             << itr->GetName() << " " << itr->GetWealth() << " " << itr->GetX() << " "
             << itr->GetY() << " " << itr->MapTextureFileName;
         int ctr = 4;
@@ -139,6 +127,15 @@ void Game::SaveMap(string PathToMap)
     else
         File << "1 ";
     File << Player.GetLevel() << " " << Player.GetExp() << " " << Player.GetIntStr() << " " << Player.GetMaxHealth()
-        << " " << Player.GetMaxPower() << " " << Player.GetAttackPower() << " " << Player.GetArmor() << endl;
+        << " " << Player.GetMaxPower() << " " << Player.GetAttackPower() << " " << Player.GetArmor() << " " << Player.GetItems().size();
+    for(int i=0; i<Player.GetItems().size(); ++i)
+    {
+        File << " " << Player.GetItems()[i].ID;
+    }
+    File << " " << Player.GetSpells().size();
+    for(int i=0; i<Player.GetSpells().size(); ++i)
+    {
+        File << " " << Player.GetSpells()[i].ID;
+    }
     File.close();
 }

@@ -26,7 +26,7 @@ public:
         sf::Texture Texture;
         bool IsObject;
     };
-    std::vector<Tile*> Tileset;
+    std::vector<Tile> Tileset;
 
     void SetTile(sf::IntRect ClickPosition);
     void GrabTile(sf::IntRect ClickPosition);
@@ -44,8 +44,6 @@ private:
     int TextureTable[24][32];
     int ObjectTable[24][32];
     sf::IntRect RectTable[24][32];
-
-    std::vector<int[24][4]> novatilesettabla;
 
     int TilesetTable[24][4];
     sf::IntRect TilesetRectTable[24][4];

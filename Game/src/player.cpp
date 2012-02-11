@@ -20,17 +20,13 @@
 void Player::LoadFromFile(string World)
 {
     std::ifstream File(World + "/Player.txt");
-    int x, y, level, exp, int_str, health, power, attack, armor, id;
-    bool _class;
+    int x, y, level, exp, int_str, health, power, attack, armor, id, _class;
     string name;
     File >> x >> y >> name >> _class >> level >> exp >> int_str >> health >> power >> attack >> armor;
     SetX(x);
     SetY(y);
     SetName(name);
-    if(_class)
-        PlayerClass = CLASS_MAGE;
-    else
-        PlayerClass = CLASS_WARRIOR;
+    PlayerClass = GetPlayerClass(_class);
     SetLevel(level);
     Exp = exp;
     IntStr = int_str;
@@ -53,6 +49,6 @@ void Player::LoadFromFile(string World)
     {
         File >> id;
         AddSpell(GetSpellFromDatabase(World, id));
-        --x;
+        --y;
     }
 }

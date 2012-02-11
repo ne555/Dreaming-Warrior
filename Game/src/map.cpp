@@ -259,10 +259,10 @@ bool Game::CheckPortals(int x, int y)
             int a = itr->PlayerNewX, b = itr->PlayerNewY;
 
             //Save mapu
-            //SaveMap(this->PathToMap);
+            SaveMap(this->PathToMap);
 
             //Napravi novu mapu
-            LoadMap(itr->PathToMap);
+            LoadMap(World + itr->PathToMap);
 
             //Relociraj igraca
             Player.SetX(a);

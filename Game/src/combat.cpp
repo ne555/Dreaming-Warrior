@@ -18,7 +18,8 @@
 #include "game.h"
 #include "player.h"
 
-Combat::Combat(sf::RenderWindow &window, Player &player, Enemy enemy) : window(window), player(player), enemy(enemy), TextY(600)
+Combat::Combat(sf::RenderWindow &window, Player &player, Enemy enemy) 
+    : window(window), player(player), enemy(enemy), TextY(600)
 {
 }
 

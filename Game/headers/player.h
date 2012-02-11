@@ -47,6 +47,7 @@ public:
     const vector<Spell> &GetSpells() const { return Spells; }
     const vector<Item> &GetEquipedItems() const { return EquipedItems; }
     const vector<Item> &GetItems() const { return Items; }
+    const vector<Quest>  &GetQuests() const { return Quests; }
 
     int GetHealthPotNum()
     {
@@ -116,28 +117,19 @@ public:
             return false;
     }
 
-    // Zamjena itema
-    /*void EquipItem(vector<Item*>::iterator newItem)
+    void EquipItem(int ID)
     {
-        for(auto oldItem = EquipedItems.begin(); oldItem != Items.end(); oldItem++)
+
+        for(auto itr = Items.begin(); itr != Items.end(); ++itr)
         {
-            if((*oldItem)->Type == (*newItem)->Type)
+            if(itr->ID == ID)
             {
-                //swap? ovdje mozda mem leak
-                //ovdje su ozbiljni problemi s leakom
-                Item* pOld = *oldItem;
-                Item* pNew = *newItem;
-                delete *oldItem;
-                EquipedItems.erase(oldItem);
-                EquipedItems.push_back(pNew);
-                delete *newItem;
-                Items.erase(newItem);
-                Items.push_back(pOld);
-                CalculateStatsFromEquip();
+                EquipedItems.push_back(*itr);
+                Items.erase(itr);
                 return;
             }
         }
-    }*/
+    }
 
     void EquipItem(Item Item)
     {

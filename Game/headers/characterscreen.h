@@ -17,32 +17,29 @@
 #ifndef CHARACTER_SCREEN_H
 #define CHARACTER_SCREEN_H
 
-/*
-TODO: Pokazi lika, equipane iteme, questove i statse
-//i ovo class jer treba swap izmeðu questova
-*/
-/*void Game::ShowCharacterScreen()
-{
-    sf::Texture BackgroundTexture;
-    //BackgroundTexture.LoadFromFile("");
-    sf::Sprite BackgroundSprite(BackgroundTexture);
-    sf::Texture PlayerTexture;
-    //PlayerTexture.LoadFromFile("");
-    sf::Sprite PlayerSprite(PlayerTexture);
-    //PlayerSprite.SetPosition();
-
-    // bla bla PH
-}*/
-/*
-TODO: Pokazi lika, backpack iteme, omoguci mjenjanje statsa, omoguci mjenjanje equipa
-*/
-
 class Player;
+
+#include <SFML\Graphics.hpp>
+#include "player.h"
 
 class CharacterScreen
 {
+    sf::RenderWindow &Window;
+    sf::Event Event;
+    Player &player;
+
+    int QuestIterator;
+
+    sf::Sprite BackgroundSprite;
+    sf::Sprite PlayerSprite;
+    sf::Sprite ArrowSprite;
+
+    void DrawAll();
+    void QuestsLoop();
+    void ItemsLoop();
 public:
-    CharacterScreen(Player &Player);
+    CharacterScreen(Player &player, sf::RenderWindow &Window);
+    void MainLoop();
 };
 
 #endif

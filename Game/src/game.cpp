@@ -37,13 +37,13 @@ void Game::InitGame(MainMenuData MenuResult)
     switch(MenuResult.Mode)
     {
     case NEW_GAME:
-        {
-            //TODO: save po nekom imenu [PH]
-            World = "SavedGames/New_Save";
-            CopyWorld(MenuResult.PathToWorld, World);
-            break;
-        }
+        //TODO: save po nekom imenu [PH]
+        World = "SavedGames/Save1";
+        CopyWorld(MenuResult.PathToWorld, World);
+        break;
     case LOAD_GAME:
+        //TODO: save po nekom imenu [PH]
+        World = "SavedGames/Save1";
         break;
     }
     Player.LoadFromFile(World);
@@ -182,7 +182,7 @@ void Game::GameLoop()
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::C))
             {
-                CharacterScreen Screen(Player);
+                CharacterScreen Screen(Player, Window);
             }
         }
         Window.Clear();
