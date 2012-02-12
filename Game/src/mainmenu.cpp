@@ -19,7 +19,7 @@
 MainMenu::MainMenu(sf::RenderWindow &Window)
     : Window(Window)
 {
-    Background.LoadFromFile("MainMenu.png");
+    Background.LoadFromFile("Graphics/MainMenu.png");
 }
 
 MainMenuData MainMenu::MainLoop()
@@ -48,9 +48,9 @@ Class MainMenu::ChooseClass()
 {
     int Command = 1;
     sf::Texture MageTexture, WarriorTexture, ArrowTexture;
-    MageTexture.LoadFromFile("Mage.png");
-    WarriorTexture.LoadFromFile("Warrior.png");
-    ArrowTexture.LoadFromFile("Strelica.png");
+    MageTexture.LoadFromFile("Graphics/Mage.png");
+    WarriorTexture.LoadFromFile("Graphics/Warrior.png");
+    ArrowTexture.LoadFromFile("Graphics/Strelica.png");
     sf::Sprite MageSprite(MageTexture), WarriorSprite(WarriorTexture), ArrowSprite(ArrowTexture);
     //MageSprite.SetPosition();
     //WarriorSprite.SetPosition();
@@ -124,7 +124,7 @@ GameMode MainMenu::ChooseGameMode()
     Exit.SetColor(sf::Color(255, 255, 255));
 
     sf::Texture ArrowTexture;
-    ArrowTexture.LoadFromFile("Strelica.png");
+    ArrowTexture.LoadFromFile("Graphics/Strelica.png");
     sf::Sprite ArrowSprite(ArrowTexture);
     ArrowSprite.SetPosition(410.0f, ArrowY);
 

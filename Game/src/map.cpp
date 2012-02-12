@@ -145,8 +145,6 @@ void Game::LoadMap(string PathToMap)
         }
     }
 
-    PlayerTexture = Tileset[0].Texture;
-
     //Ucitaj cudovista
     int ID, Atk, Def, HP, Level, Wealth;
     int Chance[4];

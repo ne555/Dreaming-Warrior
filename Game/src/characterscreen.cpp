@@ -19,12 +19,10 @@
 
 /*
 TODO: Pokazi lika, equipane iteme, questove i statse
-//i ovo class jer treba swap izmeðu questova
-*/
-/*
+i ovo class jer treba swap izmeðu questova
+
 TODO: Pokazi lika, backpack iteme, omoguci mjenjanje statsa, omoguci mjenjanje equipa
-*/
-/*
+
 Ostavi mjesta meðu itemima za strelicu koja je 32x32
 */
 

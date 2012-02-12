@@ -118,8 +118,11 @@ void Game::SaveMap(string PathToMap)
         File << endl;
     }
     File.close();
+}
 
-    File.open(World + "/Player.txt");
+void Game::SavePlayer()
+{
+    std::ofstream File(World + "/Player.txt");
     File.clear();
     File << Player.GetX() << " " << Player.GetY() << " " << Player.GetName() << " ";
     if(Player.GetClass() == CLASS_WARRIOR)

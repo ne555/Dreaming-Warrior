@@ -17,7 +17,7 @@
 #include "player.h"
 #include "database.h"
 
-void Player::LoadFromFile(string World)
+Class Player::LoadFromFile(string World)
 {
     std::ifstream File(World + "/Player.txt");
     int x, y, level, exp, int_str, health, power, attack, armor, id, _class;
@@ -51,4 +51,6 @@ void Player::LoadFromFile(string World)
         AddSpell(GetSpellFromDatabase(World, id));
         --y;
     }
+
+    return PlayerClass;
 }

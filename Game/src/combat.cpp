@@ -37,13 +37,13 @@ int Combat::MainLoop()
     //Strelica
     float ArrowY = 60.0f;
     sf::Texture ArrowTexture;
-    ArrowTexture.LoadFromFile("Strelica.png");
+    ArrowTexture.LoadFromFile("Graphics/Strelica.png");
     sf::Sprite ArrowSprite(ArrowTexture);
     ArrowSprite.SetPosition(810.0f, ArrowY);
 
     //Sucelje
     sf::Texture CombatGUI;
-    CombatGUI.LoadFromFile("CombatScreen.png");
+    CombatGUI.LoadFromFile("Graphics/CombatScreen.png");
     //sf::Texture BackgroundTexture;
     //BackgroundTexture.LoadFromFile("BackgroundTexture.png");
     sf::Sprite CreatureSprite(enemy.CreatureCombatTexture);

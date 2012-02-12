@@ -32,6 +32,9 @@ MainMenuData Game::ShowMenu()
     return Menu.MainLoop();
 }
 
+/*
+TODO: class nije setan neg je loadan iz fajla
+*/
 void Game::InitGame(MainMenuData MenuResult)
 {
     switch(MenuResult.Mode)
@@ -46,7 +49,15 @@ void Game::InitGame(MainMenuData MenuResult)
         World = "SavedGames/Save1";
         break;
     }
-    Player.LoadFromFile(World);
+    switch(Player.LoadFromFile(World))
+    {
+    case CLASS_WARRIOR:
+        PlayerTexture.LoadFromFile("Tiles/Warrior.png");
+        break;
+    case CLASS_MAGE:
+        PlayerTexture.LoadFromFile("Tiles/Mage.png");
+        break;
+    }
     LoadMap(World + "/Map1/");
 }
 
@@ -123,7 +134,11 @@ void Game::GameLoop()
         while(Window.PollEvent(Event))
         {
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            {
+                SaveMap(PathToMap);
+                SavePlayer();
                 return;
+            }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
             {
                 switch(Move(NORTH))

@@ -34,7 +34,7 @@ class Player : public Creature
 
 public:
 
-    void LoadFromFile(string World);
+    Class LoadFromFile(string World);
 
     ObjectType InteractsWith;
 

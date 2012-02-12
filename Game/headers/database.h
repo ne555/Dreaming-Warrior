@@ -49,9 +49,9 @@ inline Class GetPlayerClass(int ID)
 {
     switch(ID)
     {
-    case 1:
+    case 0:
         return CLASS_WARRIOR;
-    case 2:
+    case 1:
         return CLASS_MAGE;
     }
 }
