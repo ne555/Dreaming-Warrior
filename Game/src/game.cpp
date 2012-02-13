@@ -18,8 +18,8 @@
 
 Game::Game()
 {
-    Window.Create(sf::VideoMode(32*32, 24*32, 32), "The Game", sf::Style::Close);
-    Window.SetFramerateLimit(30);
+    Window.Create(sf::VideoMode(32*32, 24*32, 32), "Dreaming Warrior", sf::Style::Close);
+    Window.SetFramerateLimit(60);
 }
 
 Game::~Game()
@@ -32,9 +32,6 @@ MainMenuData Game::ShowMenu()
     return Menu.MainLoop();
 }
 
-/*
-TODO: class nije setan neg je loadan iz fajla
-*/
 void Game::InitGame(MainMenuData MenuResult)
 {
     bool ThisIsHack = false;

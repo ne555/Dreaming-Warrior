@@ -124,21 +124,43 @@ void Game::SavePlayer()
 {
     std::ofstream File(World + "/Player.txt");
     File.clear();
+    //Basic info
     File << Player.Map << " " << Player.GetX() << " " << Player.GetY() << " " << Player.GetName() << " ";
     if(Player.GetClass() == CLASS_WARRIOR)
         File << "0 ";
     else
         File << "1 ";
+    //Stats
     File << Player.GetLevel() << " " << Player.GetExp() << " " << Player.GetIntStr() << " " << Player.GetMaxHealth()
         << " " << Player.GetMaxPower() << " " << Player.GetAttackPower() << " " << Player.GetArmor() << " " << Player.GetItems().size();
+    //Backpack
     for(int i=0; i<Player.GetItems().size(); ++i)
     {
         File << " " << Player.GetItems()[i].ID;
     }
+    //Equiped Items
+    File << " " << Player.GetEquipedItems().size();
+    for(int i=0; i<Player.GetEquipedItems().size(); ++i)
+    {
+        File << " " << Player.GetEquipedItems()[i].ID;
+    }
+    //Spells
     File << " " << Player.GetSpells().size();
     for(int i=0; i<Player.GetSpells().size(); ++i)
     {
         File << " " << Player.GetSpells()[i].ID;
+    }
+    //Quests
+    File << " " << Player.GetQuests().size();
+    for(int i=0; i<Player.GetQuests().size(); ++i)
+    {
+        File << " " << Player.GetQuests()[i].ID;
+    }
+    //Completed quests
+    File << " " << Player.GetFinishedQuests().size();
+    for(int i=0; i<Player.GetFinishedQuests().size(); ++i)
+    {
+        File << " " << Player.GetFinishedQuests()[i];
     }
     File.close();
 }

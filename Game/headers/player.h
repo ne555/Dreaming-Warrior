@@ -27,6 +27,7 @@ class Player : public Creature
     vector<Item> EquipedItems;
     vector<Spell> Spells;
     vector<Quest> Quests;
+    vector<int> FinishedQuests;
 
     Class PlayerClass;
     int Exp;
@@ -47,7 +48,8 @@ public:
     const vector<Spell> &GetSpells() const { return Spells; }
     const vector<Item> &GetEquipedItems() const { return EquipedItems; }
     const vector<Item> &GetItems() const { return Items; }
-    const vector<Quest>  &GetQuests() const { return Quests; }
+    const vector<Quest> &GetQuests() const { return Quests; }
+    const vector<int> &GetFinishedQuests() const { return FinishedQuests; }
 
     int GetHealthPotNum()
     {
@@ -106,11 +108,11 @@ public:
         return false;
     }
 
-    bool AddItem(Item Item)
+    bool AddItem(Item Item, bool IsEquiped = false)
     {
         if(Items.size() + EquipedItems.size() <= BACKPACK_SIZE)
         {
-            Items.push_back(Item);
+            IsEquiped ? EquipedItems.push_back(Item) : Items.push_back(Item);
             return true;
         }
         else
@@ -179,6 +181,16 @@ public:
     void AddSpell(Spell Spell)
     {
         Spells.push_back(Spell);
+    }
+
+    void AddQuest(Quest Quest)
+    {
+        Quests.push_back(Quest);
+    }
+
+    void AddFinishedQuest(int ID)
+    {
+        FinishedQuests.push_back(ID);
     }
 };
 

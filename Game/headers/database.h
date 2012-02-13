@@ -40,6 +40,8 @@ inline ItemType GetItemType(int Type)
         return ITEM_FOOT;
     case 8:
         return ITEM_WEAPON;
+    case 9:
+        return ITEM_SHIELD;
     }
 }
 

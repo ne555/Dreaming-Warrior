@@ -47,12 +47,33 @@ Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack)
         AddItem(GetItemFromDatabase(World, id));
         --x;
     }
-    File >> y;
-    while(y != 0)
+    File >> x;
+    while(x != 0)
+    {
+        File >> id;
+        AddItem(GetItemFromDatabase(World, id), true);
+        --x;
+    }
+    File >> x;
+    while(x != 0)
     {
         File >> id;
         AddSpell(GetSpellFromDatabase(World, id));
-        --y;
+        --x;
+    }
+    File >> x;
+    while(x != 0)
+    {
+        File >> id;
+        AddQuest(GetQuestFromDatabase(World, id));
+        --x;
+    }
+    File >> x;
+    while(x != 0)
+    {
+        File >> id;
+        AddFinishedQuest(id);
+        --x;
     }
 
     return PlayerClass;

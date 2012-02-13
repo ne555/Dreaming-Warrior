@@ -14,9 +14,6 @@
     You should have received a copy of the GNU General Public License
     along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
-/*
-TODO: Ne radi
-*/
 #include "game.h"
 #include "combat.h"
 #include "VendorEncounter.h"

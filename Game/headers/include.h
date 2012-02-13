@@ -46,8 +46,8 @@ enum ItemType
     ITEM_HANDS,
     ITEM_LEGS,
     ITEM_FOOT,
-
-    ITEM_WEAPON
+    ITEM_WEAPON,
+    ITEM_SHIELD
 };
 
 enum Attribute
