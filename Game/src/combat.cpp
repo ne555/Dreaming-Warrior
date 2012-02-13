@@ -30,10 +30,10 @@ return 2; Run
 */
 int Combat::MainLoop()
 {
-    //Strelica
+    //Arrow
     float ArrowY = 60.0f;
     sf::Texture ArrowTexture;
-    ArrowTexture.LoadFromFile("Graphics/Strelica.png");
+    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     sf::Sprite ArrowSprite(ArrowTexture);
     ArrowSprite.SetPosition(800.0f, ArrowY);
 

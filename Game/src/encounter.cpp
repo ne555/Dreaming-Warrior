@@ -35,8 +35,7 @@ void Game::Encounter(Orientation Direction)
                     switch(Combat.MainLoop())
                     {
                     case 0:
-                        std::cout << "[PH] Game Over";
-                        break;
+                        GameOver();
                     case 1:
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Enemies.erase(itr);
@@ -67,8 +66,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
-                    QuestEncounter QuestEncounter;
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(Player, *itr);
+                    QuestEncounter QuestEncounter(Player, Window);
+                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
                     QuestGivers.erase(itr);
                     QuestGivers.push_back(QuestGiver);
                     return;
@@ -89,8 +88,7 @@ void Game::Encounter(Orientation Direction)
                     switch(Combat.MainLoop())
                     {
                     case 0:
-                        std::cout << "[PH] Game Over";
-                        break;
+                        GameOver();
                     case 1:
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Enemies.erase(itr);
@@ -121,8 +119,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
-                    QuestEncounter QuestEncounter;
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(Player, *itr);
+                    QuestEncounter QuestEncounter(Player, Window);
+                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
                     QuestGivers.erase(itr);
                     QuestGivers.push_back(QuestGiver);
                     return;
@@ -143,8 +141,7 @@ void Game::Encounter(Orientation Direction)
                     switch(Combat.MainLoop())
                     {
                     case 0:
-                        std::cout << "[PH] Game Over";
-                        break;
+                        GameOver();
                     case 1:
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Enemies.erase(itr);
@@ -175,8 +172,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
-                    QuestEncounter QuestEncounter;
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(Player, *itr);
+                    QuestEncounter QuestEncounter(Player, Window);
+                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
                     QuestGivers.erase(itr);
                     QuestGivers.push_back(QuestGiver);
                     return;
@@ -197,8 +194,7 @@ void Game::Encounter(Orientation Direction)
                     switch(Combat.MainLoop())
                     {
                     case 0:
-                        std::cout << "[PH] Game Over";
-                        break;
+                        GameOver();
                     case 1:
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Enemies.erase(itr);
@@ -229,8 +225,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
-                    QuestEncounter QuestEncounter;
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(Player, *itr);
+                    QuestEncounter QuestEncounter(Player, Window);
+                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
                     QuestGivers.erase(itr);
                     QuestGivers.push_back(QuestGiver);
                     return;
@@ -248,8 +244,6 @@ void Game::RandomEncounter()
         return;
     vector<Enemy>::iterator itr = RandomEncounters.begin() + urand(0, RandomEncounters.size()-1);
     Combat Combat(Window, Player, *itr);
-    if(Combat.MainLoop())
-        RandomEncounters.erase(itr);
-    else
-        std::cout << "Game over...";//PH!
+    Combat.MainLoop() ? RandomEncounters.erase(itr) : GameOver();
+    //TODO: NE ZABORAVI Quest objective i loot!
 }

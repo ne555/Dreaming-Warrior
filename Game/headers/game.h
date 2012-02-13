@@ -70,11 +70,12 @@ class Game
     void SavePlayer();
     bool CheckCollision(int x, int y, Orientation Direction);
 
+    void GameOver();
+
     ObjectType ObjectGrid[24][32];
 
 public:
     Game();
-    ~Game();
 
     MainMenuData ShowMenu();
     void InitGame(MainMenuData MenuResult);

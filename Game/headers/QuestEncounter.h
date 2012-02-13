@@ -23,9 +23,20 @@ class Player;
 
 class QuestEncounter
 {
+    sf::RenderWindow &Window;
+    sf::Event Event;
+    sf::Sprite ArrowSprite;
+    Player &player;
+
+    sf::Text QuestText;
+    vector<sf::Text> QuestNames;
+    int QuestIterator;
+
+    void DrawAll();
+
 public:
-    QuestEncounter();
-    QuestGiver MainLoop(Player &Player, QuestGiver QuestGiver);
+    QuestEncounter(Player &player, sf::RenderWindow &Window);
+    QuestGiver MainLoop(QuestGiver QuestGiver);
 };
 
 #endif

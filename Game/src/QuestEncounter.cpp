@@ -16,11 +16,38 @@
 */
 #include "QuestEncounter.h"
 
-QuestEncounter::QuestEncounter()
+QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window)
+    : Window(Window), player(player), QuestIterator(0)
 {
+    sf::Texture ArrowTexture;
+    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
+    ArrowSprite.SetTexture(ArrowTexture);
 }
 
-QuestGiver QuestEncounter::MainLoop(Player &Player, QuestGiver QuestGiver)
+void QuestEncounter::DrawAll()
 {
+    Window.Clear();
+    Window.Draw(ArrowSprite);
+}
+
+QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
+{
+    while(Window.IsOpen()) 
+    {
+        while(Window.PollEvent(Event))
+        {
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            {
+            }
+        }
+        DrawAll();
+        Window.Display();
+    }
     return QuestGiver;
 }

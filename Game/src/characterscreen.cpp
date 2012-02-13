@@ -39,7 +39,7 @@ CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
         PlayerTexture.LoadFromFile("Graphics/Mage.png");
         break;
     }
-    ArrowTexture.LoadFromFile("Graphics/Strelica.png");
+    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     BackgroundTexture.LoadFromFile("Graphics/CharacterScreen.png");
     ArrowSprite.SetTexture(ArrowTexture);
     PlayerSprite.SetTexture(PlayerTexture);

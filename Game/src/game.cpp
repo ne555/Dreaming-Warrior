@@ -22,10 +22,6 @@ Game::Game()
     Window.SetFramerateLimit(60);
 }
 
-Game::~Game()
-{
-}
-
 MainMenuData Game::ShowMenu()
 {
     MainMenu Menu(Window);
@@ -59,6 +55,34 @@ void Game::InitGame(MainMenuData MenuResult)
         break;
     }
     LoadMap(World + Player.Map);
+}
+
+void Game::GameOver()
+{
+    sf::Texture BackgroundTexture;
+    sf::Sprite BackgroundSprite;
+    //BackgroundTexture.LoadFromFile();
+    BackgroundSprite.SetTexture(BackgroundTexture);
+    sf::Text GameOver("Game Over...");
+    GameOver.SetCharacterSize(50); //TODO ?
+    //GameOver.SetFont();
+    GameOver.SetPosition(350, 350);
+
+    sf::Event Event;
+    while(Window.IsOpen()) 
+    {
+        while(Window.PollEvent(Event))
+        {
+            if(Event.Type == sf::Event::KeyPressed)
+            {
+                exit(0);
+            }
+        }
+        Window.Clear();
+        Window.Draw(BackgroundSprite);
+        Window.Draw(GameOver);
+        Window.Display();
+    }
 }
 
 /*

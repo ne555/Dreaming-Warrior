@@ -30,6 +30,7 @@ struct MainMenuData
 class MainMenu
 {
     sf::RenderWindow &Window;
+    sf::Event Event;
     sf::Texture Background;
 
     GameMode ChooseGameMode();
