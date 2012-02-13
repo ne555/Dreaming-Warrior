@@ -1,5 +1,5 @@
 /*
-    Game Project
+    Dreaming Warrior
     Copyright (C) 2012 Mislav Blazevic
 
     This program is free software: you can redistribute it and/or modify

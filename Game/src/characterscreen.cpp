@@ -1,18 +1,18 @@
 /*
-    This file is part of Game Project.
+    This file is part of Dreaming Warrior.
 
-    Game Project is free software: you can redistribute it and/or modify
+    Dreaming Warrior is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Game Project is distributed in the hope that it will be useful,
+    Dreaming Warrior is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
+    along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "characterscreen.h"
 #include "player.h"
@@ -33,14 +33,14 @@ CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
     switch(player.GetClass())
     {
     case CLASS_WARRIOR:
-        PlayerTexture.LoadFromFile("Warrior.png");
+        PlayerTexture.LoadFromFile("Graphics/Warrior.png");
         break;
     case CLASS_MAGE:
-        PlayerTexture.LoadFromFile("Mage.png");
+        PlayerTexture.LoadFromFile("Graphics/Mage.png");
         break;
     }
-    ArrowTexture.LoadFromFile("Strelica.png");
-    BackgroundTexture.LoadFromFile("CharacterScreen.png");
+    ArrowTexture.LoadFromFile("Graphics/Strelica.png");
+    BackgroundTexture.LoadFromFile("Graphics/CharacterScreen.png");
     ArrowSprite.SetTexture(ArrowTexture);
     PlayerSprite.SetTexture(PlayerTexture);
     BackgroundSprite.SetTexture(BackgroundTexture);
@@ -67,9 +67,6 @@ void CharacterScreen::DrawAll()
         case ITEM_HEAD:
             //ItemSprite.SetPosition();
             break;
-        case ITEM_SHOULDERS:
-            //ItemSprite.SetPosition();
-            break;
         case ITEM_CHEST:
             //ItemSprite.SetPosition();
             break;
@@ -89,7 +86,7 @@ void CharacterScreen::DrawAll()
         Window.Draw(ItemSprite);
     }
     //TODO: i itemi iz torbice
-    Window.Draw(QuestText);
+    //Window.Draw(QuestText);
     Window.Draw(PlayerSprite);
     Window.Draw(ArrowSprite);
 }
@@ -102,7 +99,7 @@ void CharacterScreen::QuestsLoop()
 {
     if(player.GetQuests().size() == 0)
         return;
-    int QItr;
+    int QItr = 1;
     float ArrowY; //TODO = 
     while(Window.IsOpen()) 
     {
@@ -146,7 +143,7 @@ void CharacterScreen::MainLoop()
     {
         while(Window.PollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
             {
                 if(Command != 1)
                 {
@@ -154,7 +151,7 @@ void CharacterScreen::MainLoop()
                     //ArrowSprite.SetPosition();
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
             {
                 if(Command != 2)
                 {

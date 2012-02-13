@@ -1,18 +1,18 @@
 /*
-    This file is part of Game Project.
+    This file is part of Dreaming Warrior.
 
-    Game Project is free software: you can redistribute it and/or modify
+    Dreaming Warrior is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Game Project is distributed in the hope that it will be useful,
+    Dreaming Warrior is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
+    along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "combat.h"
 #include "game.h"
@@ -20,10 +20,6 @@
 
 Combat::Combat(sf::RenderWindow &window, Player &player, Enemy enemy) 
     : window(window), player(player), enemy(enemy), TextY(600)
-{
-}
-
-Combat::~Combat()
 {
 }
 
@@ -39,7 +35,7 @@ int Combat::MainLoop()
     sf::Texture ArrowTexture;
     ArrowTexture.LoadFromFile("Graphics/Strelica.png");
     sf::Sprite ArrowSprite(ArrowTexture);
-    ArrowSprite.SetPosition(810.0f, ArrowY);
+    ArrowSprite.SetPosition(800.0f, ArrowY);
 
     //Sucelje
     sf::Texture CombatGUI;
@@ -68,7 +64,7 @@ int Combat::MainLoop()
                 {
                     --Command;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(810.0f, ArrowY);
+                    ArrowSprite.SetPosition(800.0f, ArrowY);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
@@ -77,7 +73,7 @@ int Combat::MainLoop()
                 {
                     ++Command;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(810.0f, ArrowY);
+                    ArrowSprite.SetPosition(800.0f, ArrowY);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
@@ -89,7 +85,7 @@ int Combat::MainLoop()
                     //player.RemoveBuffs();
                     return 2;
                 }
-                ArrowSprite.SetPosition(810.0f, ArrowY);
+                ArrowSprite.SetPosition(800.0f, ArrowY);
             }
 
             // Neprijatelj na potezu

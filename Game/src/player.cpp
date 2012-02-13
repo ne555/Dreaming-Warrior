@@ -1,32 +1,35 @@
 /*
-    This file is part of Game Project.
+    This file is part of Dreaming Warrior.
 
-    Game Project is free software: you can redistribute it and/or modify
+    Dreaming Warrior is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Game Project is distributed in the hope that it will be useful,
+    Dreaming Warrior is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
+    along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "player.h"
 #include "database.h"
 
-Class Player::LoadFromFile(string World)
+Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack)
 {
     std::ifstream File(World + "/Player.txt");
     int x, y, level, exp, int_str, health, power, attack, armor, id, _class;
-    string name;
-    File >> x >> y >> name >> _class >> level >> exp >> int_str >> health >> power >> attack >> armor;
+    string name, map;
+    File >> map >> x >> y >> name >> _class >> level >> exp >> int_str >> health >> power >> attack >> armor;
+    Map = map;
     SetX(x);
     SetY(y);
     SetName(name);
     PlayerClass = GetPlayerClass(_class);
+    if(ThisIsHack)
+        PlayerClass = ClassHack;
     SetLevel(level);
     Exp = exp;
     IntStr = int_str;

@@ -1,18 +1,18 @@
 /*
-    This file is part of Game Project.
+    This file is part of Dreaming Warrior.
 
-    Game Project is free software: you can redistribute it and/or modify
+    Dreaming Warrior is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Game Project is distributed in the hope that it will be useful,
+    Dreaming Warrior is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
+    along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
 Item GetItemFromDatabase(string World, int ID);
 Quest GetQuestFromDatabase(string World, int ID);
@@ -31,16 +31,14 @@ inline ItemType GetItemType(int Type)
     case 3:
         return ITEM_HEAD;
     case 4:
-        return ITEM_SHOULDERS;
-    case 5:
         return ITEM_CHEST;
-    case 6:
+    case 5:
         return ITEM_HANDS;
-    case 7:
+    case 6:
         return ITEM_LEGS;
-    case 8:
+    case 7:
         return ITEM_FOOT;
-    case 9:
+    case 8:
         return ITEM_WEAPON;
     }
 }

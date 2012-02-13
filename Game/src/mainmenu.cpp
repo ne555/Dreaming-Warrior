@@ -1,25 +1,25 @@
 /*
-    This file is part of Game Project.
+    This file is part of Dreaming Warrior.
 
-    Game Project is free software: you can redistribute it and/or modify
+    Dreaming Warrior is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Game Project is distributed in the hope that it will be useful,
+    Dreaming Warrior is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
+    along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "mainmenu.h"
 
 MainMenu::MainMenu(sf::RenderWindow &Window)
     : Window(Window)
 {
-    Background.LoadFromFile("Graphics/MainMenu.png");
+    Background.LoadFromFile("Graphics/MainMenu.jpg");
 }
 
 MainMenuData MainMenu::MainLoop()
@@ -46,59 +46,58 @@ MainMenuData MainMenu::MainLoop()
 
 Class MainMenu::ChooseClass()
 {
-    int Command = 1;
+    Class PlayerClass = CLASS_MAGE;
     sf::Texture MageTexture, WarriorTexture, ArrowTexture;
     MageTexture.LoadFromFile("Graphics/Mage.png");
     WarriorTexture.LoadFromFile("Graphics/Warrior.png");
     ArrowTexture.LoadFromFile("Graphics/Strelica.png");
     sf::Sprite MageSprite(MageTexture), WarriorSprite(WarriorTexture), ArrowSprite(ArrowTexture);
-    //MageSprite.SetPosition();
-    //WarriorSprite.SetPosition();
-    ArrowSprite.SetPosition(65.0f, 450.0f);
+    MageSprite.SetPosition(80.0f, 190.0f);
+    WarriorSprite.SetPosition(80.0f, 190.0f);
+    ArrowSprite.SetPosition(400.0f, 350.0f);
     sf::Text
         MageText("Mage"),
         WarriorText("Warrior");
-    MageText.SetPosition(90, 450);
-    WarriorText.SetPosition(800, 450);
+    MageText.SetPosition(450.0f, 350.0f);
+    WarriorText.SetPosition(450.0f, 385.0f);
 
     sf::Event Event;
     while(Window.IsOpen()) 
     {
         while(Window.PollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
             {
-                if(Command != 1)
+                if(PlayerClass != CLASS_MAGE)
                 {
-                    --Command;
-                    ArrowSprite.SetPosition(65.0f, 450.0f);
+                    PlayerClass = CLASS_MAGE;
+                    ArrowSprite.SetPosition(400.0f, 350.0f);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
             {
-                if(Command != 2)
+                if(PlayerClass != CLASS_WARRIOR)
                 {
-                    ++Command;
-                    ArrowSprite.SetPosition(755.0f, 450.0f);
+                    PlayerClass = CLASS_WARRIOR;
+                    ArrowSprite.SetPosition(400.0f, 385.0f);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
-                switch(Command)
-                {
-                case 1:
-                    return CLASS_MAGE;
-                case 2:
-                    return CLASS_WARRIOR;
-                case 3:
-                    exit(0);
-                }
+                return PlayerClass;
             }
         }
         Window.Clear();
         Window.Draw(sf::Sprite(Background));
-        Window.Draw(MageSprite);
-        Window.Draw(WarriorSprite);
+        switch(PlayerClass)
+        {
+        case CLASS_MAGE:
+            Window.Draw(MageSprite);
+            break;
+        case CLASS_WARRIOR:
+            Window.Draw(WarriorSprite);
+            break;
+        }
         Window.Draw(MageText);
         Window.Draw(WarriorText);
         Window.Draw(ArrowSprite);
@@ -126,7 +125,7 @@ GameMode MainMenu::ChooseGameMode()
     sf::Texture ArrowTexture;
     ArrowTexture.LoadFromFile("Graphics/Strelica.png");
     sf::Sprite ArrowSprite(ArrowTexture);
-    ArrowSprite.SetPosition(410.0f, ArrowY);
+    ArrowSprite.SetPosition(400.0f, ArrowY);
 
     sf::Event Event;
     while(Window.IsOpen()) 
@@ -139,7 +138,7 @@ GameMode MainMenu::ChooseGameMode()
                 {
                     --Command;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(410.0f, ArrowY);
+                    ArrowSprite.SetPosition(400.0f, ArrowY);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
@@ -148,7 +147,7 @@ GameMode MainMenu::ChooseGameMode()
                 {
                     ++Command;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(410.0f, ArrowY);
+                    ArrowSprite.SetPosition(400.0f, ArrowY);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))

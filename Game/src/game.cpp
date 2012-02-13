@@ -1,18 +1,18 @@
 /*
-    This file is part of Game Project.
+    This file is part of Dreaming Warrior.
 
-    Game Project is free software: you can redistribute it and/or modify
+    Dreaming Warrior is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Game Project is distributed in the hope that it will be useful,
+    Dreaming Warrior is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Game Project.  If not, see <http://www.gnu.org/licenses/>.
+    along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "game.h"
 
@@ -37,10 +37,12 @@ TODO: class nije setan neg je loadan iz fajla
 */
 void Game::InitGame(MainMenuData MenuResult)
 {
+    bool ThisIsHack = false;
     switch(MenuResult.Mode)
     {
     case NEW_GAME:
         //TODO: save po nekom imenu [PH]
+        ThisIsHack = true;
         World = "SavedGames/Save1";
         CopyWorld(MenuResult.PathToWorld, World);
         break;
@@ -49,7 +51,8 @@ void Game::InitGame(MainMenuData MenuResult)
         World = "SavedGames/Save1";
         break;
     }
-    switch(Player.LoadFromFile(World))
+
+    switch(Player.LoadFromFile(World, MenuResult.PlayerClass, ThisIsHack))
     {
     case CLASS_WARRIOR:
         PlayerTexture.LoadFromFile("Tiles/Warrior.png");
@@ -58,7 +61,7 @@ void Game::InitGame(MainMenuData MenuResult)
         PlayerTexture.LoadFromFile("Tiles/Mage.png");
         break;
     }
-    LoadMap(World + "/Map1/");
+    LoadMap(World + Player.Map);
 }
 
 /*
@@ -198,6 +201,7 @@ void Game::GameLoop()
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::C))
             {
                 CharacterScreen Screen(Player, Window);
+                Screen.MainLoop();
             }
         }
         Window.Clear();
