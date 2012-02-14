@@ -1,3 +1,19 @@
+/*
+    This file is part of Dreaming Warrior.
+
+    Dreaming Warrior is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Dreaming Warrior is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "MapEditor.h"
 
 MapEditor::MapEditor(sf::RenderWindow &Window)
@@ -78,7 +94,7 @@ void MapEditor::LoadTileset()
         TilesetRectTable[y][x].Top = 32*y;
         TilesetTable[y][x] = BrojTiles;
         x++;
-        if(x==4)
+        if(x==8)
         {
             x = 0;
             y++;
@@ -96,7 +112,7 @@ void MapEditor::LoadTileset()
     File.open("World/ObjektBlokovi.txt");
     while(File >> ImgFileName >> IsSolid)
     {
-        if(BrojTiles == 4*24)//PH, obrisat limit
+        if(BrojTiles == 8*24)//PH, obrisat limit
             break;
         sf::Texture Texture;
         Texture.LoadFromFile(ImgFileName);
@@ -107,7 +123,7 @@ void MapEditor::LoadTileset()
         TilesetRectTable[y][x].Top = 32*y;
         TilesetTable[y][x] = BrojTiles;
         x++;
-        if(x==4)
+        if(x==8)
         {
             x = 0;
             y++;
@@ -141,7 +157,7 @@ void MapEditor::ShowMap()
     */
     for(int a=0; a<24; a++)//PH! limit obrisat
     {
-        for(int b=0; b<4; b++)
+        for(int b=0; b<8; b++)
         {
             if(iter == Tileset.end())
                 goto izlaz;
@@ -154,7 +170,7 @@ void MapEditor::ShowMap()
     }
     izlaz:
 
-    for(int a=32; a<1152; a+=32)
+    for(int a=32; a<1280; a+=32)
     {
         sf::VertexArray Line(sf::Lines, 2);
         Line[0].Position = sf::Vector2f(a, 0);
@@ -169,7 +185,7 @@ void MapEditor::ShowMap()
         sf::VertexArray Line(sf::Lines, 2);
         Line[0].Position = sf::Vector2f(0, a);
         Line[0].Color = sf::Color(0, 0, 0);
-        Line[1].Position = sf::Vector2f(1152, a);
+        Line[1].Position = sf::Vector2f(1280, a);
         Line[1].Color = sf::Color(0, 0, 0);
         MapWindow->Draw(Line);
     }
@@ -209,7 +225,7 @@ void MapEditor::GrabTile(sf::IntRect ClickPosition)
 {
     for(int y=0; y<24; y++)
     {
-        for(int x=0; x<4; x++)
+        for(int x=0; x<8; x++)
         {
             if(TilesetRectTable[y][x].Contains(ClickPosition.Left, ClickPosition.Top))
             {
