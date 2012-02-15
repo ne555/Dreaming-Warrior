@@ -1,5 +1,6 @@
 Generic structure:
-<Quest ID> <Quest Name> <Quest Text> <Level Requirement> <Quest Requirement> <Num Objectives>
+<Quest ID> <QGiver start ID> <QGiver end ID> <Quest Name> <Quest Text> <Level Requirement> <Quest Requirement> <Num Objectives>
+<Objectives> ... <Item Reward ID>
 
 Slay objective:
 0 <Map> <Enemy ID> <Count>

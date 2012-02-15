@@ -136,13 +136,13 @@ Item GetItemFromDatabase(string World, int ID)
 Quest GetQuestFromDatabase(string World, int ID)
 {
     std::ifstream File(World + "/QuestDatabase.txt");
-    int QID, Level_req, Quest_req, Num_Obj;
+    int QID, StartCreature, EndCreature, Level_req, Quest_req, Num_Obj;
     string Name, Text;
-    while(File >> QID >> Name >> Text >> Level_req >> Quest_req >> Num_Obj)
+    while(File >> QID >> StartCreature >> EndCreature >> Name >> Text >> Level_req >> Quest_req >> Num_Obj)
     {
         if(QID != ID)
             continue;
-        Quest Quest(ID, SetSpaces(Name), SetSpaces(Text), Level_req, Quest_req, Num_Obj);
+        Quest Quest(ID, StartCreature, EndCreature, SetSpaces(Name), SetSpaces(Text), Level_req, Quest_req, Num_Obj);
         for(int a = 0; a<Num_Obj; ++a)
         {
             int obj, obj_id, count;
@@ -160,6 +160,8 @@ Quest GetQuestFromDatabase(string World, int ID)
                 break;
             }
         }
+        File >> ID;
+        Quest.ItemReward = ID;
         return Quest;
     }
 }

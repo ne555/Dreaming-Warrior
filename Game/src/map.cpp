@@ -176,11 +176,11 @@ void Game::LoadMap(string PathToMap)
     
     Vendors.clear();
     File.open(PathToMap + "Vendors.txt");
-    int NumItems;
-    while(File >> x >> y >> CreatureMapTexture >> NumItems)
+    int Count;
+    while(File >> x >> y >> CreatureMapTexture >> Count)
     {
         Vendor Vendor(x, y, CreatureMapTexture);
-        for(int i=0; i<NumItems; ++i)
+        for(int i=0; i<Count; ++i)
         {
             int ItemID;
             File >> ItemID;
@@ -192,10 +192,10 @@ void Game::LoadMap(string PathToMap)
     
     QuestGivers.clear();
     File.open(PathToMap + "QuestGivers.txt");
-    while(File >> x >> y >> CreatureMapTexture >> NumItems)
+    while(File >> ID >> x >> y >> CreatureMapTexture >> Count)
     {
-        QuestGiver QuestGiver(x, y, CreatureMapTexture);
-        for(int c=0; c<NumItems; ++c)
+        QuestGiver QuestGiver(ID, x, y, CreatureMapTexture);
+        for(int c=0; c<Count; ++c)
         {
             int QuestID;
             File >> QuestID;
