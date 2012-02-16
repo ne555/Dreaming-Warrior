@@ -38,8 +38,8 @@ void Game::Encounter(Orientation Direction)
                         GameOver();
                     case 1:
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
+                        Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
-                        //bla bla quest objective, drop loot je u combatu hendlan
                         break;
                     case 2:
                         break;
@@ -104,7 +104,7 @@ void Game::Encounter(Orientation Direction)
         case VENDOR:
             for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
             {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
+                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32+1)
                 {
                     VendorEncounter VendorEncounter;
                     Vendor Vendor = VendorEncounter.MainLoop(Player, *itr);
@@ -117,7 +117,7 @@ void Game::Encounter(Orientation Direction)
         case QUEST:
             for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
             {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
+                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32+1)
                 {
                     QuestEncounter QuestEncounter(Player, Window);
                     QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
@@ -157,7 +157,7 @@ void Game::Encounter(Orientation Direction)
         case VENDOR:
             for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
             {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
+                if(itr->x == Player.GetX()/32+1 && itr->y == Player.GetY()/32)
                 {
                     VendorEncounter VendorEncounter;
                     Vendor Vendor = VendorEncounter.MainLoop(Player, *itr);
@@ -170,7 +170,7 @@ void Game::Encounter(Orientation Direction)
         case QUEST:
             for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
             {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
+                if(itr->x == Player.GetX()/32+1 && itr->y == Player.GetY()/32)
                 {
                     QuestEncounter QuestEncounter(Player, Window);
                     QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
@@ -210,7 +210,7 @@ void Game::Encounter(Orientation Direction)
         case VENDOR:
             for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
             {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
+                if(itr->x == Player.GetX()/32-1 && itr->y == Player.GetY()/32)
                 {
                     VendorEncounter VendorEncounter;
                     Vendor Vendor = VendorEncounter.MainLoop(Player, *itr);
@@ -223,7 +223,7 @@ void Game::Encounter(Orientation Direction)
         case QUEST:
             for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
             {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
+                if(itr->x == Player.GetX()/32-1 && itr->y == Player.GetY()/32)
                 {
                     QuestEncounter QuestEncounter(Player, Window);
                     QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
@@ -244,6 +244,7 @@ void Game::RandomEncounter()
         return;
     vector<Enemy>::iterator itr = RandomEncounters.begin() + urand(0, RandomEncounters.size()-1);
     Combat Combat(Window, Player, *itr);
-    Combat.MainLoop() ? RandomEncounters.erase(itr) : GameOver();
+    if(!Combat.MainLoop())
+        GameOver();
     //TODO: NE ZABORAVI Quest objective i loot!
 }

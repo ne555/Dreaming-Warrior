@@ -22,11 +22,13 @@
 
 struct QuestGiver
 {
-    QuestGiver(int x, int y, string TextureFileName) 
-        : x(x), y(y), TextureFileName(TextureFileName)
+    QuestGiver(int ID, int x, int y, string TextureFileName) 
+        : ID(ID), x(x), y(y), TextureFileName(TextureFileName)
     {
         MapTexture.LoadFromFile(TextureFileName);
     }
+
+    int ID;
     int x;
     int y;
     sf::Texture MapTexture;

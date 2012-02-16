@@ -19,7 +19,7 @@
 #include "player.h"
 
 Combat::Combat(sf::RenderWindow &window, Player &player, Enemy enemy) 
-    : window(window), player(player), enemy(enemy), TextY(600)
+    : window(window), player(player), enemy(enemy), TextY(200)
 {
 }
 
@@ -40,10 +40,8 @@ int Combat::MainLoop()
     //Sucelje
     sf::Texture CombatGUI;
     CombatGUI.LoadFromFile("Graphics/CombatScreen.png");
-    //sf::Texture BackgroundTexture;
-    //BackgroundTexture.LoadFromFile("BackgroundTexture.png");
-    sf::Sprite CreatureSprite(enemy.CreatureCombatTexture);
-    CreatureSprite.SetPosition(410, 140);
+    sf::Texture BackgroundTexture;
+    BackgroundTexture.LoadFromFile("Graphics/OldPaper.jpg");
 
     sf::Event Event;
 
@@ -110,7 +108,6 @@ int Combat::MainLoop()
         window.Clear();
         //window.Draw(sf::Sprite(BackgroundTexture));
         window.Draw(sf::Sprite(CombatGUI));
-        window.Draw(CreatureSprite);
         window.Draw(ArrowSprite);
         DrawPlayerStats();
         DrawCommandText(CommandList);
@@ -268,7 +265,7 @@ void Combat::HandleCombatText(string CombatString)
     CombatText.SetColor(sf::Color(0, 0, 0));
     CombatTexts.push_back(CombatText);
     TextY += 35;
-    if(CombatTexts.size() > 5)
+    if(CombatTexts.size() > 10)
     {
         CombatTexts.erase(CombatTexts.begin());
         for(vector<sf::Text>::iterator itr = CombatTexts.begin(); itr != CombatTexts.end(); ++itr)

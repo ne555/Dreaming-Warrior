@@ -30,15 +30,12 @@ struct Loot
 
 struct Enemy : public Creature
 {
-    Enemy(int ID, int Atk, int Def, int Health, string Combat, int Level, string Name, int Wealth, int x, int y, string MapTexture);
-    Enemy(int ID, int Atk, int Def, int Health, string Combat, int Level, string Name, int Wealth);
-    ~Enemy();
+    Enemy(int ID, int Atk, int Def, int Health, int Level, string Name, int Wealth, int x, int y, string MapTexture);
+    Enemy(int ID, int Atk, int Def, int Health, int Level, string Name, int Wealth);
 
     // i igrac ima slicno
     sf::Texture CreatureMapTexture;
-    sf::Texture CreatureCombatTexture;
     string MapTextureFileName;
-    string CombatTextureFileName;
 
     int ID;
     vector<Loot> Loot;

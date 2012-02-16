@@ -17,8 +17,7 @@
 #ifndef QUEST_ENCOUNTER_H
 #define QUEST_ENCOUNTER_H
 
-class Player;
-
+#include "player.h"
 #include "questgiver.h"
 
 class QuestEncounter
@@ -26,11 +25,24 @@ class QuestEncounter
     sf::RenderWindow &Window;
     sf::Event Event;
     sf::Sprite ArrowSprite;
+    sf::Sprite GUISprite;
     Player &player;
 
-    sf::Text QuestText;
-    vector<sf::Text> QuestNames;
+    struct _Quest
+    {
+        _Quest(Quest Quest, bool From)
+            : Quest(Quest), From(From)
+        {
+        }
+        Quest Quest;
+        //false - Player
+        //true - QGiver
+        bool From;
+    };
+
+    vector<_Quest> Quests;
     int QuestIterator;
+    float ArrowY;
 
     void DrawAll();
 

@@ -151,23 +151,27 @@ void Game::LoadMap(string PathToMap)
     string Item[4];
     string CreatureMapTexture, Combat, Name;
     Enemies.clear();
+    /*
+    TODO: ove iteme na count i for loop a ne vako ruzno
+    */
     File.open(PathToMap + "Enemies.txt");
-    while(File >> ID >> Atk >> Def >> HP >> Combat >> Level >> Name >> Wealth >> x >> y >> CreatureMapTexture 
+    while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth >> x >> y >> CreatureMapTexture 
         >> Item[0] >> Chance[0] >> Item[1] >> Chance[1] >> Item[2] >> Chance[2] >> Item[3] >> Chance[3])
     {
-        Enemy Enemy(ID, Atk, Def, HP, Combat, Level, Name, Wealth, x, y, CreatureMapTexture);
+        Enemy Enemy(ID, Atk, Def, HP, Level, Name, Wealth, x, y, CreatureMapTexture);
         for(int a = 0; Item[a] != "NULL"; ++a)
             Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));
+        ObjectGrid[y][x] = ENEMY;
         Enemies.push_back(Enemy);
     }
     File.close();
 
     RandomEncounters.clear();
     File.open(PathToMap + "RandomEncounters.txt");
-    while(File >> ID >> Atk >> Def >> HP >> Combat >> Level >> Name >> Wealth 
+    while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth 
         >> Item[0] >> Chance[0] >> Item[1] >> Chance[1] >> Item[2] >> Chance[2] >> Item[3] >> Chance[3])
     {
-        Enemy Enemy(ID, Atk, Def, HP, Combat, Level, Name, Wealth);
+        Enemy Enemy(ID, Atk, Def, HP, Level, Name, Wealth);
         for(int a = 0; Item[a] != "NULL"; ++a)
             Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));
         RandomEncounters.push_back(Enemy);
@@ -186,6 +190,7 @@ void Game::LoadMap(string PathToMap)
             File >> ItemID;
             Vendor.Items.push_back(GetItemFromDatabase(World, ItemID));
         }
+        ObjectGrid[y][x] = VENDOR;
         Vendors.push_back(Vendor);
     }
     File.close();
@@ -201,22 +206,10 @@ void Game::LoadMap(string PathToMap)
             File >> QuestID;
             QuestGiver.Quests.push_back(GetQuestFromDatabase(World, QuestID));
         }
+        ObjectGrid[y][x] = QUEST;
         QuestGivers.push_back(QuestGiver);
     }
     File.close();
-
-    for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
-    {
-        ObjectGrid[itr->GetY()][itr->GetX()] = ENEMY;
-    }
-    for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
-    {
-        ObjectGrid[itr->y][itr->x] = VENDOR;
-    }
-    for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
-    {
-        ObjectGrid[itr->y][itr->x] = ENEMY;
-    }
 
     RenderMapTexture.Display();
     this->MapTexture = RenderMapTexture.GetTexture();

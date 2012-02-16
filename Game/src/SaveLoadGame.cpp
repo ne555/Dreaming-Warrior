@@ -75,8 +75,7 @@ void Game::SaveMap(string PathToMap)
     for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
     {
         File << itr->ID << " " << itr->GetAttackPower() << " " << itr->GetArmor() 
-            << " " << itr->GetHealth() << " "
-            << itr->CombatTextureFileName << " " << itr->GetLevel() << " "
+            << " " << itr->GetHealth() << " " << itr->GetLevel() << " "
             << itr->GetName() << " " << itr->GetWealth() << " " << itr->GetX() << " "
             << itr->GetY() << " " << itr->MapTextureFileName;
         int ctr = 4;
@@ -111,7 +110,7 @@ void Game::SaveMap(string PathToMap)
     File.clear();
     for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
     {
-        File << itr->ID << itr->x << " " << itr->y << " " << itr->TextureFileName << " " << itr->Quests.size();
+        File << itr->ID << " " << itr->x << " " << itr->y << " " << itr->TextureFileName << " " << itr->Quests.size();
         for(auto iitr = itr->Quests.begin(); iitr != itr->Quests.end(); ++iitr)
         {
             File << " " << iitr->ID;
@@ -158,10 +157,10 @@ void Game::SavePlayer()
         File << " " << Player.GetQuests()[i].ID;
     }
     //Completed quests
-    File << " " << Player.GetFinishedQuests().size();
-    for(int i=0; i<Player.GetFinishedQuests().size(); ++i)
+    File << " " << Player.GetCompletedQuests().size();
+    for(int i=0; i<Player.GetCompletedQuests().size(); ++i)
     {
-        File << " " << Player.GetFinishedQuests()[i];
+        File << " " << Player.GetCompletedQuests()[i];
     }
     File.close();
 }

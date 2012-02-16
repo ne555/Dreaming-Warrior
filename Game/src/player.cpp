@@ -72,7 +72,7 @@ Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack)
     while(x != 0)
     {
         File >> id;
-        AddFinishedQuest(id);
+        AddCompletedQuest(id);
         --x;
     }
 

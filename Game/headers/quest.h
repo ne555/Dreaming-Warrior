@@ -47,14 +47,29 @@ struct QuestObjective
 
 struct Quest
 {
-    Quest(int ID, string Name, string Text, int LevelReq, int QuestReq, int NumObjectives)
-        : ID(ID), Name(Name), Text(Text), LevelReq(LevelReq), QuestReq(QuestReq)
+    Quest(int ID, int StartCreature, int EndCreature, string Name, string Text, 
+        int LevelReq, int QuestReq, int NumObjectives)
+        : ID(ID), StartCreature(StartCreature), EndCreature(EndCreature), Name(Name), 
+        Text(Text), LevelReq(LevelReq), QuestReq(QuestReq)
     {
         Objectives.reserve(NumObjectives);
+    }
+    
+    bool IsComplete()
+    {
+        for(int i = 0; i < Objectives.size(); ++i)
+        {
+            if(Objectives[i].CurrentProgress < Objectives[i].ReqProgress)
+                return false;
+        }
+        return true;
     }
     int ID;
     int LevelReq;
     int QuestReq;
+    int StartCreature;
+    int EndCreature;
+    int ItemReward;
     string Name;
     string Text;
     vector<QuestObjective> Objectives;

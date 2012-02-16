@@ -27,7 +27,7 @@ class Player : public Creature
     vector<Item> EquipedItems;
     vector<Spell> Spells;
     vector<Quest> Quests;
-    vector<int> FinishedQuests;
+    vector<int> CompletedQuests;
 
     Class PlayerClass;
     int Exp;
@@ -48,8 +48,8 @@ public:
     const vector<Spell> &GetSpells() const { return Spells; }
     const vector<Item> &GetEquipedItems() const { return EquipedItems; }
     const vector<Item> &GetItems() const { return Items; }
-    const vector<Quest> &GetQuests() const { return Quests; }
-    const vector<int> &GetFinishedQuests() const { return FinishedQuests; }
+    vector<Quest> &GetQuests() { return Quests; }
+    vector<int> GetCompletedQuests() const { return CompletedQuests; }
 
     int GetHealthPotNum()
     {
@@ -188,9 +188,40 @@ public:
         Quests.push_back(Quest);
     }
 
-    void AddFinishedQuest(int ID)
+    void AddCompletedQuest(int ID)
     {
-        FinishedQuests.push_back(ID);
+        CompletedQuests.push_back(ID);
+    }
+
+    bool HasCompletedQuest(int ID)
+    {
+        for(auto itr = CompletedQuests.begin(); itr != CompletedQuests.end(); ++itr)
+        {
+            if(*itr == ID)
+                return true;
+        }
+        return false;
+    }
+
+    void RemoveQuest(int ID)
+    {
+        for(auto itr = Quests.begin(); itr != Quests.end(); ++itr)
+        {
+            if(itr->ID == ID)
+            {
+                Quests.erase(itr);
+                return;
+            }
+        }
+    }
+
+    void UpdateQuestObjective(int ID)
+    {
+        for(auto itr = Quests.begin(); itr != Quests.end(); ++itr)
+            for(auto iter = itr->Objectives.begin(); iter != itr->Objectives.end(); ++iter)
+                if(iter->ObjectiveID == ID)
+                    if(iter->ReqProgress != iter->CurrentProgress)
+                        iter->CurrentProgress += 1;
     }
 };
 
