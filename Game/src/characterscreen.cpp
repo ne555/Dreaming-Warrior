@@ -15,20 +15,72 @@
     along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "characterscreen.h"
+#include "QuestScreen.h"
 #include "player.h"
 
 /*
-TODO: Pokazi lika, equipane iteme, questove i statse
-i ovo class jer treba swap izmeðu questova
-
-TODO: Pokazi lika, backpack iteme, omoguci mjenjanje statsa, omoguci mjenjanje equipa
-
 Ostavi mjesta meðu itemima za strelicu koja je 32x32
 */
 
 CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
-    : Window(Window), player(player), QuestIterator(0)
+    : Window(Window), player(player)
 {
+    ScreenTexture.Create(1024, 768);
+}
+
+void CharacterScreen::ItemsLoop()
+{
+}
+
+void CharacterScreen::SpellsLoop()
+{
+    if(player.GetSpells().empty())
+        return;
+    int Iterator = 0;
+    float ArrowY = 50.0f;
+    ArrowSprite.SetPosition(760.0f, ArrowY);
+    while(Window.IsOpen()) 
+    {
+        while(Window.PollEvent(Event))
+        {
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            {
+                if(Iterator != 0)
+                {
+                    --Iterator;
+                    ArrowY -= 35;
+                    ArrowSprite.SetPosition(760.0f, ArrowY);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            {
+                if(Iterator != player.GetSpells().size()-1)
+                {
+                    ++Iterator;
+                    ArrowY += 35;
+                    ArrowSprite.SetPosition(760.0f, ArrowY);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            {
+                return;
+            }
+        }
+        Window.Clear();
+        //TODO draw spell detalje ovisno o iteratoru
+        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(ArrowSprite);
+        Window.Display();
+    }
+}
+
+void CharacterScreen::StatsLoop()
+{
+}
+
+void CharacterScreen::DrawTexture()
+{
+    //Graphics
     sf::Texture PlayerTexture, ArrowTexture, BackgroundTexture;
     switch(player.GetClass())
     {
@@ -42,24 +94,113 @@ CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     BackgroundTexture.LoadFromFile("Graphics/CharacterScreen.png");
     ArrowSprite.SetTexture(ArrowTexture);
+    ArrowSprite.SetPosition(800.0f, 550.0f);
     PlayerSprite.SetTexture(PlayerTexture);
     BackgroundSprite.SetTexture(BackgroundTexture);
+
+    //Texts
+    sf::Text Items("Items"), Spells("Spells"), 
+        Stats("Stats"), Quests("Quests"), Exit("Exit"),
+        PointsText("Attribute points left: " + IntToString(player.GetTalentPoints())),
+        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth())),
+        PowerText,
+        AttackText("Attack: " + IntToString(player.GetAttackPower())), 
+        DefenseText("Armor: " + IntToString(player.GetArmor()));
+
+    float SpellTextY = 50;
+    for(auto itr = player.GetSpells().begin(); itr != player.GetSpells().end(); ++itr)
+    {
+        sf::Text SpellText(itr->Name);
+        SpellText.SetPosition(800, SpellTextY);
+        SpellTextY += 35;
+        ScreenTexture.Draw(SpellText);
+    }
+
+    if(player.GetClass() == CLASS_WARRIOR)
+        PowerText.SetString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+    else
+        PowerText.SetString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+
+    PointsText.SetPosition(200, 55);
+    HealthText.SetPosition(200, 90);
+    PowerText.SetPosition(200, 125);
+    AttackText.SetPosition(200, 160);
+    DefenseText.SetPosition(200, 195);
+    Items.SetPosition(850.0f, 550.0f);
+    Spells.SetPosition(850.0f, 585.0f);
+    Stats.SetPosition(850.0f, 625.0f);
+    Quests.SetPosition(850.0f, 660.0f);
+    Exit.SetPosition(850.0f, 695.0f);
+
+    ScreenTexture.Draw(PlayerSprite);
+    ScreenTexture.Draw(PointsText);
+    ScreenTexture.Draw(HealthText);
+    ScreenTexture.Draw(PowerText);
+    ScreenTexture.Draw(AttackText);
+    ScreenTexture.Draw(DefenseText);
+    ScreenTexture.Draw(Spells);
+    ScreenTexture.Draw(Stats);
+    ScreenTexture.Draw(Items);
+    ScreenTexture.Draw(Quests);
+    ScreenTexture.Draw(Exit);
+    ScreenTexture.Display();
 }
 
-void CharacterScreen::DrawAll()
+void CharacterScreen::MainLoop()
 {
-    Window.Clear();
-    Window.Draw(BackgroundSprite);
-    sf::Text QuestText(player.GetQuests()[QuestIterator].Text);
-    //QuestText.SetPosition();
-    float QuestNameY; //TODO = gdje je sad
-    for(int i=0; i<player.GetQuests().size(); ++i)
+    DrawTexture();
+    int Command = 1;
+    float ArrowY = 550.0f;
+    while(Window.IsOpen()) 
     {
-        sf::Text QuestName(player.GetQuests()[i].Name);
-        //QuestName.SetPosition(, QuestNameY);
-        Window.Draw(QuestName);
-    }
-    for(int i=0; i<player.GetEquipedItems().size(); ++i)
+        while(Window.PollEvent(Event))
+        {
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            {
+                if(Command != 1)
+                {
+                    --Command;
+                    ArrowY -= 35;
+                    ArrowSprite.SetPosition(800.0f, ArrowY);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            {
+                if(Command != 5)
+                {
+                    ++Command;
+                    ArrowY += 35;
+                    ArrowSprite.SetPosition(800.0f, ArrowY);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            {
+                switch(Command)
+                {
+                case 1:
+                    ItemsLoop();
+                    break;
+                case 2:
+                    SpellsLoop();
+                    break;
+                case 3:
+                    StatsLoop();
+                    break;
+                case 4:
+                    {
+                        QuestScreen QuestScreen(player, Window);
+                        QuestScreen.MainLoop();
+                    }
+                    break;
+                case 5:
+                    return;
+                }
+                ArrowSprite.SetPosition(800.0f, ArrowY);
+            }
+        }
+        Window.Clear();
+        //Window.Draw(BackgroundSprite);
+    /*for(int i=0; i<player.GetEquipedItems().size(); ++i)
     {
         sf::Sprite ItemSprite(player.GetItems()[i].Visual);
         switch(player.GetItems()[i].Type)
@@ -84,99 +225,10 @@ void CharacterScreen::DrawAll()
             break;
         }
         Window.Draw(ItemSprite);
-    }
-    //TODO: i itemi iz torbice
-    //Window.Draw(QuestText);
-    Window.Draw(PlayerSprite);
-    Window.Draw(ArrowSprite);
-}
-
-void CharacterScreen::ItemsLoop()
-{
-}
-
-void CharacterScreen::QuestsLoop()
-{
-    if(player.GetQuests().size() == 0)
-        return;
-    int QItr = 1;
-    float ArrowY; //TODO = 
-    while(Window.IsOpen()) 
-    {
-        while(Window.PollEvent(Event))
-        {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
-            {
-                if(QItr != 1)
-                {
-                    --QItr;
-                    //ArrowSprite.SetPosition(, ArrowY);
-                }
-            }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
-            {
-                if(QItr != player.GetQuests().size())
-                {
-                    ++QItr;
-                    //ArrowSprite.SetPosition(, ArrowY);
-                }
-            }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
-            {
-                QuestIterator = QItr;
-                return;
-            }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
-            {
-                return;
-            }
-        }
-        DrawAll();
-        Window.Display();
-    }
-}
-
-void CharacterScreen::MainLoop()
-{
-    int Command = 1;
-    while(Window.IsOpen()) 
-    {
-        while(Window.PollEvent(Event))
-        {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
-            {
-                if(Command != 1)
-                {
-                    --Command;
-                    //ArrowSprite.SetPosition();
-                }
-            }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
-            {
-                if(Command != 2)
-                {
-                    ++Command;
-                    //ArrowSprite.SetPosition();
-                }
-            }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
-            {
-                switch(Command)
-                {
-                case 1:
-                    QuestsLoop();
-                    break;
-                case 2:
-                    ItemsLoop();
-                    break;
-                }
-            }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
-            {
-                return;
-            }
-        }
-        DrawAll();
+    }*/
+        //TODO: i itemi iz torbice
+        Window.Draw(ArrowSprite);
+        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
         Window.Display();
     }
 }

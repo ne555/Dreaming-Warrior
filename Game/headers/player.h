@@ -32,6 +32,7 @@ class Player : public Creature
     Class PlayerClass;
     int Exp;
     int IntStr; // Inteligence / Strength
+    int TalentPoints; //TODO!
 
 public:
     Class LoadFromFile(string World, Class ClassHack, bool ThisIsHack);
@@ -42,6 +43,7 @@ public:
     int GetIntStr() const   { return IntStr; }
     Class GetClass() const  { return PlayerClass; }
     int GetExp() const      { return Exp; }
+    int GetTalentPoints() const { return TalentPoints; }
 
     void SetIntStr(int IntStr) { this->IntStr = IntStr; }
 

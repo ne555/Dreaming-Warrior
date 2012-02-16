@@ -14,29 +14,28 @@
     You should have received a copy of the GNU General Public License
     along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CHARACTER_SCREEN_H
-#define CHARACTER_SCREEN_H
+#ifndef QUEST_SCREEN_H
+#define QUEST_SCREEN_H
+
+class Player;
 
 #include <SFML\Graphics.hpp>
 #include "player.h"
 
-class CharacterScreen
+class QuestScreen
 {
     sf::RenderWindow &Window;
-    sf::RenderTexture ScreenTexture;
     sf::Event Event;
     Player &player;
 
+    int QuestIterator;
+
     sf::Sprite BackgroundSprite;
-    sf::Sprite PlayerSprite;
     sf::Sprite ArrowSprite;
 
-    void DrawTexture();
-    void SpellsLoop();
-    void ItemsLoop();
-    void StatsLoop();
+    void DrawAll();
 public:
-    CharacterScreen(Player &player, sf::RenderWindow &Window);
+    QuestScreen(Player &player, sf::RenderWindow &Window);
     void MainLoop();
 };
 
