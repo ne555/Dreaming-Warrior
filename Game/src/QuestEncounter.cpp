@@ -40,6 +40,12 @@ void QuestEncounter::DrawAll()
     sf::Text QuestText(Quests[QuestIterator].Quest.Text);
     QuestText.SetPosition(150.0f, 100.0f);
     Window.Draw(QuestText);
+    sf::Text ObjectiveText
+        ("TODO: Ime creature loadat u Quest na pocetku. " 
+        + IntToString(Quests[QuestIterator].Quest.Objectives.begin()/*PH*/->CurrentProgress)
+        + "/" + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->ReqProgress));
+    ObjectiveText.SetPosition(300.0f, 100.0f);
+    Window.Draw(ObjectiveText);
     for(auto i = Quests.begin(); i != Quests.end(); ++i)
     {
         sf::Text QuestName(i->Quest.Name);

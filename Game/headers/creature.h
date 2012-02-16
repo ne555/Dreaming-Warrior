@@ -66,7 +66,7 @@ public:
     void SetLevel(int Level)    { this->Level = Level; }
     void SetMaxHealth(int MaxHealth) { this->MaxHealth = MaxHealth; }
     void SetMaxPower(int MaxPower) { this->MaxPower = MaxPower; }
-    void SetHealth(int Health)  { this->Health = Health; }
+    void SetHealth(int Health)  { this->Health = Health; if(this->Health > MaxHealth) this->Health = MaxHealth; }
     void SetPower(int Power)    { this->Power = Power; }
     void SetAttackPower(int Atk){ AttackPower = Atk; }
     void SetArmor(int Armor)    { this->Armor = Armor; }

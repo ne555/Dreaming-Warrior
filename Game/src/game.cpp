@@ -143,7 +143,6 @@ int Game::Move(Orientation Direction)
         break;
     }
 
-    //TODO: Random encounter
     //if(urand(0, 1) == 0)
         //return 1;
 

@@ -91,8 +91,8 @@ void Game::Encounter(Orientation Direction)
                         GameOver();
                     case 1:
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
+                        Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
-                        //bla bla quest objective, drop loot je u combatu hendlan
                         break;
                     case 2:
                         break;
@@ -144,8 +144,8 @@ void Game::Encounter(Orientation Direction)
                         GameOver();
                     case 1:
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
+                        Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
-                        //bla bla quest objective, drop loot je u combatu hendlan
                         break;
                     case 2:
                         break;
@@ -197,8 +197,8 @@ void Game::Encounter(Orientation Direction)
                         GameOver();
                     case 1:
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
+                        Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
-                        //bla bla quest objective, drop loot je u combatu hendlan
                         break;
                     case 2:
                         break;
@@ -246,5 +246,5 @@ void Game::RandomEncounter()
     Combat Combat(Window, Player, *itr);
     if(!Combat.MainLoop())
         GameOver();
-    //TODO: NE ZABORAVI Quest objective i loot!
+    Player.UpdateQuestObjective(itr->ID);
 }

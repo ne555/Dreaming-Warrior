@@ -30,18 +30,13 @@ return 2; Run
 */
 int Combat::MainLoop()
 {
-    //Arrow
     float ArrowY = 60.0f;
-    sf::Texture ArrowTexture;
+    sf::Texture ArrowTexture, CombatGUI, ParchmentTexture;
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     sf::Sprite ArrowSprite(ArrowTexture);
     ArrowSprite.SetPosition(800.0f, ArrowY);
-
-    //Sucelje
-    sf::Texture CombatGUI;
     CombatGUI.LoadFromFile("Graphics/CombatScreen.png");
-    sf::Texture BackgroundTexture;
-    BackgroundTexture.LoadFromFile("Graphics/OldPaper.jpg");
+    //ParchmentTexture.LoadFromFile("Graphics/Parchment.png");
 
     sf::Event Event;
 
@@ -79,8 +74,6 @@ int Combat::MainLoop()
                 if(HandleInput(CommandList, Command, ArrowY, PlayerMove))
                 {
                     enemy.SetHealth(enemy.GetHealth());
-                    //enemy.RemoveBuffs();
-                    //player.RemoveBuffs();
                     return 2;
                 }
                 ArrowSprite.SetPosition(800.0f, ArrowY);
@@ -106,7 +99,7 @@ int Combat::MainLoop()
         }
         // Pokazi sve na ekranu
         window.Clear();
-        //window.Draw(sf::Sprite(BackgroundTexture));
+        //window.Draw(sf::Sprite(ParchmentTexture));
         window.Draw(sf::Sprite(CombatGUI));
         window.Draw(ArrowSprite);
         DrawPlayerStats();
@@ -164,21 +157,18 @@ bool Combat::HandleInput(int &CommandList, int &Command, float &ArrowY, bool &Pl
         }
         break;
     case 3: // Magija Menu
-        switch(Command)
+        if(Command-1 > player.GetSpells().size())
         {
-            //TODO: tu cu morat pazit na kojem je mjestu return i velicinu vectora koji sadrzi spelove
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
+            ArrowY = 60.0f;
+            Command = 1;
+            CommandList = 1;
             break;
         }
-        break;
+        SpellCast(player.GetSpells()[Command-1]);
+        ArrowY = 60.0f;
+        Command = 1;
+        CommandList = 1;
+        PlayerMove = false;
     }
 
     return false;
@@ -206,34 +196,29 @@ void Combat::CreatureAttack()
     HandleCombatText(CombatString);
 }
 
-bool Combat::SpellCast(const Spell &Spell, Creature &Caster, Creature &Target)
+/*
+TODO malo randomiziranja i kalkuliranja da ne bude dosadno
+*/
+void Combat::SpellCast(const Spell &Spell)
 {
-    if(Spell.Cost > Caster.GetPower())
-        return false;
+    if(Spell.Cost > player.GetPower())
+    {
+        HandleCombatText("You failed to cast " + Spell.Name + " due lack of mana/power (switch class) [PH]");
+        return;
+    }
 
     switch(Spell.Type)
     {
     case SPELL_ATTACK:
-        Target.SetHealth(Target.GetHealth() - Spell.Value);
-        //sf::Text isprintat
+        enemy.SetHealth(enemy.GetHealth() - Spell.Value);
+        HandleCombatText("Your " + Spell.Name + " hits " + enemy.GetName() + " for " + IntToString(Spell.Value) + " damage!");
         break;
     case SPELL_HEAL:
-        Target.SetHealth(Target.GetHealth() + Spell.Value);
-        //sf::Text isprintat
+        player.SetHealth(player.GetHealth() + Spell.Value);
+        HandleCombatText("Your " + Spell.Name + " heals you for " + IntToString(Spell.Value) + "!");
         break;
     }
-
-    return true;
 }
-/*
-bool Combat::SpellCast(const Buff &Buff, Creature &Caster, Creature &Target)
-{
-    if(Buff.Cost > Caster.GetPower())
-        return false;
-
-    Target.ApplyBuff(Buff);
-    return true;
-}*/
 
 bool Combat::RunIfCan()
 {
@@ -277,15 +262,15 @@ void Combat::HandleCombatText(string CombatString)
 void Combat::DrawPlayerStats()
 {
     sf::Text 
-        HealthText("Health: " + IntToString(player.GetHealth())),
+        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth())),
         PowerText,
         AttackText("Attack: " + IntToString(player.GetAttackPower())), 
         DefenseText("Armor: " + IntToString(player.GetArmor()));
 
     if(player.GetClass() == CLASS_WARRIOR)
-        PowerText.SetString("Stamina: " + IntToString(player.GetPower()));
+        PowerText.SetString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
     else
-        PowerText.SetString("Mana: " + IntToString(player.GetPower()));
+        PowerText.SetString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
 
     HealthText.SetPosition(95, 90);
     PowerText.SetPosition(95, 125);
