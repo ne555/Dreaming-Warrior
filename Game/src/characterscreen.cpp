@@ -30,6 +30,38 @@ CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
 
 void CharacterScreen::ItemsLoop()
 {
+    //ArrowSprite.SetPosition();
+    int IterX, IterY; //todo
+    //ArrowSprite.SetPosition(165.0f, ArrowY);
+    while(Window.IsOpen()) 
+    {
+        while(Window.PollEvent(Event))
+        {
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard:::Left))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            {
+                return;
+            }
+        }
+        Window.Clear();
+        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(ArrowSprite);
+        Window.Display();
+    }
 }
 
 void CharacterScreen::SpellsLoop()
@@ -76,12 +108,80 @@ void CharacterScreen::SpellsLoop()
 
 void CharacterScreen::StatsLoop()
 {
+    int Iterator = 0;
+    float ArrowY = 90.0f;
+    ArrowSprite.SetPosition(165.0f, ArrowY);
+    while(Window.IsOpen()) 
+    {
+        while(Window.PollEvent(Event))
+        {
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            {
+                if(Iterator != 0)
+                {
+                    --Iterator;
+                    ArrowY -= 35;
+                    ArrowSprite.SetPosition(165.0f, ArrowY);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            {
+                if(Iterator != 3)
+                {
+                    ++Iterator;
+                    ArrowY += 35;
+                    ArrowSprite.SetPosition(165.0f, ArrowY);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            {
+                //todo [PH]
+                switch(Iterator)
+                {
+                case 0:
+                    player.SetMaxHealth(player.GetMaxHealth() + 10);
+                    break;
+                case 1:
+                    player.SetMaxPower(player.GetMaxPower() + 10);
+                    break;
+                case 2:
+                    player.SetAttackPower(player.GetAttackPower() + 5);
+                    break;
+                case 3:
+                    player.SetArmor(player.GetArmor() + 5);
+                    break;
+                }
+                player.UseTalentPoint();
+                DrawTexture(); //TODO odvojiti stats textove u vise funkcija radi performansa
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            {
+                return;
+            }
+        }
+        Window.Clear();
+        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(ArrowSprite);
+        Window.Display();
+    }
+}
+
+void CharacterScreen::DrawItems()
+{
+    float ItemX, ItemY; //TODO, init : see charscreen.h
+    for(auto itr = player.GetItems().begin(); itr != player.GetItems().end(); ++itr)
+    {
+        sf::Sprite ItemSprite(itr->ItemTexture);
+        ItemSprite.SetPosition(ItemX, ItemY);
+        //...
+        Window.Draw(ItemSprite);
+    }
 }
 
 void CharacterScreen::DrawTexture()
 {
     //Graphics
-    sf::Texture PlayerTexture, ArrowTexture, BackgroundTexture;
+    sf::Texture PlayerTexture, BackgroundTexture;
     switch(player.GetClass())
     {
     case CLASS_WARRIOR:
@@ -91,16 +191,12 @@ void CharacterScreen::DrawTexture()
         PlayerTexture.LoadFromFile("Graphics/Mage.png");
         break;
     }
-    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     BackgroundTexture.LoadFromFile("Graphics/CharacterScreen.png");
-    ArrowSprite.SetTexture(ArrowTexture);
-    ArrowSprite.SetPosition(800.0f, 550.0f);
     PlayerSprite.SetTexture(PlayerTexture);
     BackgroundSprite.SetTexture(BackgroundTexture);
 
     //Texts
-    sf::Text Items("Items"), Spells("Spells"), 
-        Stats("Stats"), Quests("Quests"), Exit("Exit"),
+    sf::Text Items("Items"), Spells("Spells"), Stats("Stats"), Quests("Quests"), Exit("Exit"),
         PointsText("Attribute points left: " + IntToString(player.GetTalentPoints())),
         HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth())),
         PowerText,
@@ -132,6 +228,7 @@ void CharacterScreen::DrawTexture()
     Quests.SetPosition(850.0f, 660.0f);
     Exit.SetPosition(850.0f, 695.0f);
 
+    //ScreenTexture.Draw(BackgroundSprite);
     ScreenTexture.Draw(PlayerSprite);
     ScreenTexture.Draw(PointsText);
     ScreenTexture.Draw(HealthText);
@@ -148,6 +245,10 @@ void CharacterScreen::DrawTexture()
 
 void CharacterScreen::MainLoop()
 {
+    sf::Texture ArrowTexture;
+    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
+    ArrowSprite.SetTexture(ArrowTexture);
+    ArrowSprite.SetPosition(800.0f, 550.0f);
     DrawTexture();
     int Command = 1;
     float ArrowY = 550.0f;
@@ -184,7 +285,8 @@ void CharacterScreen::MainLoop()
                     SpellsLoop();
                     break;
                 case 3:
-                    StatsLoop();
+                    if(player.GetTalentPoints() > 0)
+                        StatsLoop();
                     break;
                 case 4:
                     {
@@ -202,7 +304,7 @@ void CharacterScreen::MainLoop()
         //Window.Draw(BackgroundSprite);
     /*for(int i=0; i<player.GetEquipedItems().size(); ++i)
     {
-        sf::Sprite ItemSprite(player.GetItems()[i].Visual);
+        sf::Sprite ItemSprite(player.GetItems()[i].ItemTexture);
         switch(player.GetItems()[i].Type)
         {
         case ITEM_HEAD:

@@ -20,9 +20,9 @@
 Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack)
 {
     std::ifstream File(World + "/Player.txt");
-    int x, y, level, exp, int_str, health, power, attack, armor, id, _class;
+    int x, y, level, exp, int_str, health, power, attack, armor, id, _class, talent_pts;
     string name, map;
-    File >> map >> x >> y >> name >> _class >> level >> exp >> int_str >> health >> power >> attack >> armor;
+    File >> map >> x >> y >> name >> _class >> level >> exp >> talent_pts >> int_str >> health >> power >> attack >> armor;
     Map = map;
     SetX(x);
     SetY(y);
@@ -33,6 +33,7 @@ Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack)
     SetLevel(level);
     Exp = exp;
     IntStr = int_str;
+    TalentPoints = talent_pts;
     SetHealth(health);
     SetMaxHealth(health);
     SetPower(power);

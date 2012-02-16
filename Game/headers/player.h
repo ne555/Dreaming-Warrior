@@ -32,7 +32,7 @@ class Player : public Creature
     Class PlayerClass;
     int Exp;
     int IntStr; // Inteligence / Strength
-    int TalentPoints; //TODO!
+    int TalentPoints;
 
 public:
     Class LoadFromFile(string World, Class ClassHack, bool ThisIsHack);
@@ -46,6 +46,7 @@ public:
     int GetTalentPoints() const { return TalentPoints; }
 
     void SetIntStr(int IntStr) { this->IntStr = IntStr; }
+    void UseTalentPoint() { --TalentPoints; }
 
     const vector<Spell> &GetSpells() const { return Spells; }
     const vector<Item> &GetEquipedItems() const { return EquipedItems; }

@@ -131,7 +131,7 @@ void Game::SavePlayer()
     else
         File << "1 ";
     //Stats
-    File << Player.GetLevel() << " " << Player.GetExp() << " " << Player.GetIntStr() << " " << Player.GetMaxHealth()
+    File << Player.GetLevel() << " " << Player.GetExp() << " " << Player.GetTalentPoints() << " " << Player.GetIntStr() << " " << Player.GetMaxHealth()
         << " " << Player.GetMaxPower() << " " << Player.GetAttackPower() << " " << Player.GetArmor() << " " << Player.GetItems().size();
     //Backpack
     for(int i=0; i<Player.GetItems().size(); ++i)

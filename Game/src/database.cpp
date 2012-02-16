@@ -71,7 +71,7 @@ Item GetItemFromDatabase(string World, int ID)
             buffer += *itr;
             ++itr;
         }
-        Item.Visual.LoadFromFile(buffer);
+        Item.ItemTexture.LoadFromFile(buffer);
         ++itr;
         buffer.clear();
 

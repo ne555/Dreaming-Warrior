@@ -124,7 +124,7 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
                     if(Quests[QuestIterator].Quest.IsComplete())
                     {
                         player.AddCompletedQuest(Quests[QuestIterator].Quest.ID);
-                        player.AddItem(GetItemFromDatabase("SavedGames/Save1",/*TODO [PH]*/Quests[QuestIterator].Quest.ItemReward));
+                        player.AddItem(GetItemFromDatabase("SavedGame",/*TODO [PH]*/Quests[QuestIterator].Quest.ItemReward));
                         player.RemoveQuest(Quests[QuestIterator].Quest.ID);
                         Quests.erase(Quests.begin() + QuestIterator);
                     }

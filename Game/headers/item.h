@@ -16,7 +16,7 @@ struct Item
     int ID;
     ItemType Type;
     string Name;
-    sf::Texture Visual;
+    sf::Texture ItemTexture;
     int Value;
     int BuyPrice;
     int SellPrice;

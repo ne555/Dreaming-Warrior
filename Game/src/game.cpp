@@ -36,12 +36,12 @@ void Game::InitGame(MainMenuData MenuResult)
     case NEW_GAME:
         //TODO: save po nekom imenu [PH]
         ThisIsHack = true;
-        World = "SavedGames/Save1";
+        World = "SavedGame";
         CopyWorld(MenuResult.PathToWorld, World);
         break;
     case LOAD_GAME:
         //TODO: save po nekom imenu [PH]
-        World = "SavedGames/Save1";
+        World = "SavedGame";
         break;
     }
 
@@ -54,7 +54,7 @@ void Game::InitGame(MainMenuData MenuResult)
         PlayerTexture.LoadFromFile("Tiles/Mage.png");
         break;
     }
-    LoadMap(World + Player.Map);
+    LoadMap(Player.Map);
 }
 
 void Game::GameOver()

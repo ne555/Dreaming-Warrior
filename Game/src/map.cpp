@@ -246,18 +246,17 @@ bool Game::CheckPortals(int x, int y)
     {
         if(RectPlayer.Intersects(itr->PortalRect))
         {
-            //Pokupi vrjednosti prije nego stara mapa bude unistena
+            //Pokupi vrjednosti prije nego stara mapa bude unistena i relociraj igraèa
             int a = itr->PlayerNewX, b = itr->PlayerNewY;
+            Player.Map = World + itr->PathToMap;
+            Player.SetX(a);
+            Player.SetY(b);
 
             //Save mapu
             SaveMap(this->PathToMap);
 
             //Napravi novu mapu
             LoadMap(World + itr->PathToMap);
-
-            //Relociraj igraca
-            Player.SetX(a);
-            Player.SetY(b);
 
             return true;
         }
