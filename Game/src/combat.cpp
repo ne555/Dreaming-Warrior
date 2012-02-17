@@ -19,7 +19,7 @@
 #include "player.h"
 
 Combat::Combat(sf::RenderWindow &window, Player &player, Enemy enemy) 
-    : window(window), player(player), enemy(enemy), TextY(200)
+    : window(window), player(player), enemy(enemy), TextY(628)
 {
 }
 
@@ -35,7 +35,8 @@ int Combat::MainLoop()
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     sf::Sprite ArrowSprite(ArrowTexture);
     ArrowSprite.SetPosition(800.0f, ArrowY);
-    CombatGUI.LoadFromFile("Graphics/CombatScreen.png");
+    CombatGUI.LoadFromFile("Graphics/CombatScreen.jpg");
+    Font.LoadFromFile("Graphics/papyrus.ttf");
     //ParchmentTexture.LoadFromFile("Graphics/Parchment.png");
 
     sf::Event Event;
@@ -218,6 +219,7 @@ void Combat::SpellCast(const Spell &Spell)
         HandleCombatText("Your " + Spell.Name + " heals you for " + IntToString(Spell.Value) + "!");
         break;
     }
+    player.SetPower(player.GetPower() - Spell.Cost);
 }
 
 bool Combat::RunIfCan()
@@ -245,42 +247,38 @@ void Combat::DropLoot()
 
 void Combat::HandleCombatText(string CombatString)
 {
-    sf::Text CombatText(CombatString);
-    CombatText.SetPosition(235.0f, TextY);
+    sf::Text CombatText(CombatString, Font, 25);
+    CombatText.SetPosition(247.0f, TextY);
+    CombatText.SetStyle(sf::Text::Bold);
     CombatText.SetColor(sf::Color(0, 0, 0));
     CombatTexts.push_back(CombatText);
-    TextY += 35;
-    if(CombatTexts.size() > 10)
+    TextY += 30;
+    if(CombatTexts.size() > 4)
     {
         CombatTexts.erase(CombatTexts.begin());
-        for(vector<sf::Text>::iterator itr = CombatTexts.begin(); itr != CombatTexts.end(); ++itr)
-            itr->SetPosition(235.0f, itr->GetPosition().y - 35.00f);
-        TextY -= 35;
+        for(auto itr = CombatTexts.begin(); itr != CombatTexts.end(); ++itr)
+            itr->SetPosition(247.0f, itr->GetPosition().y - 30.00f);
+        TextY -= 30;
     }
 }
 
 void Combat::DrawPlayerStats()
 {
     sf::Text 
-        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth())),
-        PowerText,
-        AttackText("Attack: " + IntToString(player.GetAttackPower())), 
-        DefenseText("Armor: " + IntToString(player.GetArmor()));
+        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()), Font),
+        PowerText("", Font),
+        AttackText("Attack: " + IntToString(player.GetAttackPower()), Font), 
+        DefenseText("Armor: " + IntToString(player.GetArmor()), Font);
 
     if(player.GetClass() == CLASS_WARRIOR)
         PowerText.SetString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
     else
         PowerText.SetString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
 
-    HealthText.SetPosition(95, 90);
-    PowerText.SetPosition(95, 125);
-    AttackText.SetPosition(95, 160);
-    DefenseText.SetPosition(95, 195);
-
-    HealthText.SetColor(sf::Color(255, 255, 255));
-    PowerText.SetColor(sf::Color(255, 255, 255));
-    AttackText.SetColor(sf::Color(255, 255, 255));
-    DefenseText.SetColor(sf::Color(255, 255, 255));
+    HealthText.SetPosition(50, 50);
+    PowerText.SetPosition(50, 85);
+    AttackText.SetPosition(50, 125);
+    DefenseText.SetPosition(50, 160);
 
     window.Draw(HealthText);
     window.Draw(PowerText);
@@ -295,20 +293,20 @@ void Combat::DrawCommandText(int WhatText)
         case 1:
         {
             sf::Text
-                Fight("Attack"),
-                Spell("Spell"),
-                Item("Potion"),
-                Run("Run");
+                Fight("Attack", Font),
+                Spell("Spell", Font),
+                Item("Potion", Font),
+                Run("Run", Font);
 
             Fight.SetPosition(850, 60);
             Spell.SetPosition(850, 95);
             Item.SetPosition(850, 130);
             Run.SetPosition(850, 165);
-    
-            Fight.SetColor(sf::Color(255, 255, 255));
-            Spell.SetColor(sf::Color(255, 255, 255));
-            Item.SetColor(sf::Color(255, 255, 255));
-            Run.SetColor(sf::Color(255, 255, 255));
+
+            Fight.SetStyle(sf::Text::Bold);
+            Spell.SetStyle(sf::Text::Bold);
+            Item.SetStyle(sf::Text::Bold);
+            Run.SetStyle(sf::Text::Bold);
 
             window.Draw(Fight);
             window.Draw(Spell);
@@ -324,9 +322,9 @@ void Combat::DrawCommandText(int WhatText)
             isto tako promjeni nacin na koji se itemi traze u player class, pa nek se traze osim po tipu i po imenu
             */
             sf::Text
-                Health("Health (x" + IntToString(player.GetHealthPotNum()) + ")"),
-                Power,
-                Return("Return ");
+                Health("Health (x" + IntToString(player.GetHealthPotNum()) + ")", Font),
+                Power("", Font),
+                Return("Return ", Font);
 
             if(player.GetClass() == CLASS_WARRIOR)
                 Power.SetString("Stamina (x" + IntToString(player.GetPowerPotNum()) + ")");
@@ -341,6 +339,10 @@ void Combat::DrawCommandText(int WhatText)
             Power.SetColor(sf::Color(255, 255, 255));
             Return.SetColor(sf::Color(255, 255, 255));
 
+            Health.SetStyle(sf::Text::Bold);
+            Power.SetStyle(sf::Text::Bold);
+            Return.SetStyle(sf::Text::Bold);
+
             window.Draw(Health);
             window.Draw(Power);
             window.Draw(Return);
@@ -351,15 +353,17 @@ void Combat::DrawCommandText(int WhatText)
             float PosY = 60.0f;
             for(auto itr = player.GetSpells().begin(); itr != player.GetSpells().end(); ++itr)
             {
-                sf::Text SpellText(itr->Name);
+                sf::Text SpellText(itr->Name, Font);
                 SpellText.SetPosition(850.0f, PosY);
+                SpellText.SetStyle(sf::Text::Bold);
                 SpellText.SetColor(sf::Color(255, 255, 255));
                 window.Draw(SpellText);
 
                 PosY += 35;
             }
-            sf::Text Return("Return");
+            sf::Text Return("Return", Font);
             Return.SetPosition(850.0f, PosY);
+            Return.SetStyle(sf::Text::Bold);
             Return.SetColor(sf::Color(255, 255, 255));
             window.Draw(Return);
             break;

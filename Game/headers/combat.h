@@ -27,6 +27,7 @@ class Combat
     Player &player;
     Enemy enemy;
 
+    sf::Font Font;
     vector<sf::Text> CombatTexts;
     float TextY;
 

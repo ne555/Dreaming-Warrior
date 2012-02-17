@@ -26,39 +26,100 @@ CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
     : Window(Window), player(player)
 {
     ScreenTexture.Create(1024, 768);
+    int i=0;
+    for(int y=0; y<5; ++y)
+    {
+        for(int x=0; x<6; ++x)
+        {
+            if(i < player.GetItems().size())
+                ItemGrid[y][x] = i;
+            else
+                ItemGrid[y][x] = -1;
+        }
+    }
 }
 
 void CharacterScreen::ItemsLoop()
 {
-    //ArrowSprite.SetPosition();
-    int IterX, IterY; //todo
-    //ArrowSprite.SetPosition(165.0f, ArrowY);
+    float ArrowX = 0, ArrowY = 571;
+    ArrowSprite.SetPosition(ArrowX, ArrowY);
+    int IterX = 0, IterY = 0;
     while(Window.IsOpen()) 
     {
         while(Window.PollEvent(Event))
         {
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
             {
+                if(IterY != 0 && (ItemGrid[IterY-1][IterX] != -1))
+                {
+                    IterY -= 1;
+                    ArrowY -= 32;
+                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
             {
+                if(IterY != 4 && (ItemGrid[IterY+1][IterX] != -1))
+                {
+                    IterY += 1;
+                    ArrowY += 32;
+                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
             {
+                if(IterX != 5 && (ItemGrid[IterY][IterX+1] != -1))
+                {
+                    IterX += 1;
+                    ArrowX += 79;
+                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard:::Left))
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
             {
+                if(IterX != 0 && (ItemGrid[IterY][IterX-1] != -1))
+                {
+                    IterX -= 1;
+                    ArrowX -= 79;
+                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
+                switch(player.GetItems()[ItemGrid[IterY][IterX]].Type)
+                {
+                case ITEM_QUEST:
+                case ITEM_POWER_POTION:
+                case ITEM_HEALTH_POTION:
+                    break;
+                default:
+                    player.EquipItem(player.GetItems()[ItemGrid[IterY][IterX]]);
+                    player.RemoveItem(ItemGrid[IterY][IterX]);
+                    int i=0;
+                    for(int y=0; y<5; ++y)
+                    {
+                        for(int x=0; x<6; ++x)
+                        {
+                            if(i < player.GetItems().size()-1)
+                                ItemGrid[y][x] = i;
+                            else
+                                ItemGrid[y][x] = -1;
+                        }
+                    }
+                    break;
+                }
             }
+            //else if D drop item?
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
+        //drawat statse trenutnog itema :P
+        //drawat grid kao u map editoru
         Window.Clear();
         Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        DrawItems();
         Window.Draw(ArrowSprite);
         Window.Display();
     }
@@ -168,12 +229,17 @@ void CharacterScreen::StatsLoop()
 
 void CharacterScreen::DrawItems()
 {
-    float ItemX, ItemY; //TODO, init : see charscreen.h
+    float ItemX = 47, ItemY = 571;
     for(auto itr = player.GetItems().begin(); itr != player.GetItems().end(); ++itr)
     {
         sf::Sprite ItemSprite(itr->ItemTexture);
         ItemSprite.SetPosition(ItemX, ItemY);
-        //...
+        ItemX +=79;
+        if(ItemX == 474)
+        {
+            ItemY -= 32;
+            ItemX = 79;
+        }
         Window.Draw(ItemSprite);
     }
 }
@@ -329,8 +395,9 @@ void CharacterScreen::MainLoop()
         Window.Draw(ItemSprite);
     }*/
         //TODO: i itemi iz torbice
-        Window.Draw(ArrowSprite);
         Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(ArrowSprite);
+        DrawItems();
         Window.Display();
     }
 }

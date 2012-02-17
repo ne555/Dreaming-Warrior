@@ -122,9 +122,8 @@ public:
             return false;
     }
 
-    void EquipItem(int ID)
+    void EquipItem(int ID) //todo nevalja bre
     {
-
         for(auto itr = Items.begin(); itr != Items.end(); ++itr)
         {
             if(itr->ID == ID)
@@ -138,19 +137,22 @@ public:
 
     void EquipItem(Item Item)
     {
+        for(auto itr = EquipedItems.begin(); itr != EquipedItems.end(); ++itr)
+        {
+            if(itr->Type == Item.Type)
+            {
+                Items.push_back(*itr);
+                EquipedItems.erase(itr);
+                break;
+            }
+        }
         EquipedItems.push_back(Item);
     }
 
-    void RemoveItem(int ID)
+    void RemoveItem(int Iter)
     {
-        for(auto itr = Items.begin(); itr != Items.end(); ++itr)
-        {
-            if(itr->ID == ID)
-            {
-                Items.erase(itr);
-                return;
-            }
-        }
+        auto itr = Items.begin() + Iter;
+        Items.erase(itr);
     }
 
     void CalculateStatsFromEquip()

@@ -44,7 +44,7 @@ class QuestEncounter
     int QuestIterator;
     float ArrowY;
 
-    void DrawAll();
+    bool ReadQuestText(QuestGiver &QuestGiver);
 
 public:
     QuestEncounter(Player &player, sf::RenderWindow &Window);

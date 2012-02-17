@@ -28,32 +28,94 @@ i ako you are not on this quest na input enter aceptat etc etc
 */
 
 QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window)
-    : Window(Window), player(player), QuestIterator(0), ArrowY(50.0f)
+    : Window(Window), player(player), QuestIterator(0), ArrowY(100.0f)
 {
 }
 
-void QuestEncounter::DrawAll()
+bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
 {
-    float QuestNameY = 50.0f;
-    Window.Clear();
-    Window.Draw(GUISprite);
     sf::Text QuestText(Quests[QuestIterator].Quest.Text);
-    QuestText.SetPosition(150.0f, 100.0f);
-    Window.Draw(QuestText);
+    QuestText.SetPosition(80.0f, 80.0f);
     sf::Text ObjectiveText
-        ("TODO: Ime creature loadat u Quest na pocetku. " 
-        + IntToString(Quests[QuestIterator].Quest.Objectives.begin()/*PH*/->CurrentProgress)
-        + "/" + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->ReqProgress));
-    ObjectiveText.SetPosition(300.0f, 100.0f);
-    Window.Draw(ObjectiveText);
-    for(auto i = Quests.begin(); i != Quests.end(); ++i)
+        ("le creature " //TODO ph
+        + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->CurrentProgress)//PH
+        + "/" + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->ReqProgress)),
+        AcceptText(Quests[QuestIterator].From ? "Accept" : "Complete"),
+        Decline(Quests[QuestIterator].From ? "Decline" : "Back");
+    AcceptText.SetPosition(700.0f, 520.0f);
+    Decline.SetPosition(700.0f, 555.0f);
+    ObjectiveText.SetPosition(580.0f, 90.0f);
+    ArrowSprite.SetPosition(660.0f, 520.0f);
+
+    bool Accept = false;
+    while(Window.IsOpen()) 
     {
-        sf::Text QuestName(i->Quest.Name);
-        QuestName.SetPosition(680, QuestNameY);
-        QuestNameY += 35;
-        Window.Draw(QuestName);
+        while(Window.PollEvent(Event))
+        {
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            {
+                if(Accept)
+                {
+                    Accept = false;
+                    ArrowSprite.SetPosition(660.0f, 520.0f);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            {
+                if(!Accept)
+                {
+                    Accept = true;
+                    ArrowSprite.SetPosition(660.0f, 555.0f);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            {
+                switch(Accept)
+                {
+                case false:
+                    switch(Quests[QuestIterator].From)
+                    {
+                    case true:
+                        player.AddQuest(Quests[QuestIterator].Quest);
+                        Quests[QuestIterator].From = false;
+                        for(auto itr = QuestGiver.Quests.begin(); itr != QuestGiver.Quests.end(); ++itr)
+                        {
+                            if(itr->ID == Quests[QuestIterator].Quest.ID)
+                            {
+                                QuestGiver.Quests.erase(itr);
+                                return false;
+                            }
+                        }
+                    case false:
+                        if(Quests[QuestIterator].Quest.IsComplete())
+                        {
+                            player.AddCompletedQuest(Quests[QuestIterator].Quest.ID);
+                            player.AddItem(GetItemFromDatabase("SavedGame",/*TODO [PH]*/Quests[QuestIterator].Quest.ItemReward));
+                            player.RemoveQuest(Quests[QuestIterator].Quest.ID);
+                            Quests.erase(Quests.begin() + QuestIterator);
+                        }
+                        if(Quests.empty())
+                            return true;
+                    }
+                    break;
+                case true:
+                    return false;
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Back))
+            {
+                return false;
+            }
+        }
+        Window.Clear();
+        Window.Draw(GUISprite);
+        Window.Draw(ArrowSprite);
+        Window.Draw(AcceptText);
+        Window.Draw(Decline);
+        Window.Draw(ObjectiveText);
+        Window.Draw(QuestText);
+        Window.Display();
     }
-    Window.Draw(ArrowSprite);
 }
 
 QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
@@ -77,9 +139,9 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
 
     sf::Texture ArrowTexture, GUITexture;
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
-    GUITexture.LoadFromFile("Graphics/QuestScreen.png");
+    GUITexture.LoadFromFile("Graphics/QuestScreen.jpg");
     ArrowSprite.SetTexture(ArrowTexture);
-    ArrowSprite.SetPosition(645.0f, ArrowY);
+    ArrowSprite.SetPosition(555.0f, ArrowY);
     GUISprite.SetTexture(GUITexture);
 
     while(Window.IsOpen()) 
@@ -92,7 +154,7 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
                 {
                     --QuestIterator;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(645.0f, ArrowY);
+                    ArrowSprite.SetPosition(555.0f, ArrowY);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
@@ -101,44 +163,31 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
                 {
                     ++QuestIterator;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(645.0f, ArrowY);
+                    ArrowSprite.SetPosition(555.0f, ArrowY);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
-                switch(Quests[QuestIterator].From)
-                {
-                case true:
-                    player.AddQuest(Quests[QuestIterator].Quest);
-                    Quests[QuestIterator].From = false;
-                    for(auto itr = QuestGiver.Quests.begin(); itr != QuestGiver.Quests.end(); ++itr)
-                    {
-                        if(itr->ID == Quests[QuestIterator].Quest.ID)
-                        {
-                            QuestGiver.Quests.erase(itr);
-                            break;
-                        }
-                    }
-                    break;
-                case false:
-                    if(Quests[QuestIterator].Quest.IsComplete())
-                    {
-                        player.AddCompletedQuest(Quests[QuestIterator].Quest.ID);
-                        player.AddItem(GetItemFromDatabase("SavedGame",/*TODO [PH]*/Quests[QuestIterator].Quest.ItemReward));
-                        player.RemoveQuest(Quests[QuestIterator].Quest.ID);
-                        Quests.erase(Quests.begin() + QuestIterator);
-                    }
-                    if(Quests.empty())
-                        return QuestGiver;
-                    break;
-                }
+                if(ReadQuestText(QuestGiver))
+                    return QuestGiver;
+                ArrowSprite.SetPosition(555.0f, ArrowY);
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
             {
                 return QuestGiver;
             }
         }
-        DrawAll();
+        float QuestNameY = 100.0f;
+        Window.Clear();
+        Window.Draw(GUISprite);
+        for(auto i = Quests.begin(); i != Quests.end(); ++i)
+        {
+            sf::Text QuestName(i->Quest.Name);
+            QuestName.SetPosition(600.0f, QuestNameY);
+            QuestNameY += 35;
+            Window.Draw(QuestName);
+        }
+        Window.Draw(ArrowSprite);
         Window.Display();
     }
     return QuestGiver;

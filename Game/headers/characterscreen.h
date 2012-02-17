@@ -31,7 +31,7 @@ class CharacterScreen
     sf::Sprite PlayerSprite;
     sf::Sprite ArrowSprite;
 
-    //int ItemIDGrid[][];
+    int ItemGrid[5][6];
 
     void DrawTexture();
     void DrawItems();
