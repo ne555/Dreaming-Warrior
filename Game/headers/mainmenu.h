@@ -32,6 +32,7 @@ class MainMenu
     sf::RenderWindow &Window;
     sf::Event Event;
     sf::Texture Background;
+    sf::Font Font;
 
     GameMode ChooseGameMode();
     Class ChooseClass();

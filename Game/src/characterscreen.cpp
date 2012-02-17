@@ -18,16 +18,16 @@
 #include "QuestScreen.h"
 #include "player.h"
 
-/*
-Ostavi mjesta meðu itemima za strelicu koja je 32x32
-*/
-
 CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
     : Window(Window), player(player)
 {
     ScreenTexture.Create(1024, 768);
-    int i=0;
-    for(int y=0; y<5; ++y)
+}
+
+void CharacterScreen::ItemsLoop()
+{
+    unsigned i=0;
+    for(int y=0; y<6; ++y)
     {
         for(int x=0; x<6; ++x)
         {
@@ -35,12 +35,9 @@ CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
                 ItemGrid[y][x] = i;
             else
                 ItemGrid[y][x] = -1;
+            ++i;
         }
     }
-}
-
-void CharacterScreen::ItemsLoop()
-{
     float ArrowX = 0, ArrowY = 571;
     ArrowSprite.SetPosition(ArrowX, ArrowY);
     int IterX = 0, IterY = 0;
@@ -50,7 +47,7 @@ void CharacterScreen::ItemsLoop()
         {
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
             {
-                if(IterY != 0 && (ItemGrid[IterY-1][IterX] != -1))
+                if(IterY != 0)
                 {
                     IterY -= 1;
                     ArrowY -= 32;
@@ -59,7 +56,7 @@ void CharacterScreen::ItemsLoop()
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
             {
-                if(IterY != 4 && (ItemGrid[IterY+1][IterX] != -1))
+                if(IterY != 5)
                 {
                     IterY += 1;
                     ArrowY += 32;
@@ -68,7 +65,7 @@ void CharacterScreen::ItemsLoop()
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
             {
-                if(IterX != 5 && (ItemGrid[IterY][IterX+1] != -1))
+                if(IterX != 5)
                 {
                     IterX += 1;
                     ArrowX += 79;
@@ -77,7 +74,7 @@ void CharacterScreen::ItemsLoop()
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
             {
-                if(IterX != 0 && (ItemGrid[IterY][IterX-1] != -1))
+                if(IterX != 0)
                 {
                     IterX -= 1;
                     ArrowX -= 79;
@@ -86,6 +83,8 @@ void CharacterScreen::ItemsLoop()
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
+                if(ItemGrid[IterY][IterX] == -1)
+                    continue;
                 switch(player.GetItems()[ItemGrid[IterY][IterX]].Type)
                 {
                 case ITEM_QUEST:
@@ -95,8 +94,8 @@ void CharacterScreen::ItemsLoop()
                 default:
                     player.EquipItem(player.GetItems()[ItemGrid[IterY][IterX]]);
                     player.RemoveItem(ItemGrid[IterY][IterX]);
-                    int i=0;
-                    for(int y=0; y<5; ++y)
+                    unsigned i=0;
+                    for(int y=0; y<6; ++y)
                     {
                         for(int x=0; x<6; ++x)
                         {
@@ -104,19 +103,41 @@ void CharacterScreen::ItemsLoop()
                                 ItemGrid[y][x] = i;
                             else
                                 ItemGrid[y][x] = -1;
+                            ++i;
                         }
                     }
                     break;
                 }
+                IterY = IterX = 0;
+                ArrowX = 0; ArrowY = 571;
             }
             //else if D drop item?
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::D))
+            {
+                if(ItemGrid[IterY][IterX] == -1)
+                    continue;
+                player.RemoveItem(ItemGrid[IterY][IterX]);
+                unsigned i=0;
+                for(int y=0; y<6; ++y)
+                {
+                    for(int x=0; x<6; ++x)
+                    {
+                        if(i < player.GetItems().size()-1)
+                            ItemGrid[y][x] = i;
+                        else
+                            ItemGrid[y][x] = -1;
+                        ++i;
+                    }
+                }
+                IterY = IterX = 0;
+                ArrowX = 0; ArrowY = 571;
+            }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
         //drawat statse trenutnog itema :P
-        //drawat grid kao u map editoru
         Window.Clear();
         Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
         DrawItems();
@@ -206,10 +227,10 @@ void CharacterScreen::StatsLoop()
                     player.SetMaxPower(player.GetMaxPower() + 10);
                     break;
                 case 2:
-                    player.SetAttackPower(player.GetAttackPower() + 5);
+                    player.SetAttack(player.GetAttack() + 5);
                     break;
                 case 3:
-                    player.SetArmor(player.GetArmor() + 5);
+                    player.SetDefense(player.GetDefense() + 5);
                     break;
                 }
                 player.UseTalentPoint();
@@ -242,6 +263,33 @@ void CharacterScreen::DrawItems()
         }
         Window.Draw(ItemSprite);
     }
+    for(int a=47; a<474; a+=79)
+    {
+        sf::VertexArray Line(sf::Lines, 2);
+        Line[0].Position = sf::Vector2f(a, 571.0f);
+        Line[0].Color = sf::Color(0, 0, 0);
+        Line[1].Position = sf::Vector2f(a, 763.0f);
+        Line[1].Color = sf::Color(0, 0, 0);
+        Window.Draw(Line);
+    }
+    for(int a=79; a<503; a+=79)
+    {
+        sf::VertexArray Line(sf::Lines, 2);
+        Line[0].Position = sf::Vector2f(a, 571.0f);
+        Line[0].Color = sf::Color(0, 0, 0);
+        Line[1].Position = sf::Vector2f(a, 763.0f);
+        Line[1].Color = sf::Color(0, 0, 0);
+        Window.Draw(Line);
+    }
+    for(int a=571; a<768; a+=32)
+    {
+        sf::VertexArray Line(sf::Lines, 2);
+        Line[0].Position = sf::Vector2f(0.0f, a);
+        Line[0].Color = sf::Color(0, 0, 0);
+        Line[1].Position = sf::Vector2f(474.0f, a);
+        Line[1].Color = sf::Color(0, 0, 0);
+        Window.Draw(Line);
+    }
 }
 
 void CharacterScreen::DrawTexture()
@@ -257,17 +305,18 @@ void CharacterScreen::DrawTexture()
         PlayerTexture.LoadFromFile("Graphics/Mage.png");
         break;
     }
-    BackgroundTexture.LoadFromFile("Graphics/CharacterScreen.png");
+    BackgroundTexture.LoadFromFile("Graphics/CharacterScreen.jpg");
     PlayerSprite.SetTexture(PlayerTexture);
     BackgroundSprite.SetTexture(BackgroundTexture);
 
     //Texts
-    sf::Text Items("Items"), Spells("Spells"), Stats("Stats"), Quests("Quests"), Exit("Exit"),
-        PointsText("Attribute points left: " + IntToString(player.GetTalentPoints())),
-        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth())),
-        PowerText,
-        AttackText("Attack: " + IntToString(player.GetAttackPower())), 
-        DefenseText("Armor: " + IntToString(player.GetArmor()));
+    sf::Text Items("Items", Font), Spells("Spells", Font), Stats("Stats", Font), Quests("Quests", Font), Exit("Exit", Font),
+        PointsText("Attribute points left: " + IntToString(player.GetTalentPoints()), Font),
+        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()), Font),
+        PowerText("", Font),
+        IntStrText("", Font),
+        AttackText("Attack: " + IntToString(player.GetAttack()), Font), 
+        DefenseText("Defense: " + IntToString(player.GetDefense()), Font);
 
     float SpellTextY = 50;
     for(auto itr = player.GetSpells().begin(); itr != player.GetSpells().end(); ++itr)
@@ -279,22 +328,29 @@ void CharacterScreen::DrawTexture()
     }
 
     if(player.GetClass() == CLASS_WARRIOR)
+    {
         PowerText.SetString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+        IntStrText.SetString("Strenght: " + IntToString(player.GetIntStr()));
+    }
     else
+    {
         PowerText.SetString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+        IntStrText.SetString("Intelligence: " + IntToString(player.GetIntStr()));
+    }
 
     PointsText.SetPosition(200, 55);
     HealthText.SetPosition(200, 90);
     PowerText.SetPosition(200, 125);
     AttackText.SetPosition(200, 160);
     DefenseText.SetPosition(200, 195);
+    IntStrText.SetPosition(200, 230);
     Items.SetPosition(850.0f, 550.0f);
     Spells.SetPosition(850.0f, 585.0f);
     Stats.SetPosition(850.0f, 625.0f);
     Quests.SetPosition(850.0f, 660.0f);
     Exit.SetPosition(850.0f, 695.0f);
 
-    //ScreenTexture.Draw(BackgroundSprite);
+    ScreenTexture.Draw(BackgroundSprite);
     ScreenTexture.Draw(PlayerSprite);
     ScreenTexture.Draw(PointsText);
     ScreenTexture.Draw(HealthText);
@@ -311,6 +367,7 @@ void CharacterScreen::DrawTexture()
 
 void CharacterScreen::MainLoop()
 {
+    Font.LoadFromFile("Graphics/papyrus.ttf");
     sf::Texture ArrowTexture;
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     ArrowSprite.SetTexture(ArrowTexture);
@@ -367,7 +424,6 @@ void CharacterScreen::MainLoop()
             }
         }
         Window.Clear();
-        //Window.Draw(BackgroundSprite);
     /*for(int i=0; i<player.GetEquipedItems().size(); ++i)
     {
         sf::Sprite ItemSprite(player.GetItems()[i].ItemTexture);
@@ -394,7 +450,6 @@ void CharacterScreen::MainLoop()
         }
         Window.Draw(ItemSprite);
     }*/
-        //TODO: i itemi iz torbice
         Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
         Window.Draw(ArrowSprite);
         DrawItems();

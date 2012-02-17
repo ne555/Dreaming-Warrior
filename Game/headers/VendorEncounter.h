@@ -18,14 +18,22 @@
 #define VENDOR_ENCOUNTER_H
 
 #include "vendor.h"
-
-class Player;
+#include "player.h"
 
 class VendorEncounter
 {
+    sf::RenderWindow &Window;
+    sf::Event Event;
+    Player &player;
+
+    sf::Font Font;
+
+    sf::Texture DrawInterface();
+    void DrawItems();
+
 public:
-    VendorEncounter();
-    Vendor MainLoop(Player &Player, Vendor Vendor);
+    VendorEncounter(Player &Player, sf::RenderWindow &Window);
+    Vendor MainLoop(Vendor Vendor);
 };
 
 #endif

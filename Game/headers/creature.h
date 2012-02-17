@@ -25,8 +25,8 @@ class Creature
     int x;
     int y;
     int Level;
-    int AttackPower; // Melee ili Spell Power
-    int Armor;
+    int Attack; // Melee ili Spell Power
+    int Defense;
     int MaxHealth;
     int MaxPower;
     int Health;
@@ -38,12 +38,12 @@ public:
     Creature() {}
     ~Creature() {}
 
-    Creature(int Atk, int Armor, int Health, int x, int y, int Level, string Name, int Wealth)
-        : AttackPower(Atk), Armor(Armor), Health(Health), MaxHealth(Health), x(x), y(y), Level(Level), Name(Name), Wealth(Wealth)
+    Creature(int Atk, int Defense, int Health, int x, int y, int Level, string Name, int Wealth)
+        : Attack(Atk), Defense(Defense), Health(Health), MaxHealth(Health), x(x), y(y), Level(Level), Name(Name), Wealth(Wealth)
     {
     }
-    Creature(int Atk, int Armor, int Health, int Level, string Name, int Wealth)
-        : AttackPower(Atk), Armor(Armor), Health(Health), MaxHealth(Health), Level(Level), Name(Name), Wealth(Wealth)
+    Creature(int Atk, int Defense, int Health, int Level, string Name, int Wealth)
+        : Attack(Atk), Defense(Defense), Health(Health), MaxHealth(Health), Level(Level), Name(Name), Wealth(Wealth)
     {
     }
 
@@ -54,10 +54,10 @@ public:
     int GetMaxPower() const     { return MaxPower; }
     int GetHealth() const       { return Health; }
     int GetPower() const        { return Power; }
-    int GetAttackPower() const  { return AttackPower; }
-    int GetArmor() const        { return Armor; }
+    int GetAttack() const       { return Attack; }
+    int GetDefense() const      { return Defense; }
     int GetWealth() const       { return Wealth; }
-    string GetName() const { return Name;}
+    string GetName() const      { return Name;}
 
    // const vector<Buff> &GetBuffs() const { return Buffs; }
 
@@ -68,10 +68,10 @@ public:
     void SetMaxPower(int MaxPower) { this->MaxPower = MaxPower; }
     void SetHealth(int Health)  { this->Health = Health; if(this->Health > MaxHealth) this->Health = MaxHealth; }
     void SetPower(int Power)    { this->Power = Power; }
-    void SetAttackPower(int Atk){ AttackPower = Atk; }
-    void SetArmor(int Armor)    { this->Armor = Armor; }
+    void SetAttack(int Atk){ Attack = Atk; }
+    void SetDefense(int Defense){ this->Defense = Defense; }
     void SetWealth(int Wealth)  { this->Wealth = Wealth; }
-    void SetName(string Name) { this->Name = Name; }
+    void SetName(string Name)   { this->Name = Name; }
     /*
     void ApplyBuff(Buff Buff)
     {
@@ -88,7 +88,7 @@ public:
             break;
         case ATTACK_POWER:
             break;
-        case ARMOR:
+        case Defense:
             break;
         case INT_OR_STR:
             break;
@@ -113,7 +113,7 @@ public:
                 continue;
             case ATTACK_POWER:
                 continue;
-            case ARMOR:
+            case Defense:
                 continue;
             case INT_OR_STR:
                 continue;

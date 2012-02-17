@@ -25,13 +25,15 @@
 #include <sstream>
 #include <iostream>
 
+using std::ofstream;
 using std::string;
 using std::stringstream;
 using std::vector;
 using std::cout;
+using std::cerr;
 using std::endl;
 
-#define BACKPACK_SIZE 30 //PH
+#define BACKPACK_SIZE 36
 #define MAX_SPELLS 5 //PH?
 
 enum ItemType
@@ -56,7 +58,7 @@ enum Attribute
     HEALTH,
     POWER,
     ATTACK_POWER, // Melee or Spell Power
-    ARMOR,
+    DEFENSE_POWER,
     INT_OR_STR
 };
 

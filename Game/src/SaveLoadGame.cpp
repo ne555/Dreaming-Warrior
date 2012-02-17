@@ -29,19 +29,19 @@ void Game::CopyWorld(const boost::filesystem::path& source, const boost::filesys
         }
         if(fs::exists(dest)) 
         {
-            std::cerr << "Destination directory " << dest.string().c_str() << " already exists." << std::endl;
+            cerr << "Destination directory " << dest.string().c_str() << " already exists." << std::endl;
             return;
         }
         // Create the destination directory
         if(!fs::create_directory(dest)) 
         {
-            std::cerr << "Unable to create destination directory " << dest.string().c_str() << std::endl;
+            cerr << "Unable to create destination directory " << dest.string().c_str() << std::endl;
             return;
         }
     }
     catch(fs::filesystem_error& e) 
     {
-        std::cerr << e.what() << std::endl;
+        cerr << e.what() << std::endl;
         return;
     }
     // Iterate through the source directory
@@ -63,18 +63,18 @@ void Game::CopyWorld(const boost::filesystem::path& source, const boost::filesys
         }
         catch(fs::filesystem_error& e) 
         {
-            std::cerr << e.what() << std::endl;
+            cerr << e.what() << std::endl;
         }
     }
 }
 
 void Game::SaveMap(string PathToMap)
 {
-    std::ofstream File(PathToMap + "Enemies.txt");
+    ofstream File(PathToMap + "Enemies.txt");
     File.clear();
     for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
     {
-        File << itr->ID << " " << itr->GetAttackPower() << " " << itr->GetArmor() 
+        File << itr->ID << " " << itr->GetAttack() << " " << itr->GetDefense() 
             << " " << itr->GetHealth() << " " << itr->GetLevel() << " "
             << itr->GetName() << " " << itr->GetWealth() << " " << itr->GetX() << " "
             << itr->GetY() << " " << itr->MapTextureFileName;
@@ -122,7 +122,7 @@ void Game::SaveMap(string PathToMap)
 
 void Game::SavePlayer()
 {
-    std::ofstream File(World + "/Player.txt");
+    ofstream File(World + "/Player.txt");
     File.clear();
     //Basic info
     File << Player.Map << " " << Player.GetX() << " " << Player.GetY() << " " << Player.GetName() << " ";
@@ -132,33 +132,33 @@ void Game::SavePlayer()
         File << "1 ";
     //Stats
     File << Player.GetLevel() << " " << Player.GetExp() << " " << Player.GetTalentPoints() << " " << Player.GetIntStr() << " " << Player.GetMaxHealth()
-        << " " << Player.GetMaxPower() << " " << Player.GetAttackPower() << " " << Player.GetArmor() << " " << Player.GetItems().size();
+        << " " << Player.GetMaxPower() << " " << Player.GetAttack() << " " << Player.GetDefense() << " " << Player.GetItems().size();
     //Backpack
-    for(int i=0; i<Player.GetItems().size(); ++i)
+    for(unsigned i=0; i<Player.GetItems().size(); ++i)
     {
         File << " " << Player.GetItems()[i].ID;
     }
     //Equiped Items
     File << " " << Player.GetEquipedItems().size();
-    for(int i=0; i<Player.GetEquipedItems().size(); ++i)
+    for(unsigned i=0; i<Player.GetEquipedItems().size(); ++i)
     {
         File << " " << Player.GetEquipedItems()[i].ID;
     }
     //Spells
     File << " " << Player.GetSpells().size();
-    for(int i=0; i<Player.GetSpells().size(); ++i)
+    for(unsigned i=0; i<Player.GetSpells().size(); ++i)
     {
         File << " " << Player.GetSpells()[i].ID;
     }
     //Quests
     File << " " << Player.GetQuests().size();
-    for(int i=0; i<Player.GetQuests().size(); ++i)
+    for(unsigned i=0; i<Player.GetQuests().size(); ++i)
     {
         File << " " << Player.GetQuests()[i].ID;
     }
     //Completed quests
     File << " " << Player.GetCompletedQuests().size();
-    for(int i=0; i<Player.GetCompletedQuests().size(); ++i)
+    for(unsigned i=0; i<Player.GetCompletedQuests().size(); ++i)
     {
         File << " " << Player.GetCompletedQuests()[i];
     }

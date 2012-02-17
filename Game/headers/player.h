@@ -31,7 +31,7 @@ class Player : public Creature
 
     Class PlayerClass;
     int Exp;
-    int IntStr; // Inteligence / Strength
+    int IntStr; // Intelligence / Strength
     int TalentPoints;
 
 public:
@@ -170,10 +170,10 @@ public:
                     SetMaxPower(GetMaxPower() + iter->Value);
                     continue;
                 case ATTACK_POWER:
-                    SetAttackPower(GetAttackPower() + iter->Value);
+                    SetAttack(GetAttack() + iter->Value);
                     continue;
-                case ARMOR:
-                    SetArmor(GetArmor() + iter->Value);
+                case DEFENSE_POWER:
+                    SetDefense(GetDefense() + iter->Value);
                     continue;
                 case INT_OR_STR:
                     SetIntStr(GetIntStr() + iter->Value);

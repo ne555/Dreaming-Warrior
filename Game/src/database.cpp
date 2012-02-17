@@ -131,6 +131,8 @@ Item GetItemFromDatabase(string World, int ID)
         }
         return Item;
     }
+    cerr << "FATAL: Invalid item ID." << endl;
+    exit(1);
 }
 
 Quest GetQuestFromDatabase(string World, int ID)
@@ -164,6 +166,8 @@ Quest GetQuestFromDatabase(string World, int ID)
         Quest.ItemReward = ID;
         return Quest;
     }
+    cerr << "FATAL: Invalid quest ID." << endl;
+    exit(1);
 }
 
 Spell GetSpellFromDatabase(string World, int ID)
@@ -178,4 +182,6 @@ Spell GetSpellFromDatabase(string World, int ID)
         Spell Spell(ID, GetSpellType(type), Name, LevelReq, Cost, Value);
         return Spell;
     }
+    cerr << "FATAL: Invalid spell ID." << endl;
+    exit(1);
 }

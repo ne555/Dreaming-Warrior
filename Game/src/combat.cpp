@@ -267,13 +267,20 @@ void Combat::DrawPlayerStats()
     sf::Text 
         HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()), Font),
         PowerText("", Font),
-        AttackText("Attack: " + IntToString(player.GetAttackPower()), Font), 
-        DefenseText("Armor: " + IntToString(player.GetArmor()), Font);
+        IntStrText("", Font),
+        AttackText("Attack: " + IntToString(player.GetAttack()), Font), 
+        DefenseText("Defense: " + IntToString(player.GetDefense()), Font);
 
     if(player.GetClass() == CLASS_WARRIOR)
+    {
         PowerText.SetString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+        IntStrText.SetString("Strenght: " + IntToString(player.GetIntStr()));
+    }
     else
+    {
         PowerText.SetString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+        IntStrText.SetString("Intelligence: " + IntToString(player.GetIntStr()));
+    }
 
     HealthText.SetPosition(50, 50);
     PowerText.SetPosition(50, 85);

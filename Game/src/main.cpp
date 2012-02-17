@@ -20,6 +20,9 @@
 
 int main()
 {
+    ofstream file("Error Log.txt");
+    cerr.rdbuf(file.rdbuf());
+
     srand((unsigned)time(0));
     Game Game;
     Game.InitGame(Game.ShowMenu());

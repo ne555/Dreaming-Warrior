@@ -16,11 +16,48 @@
 */
 #include "VendorEncounter.h"
 
-VendorEncounter::VendorEncounter()
+VendorEncounter::VendorEncounter(Player &player, sf::RenderWindow &Window)
+    : player(player), Window(Window)
 {
 }
 
-Vendor VendorEncounter::MainLoop(Player &Player, Vendor Vendor)
+sf::Texture VendorEncounter::DrawInterface()
 {
+    sf::RenderTexture ScreenTexture;
+    sf::Texture PlayerTexture, VendorTexture;
+    sf::Text BuyItem("Buy Item", Font), SellItem("Sell Item", Font);
+    switch(player.GetClass())
+    {
+    case CLASS_WARRIOR:
+        PlayerTexture.LoadFromFile("Graphics/Warrior.png");
+        break;
+    case CLASS_MAGE:
+        PlayerTexture.LoadFromFile("Graphics/Mage.png");
+        break;
+    }
+}
+
+Vendor VendorEncounter::MainLoop(Vendor Vendor)
+{
+    sf::Texture ArrowTexture;
+    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
+    Font.LoadFromFile("Graphics/papyrus.ttf");
+    while(Window.IsOpen()) 
+    {
+        while(Window.PollEvent(Event))
+        {
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            {
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            {
+            }
+        }
+        Window.Clear();
+        Window.Display();
+    }
     return Vendor;
 }

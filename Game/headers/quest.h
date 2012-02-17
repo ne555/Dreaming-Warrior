@@ -57,7 +57,7 @@ struct Quest
     
     bool IsComplete()
     {
-        for(int i = 0; i < Objectives.size(); ++i)
+        for(unsigned i = 0; i < Objectives.size(); ++i)
         {
             if(Objectives[i].CurrentProgress < Objectives[i].ReqProgress)
                 return false;

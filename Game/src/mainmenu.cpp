@@ -41,7 +41,8 @@ MainMenuData MainMenu::MainLoop()
             return MenuData;
         }
     }
-    //ovdje se nesmije bit
+    cerr << "FATAL: Invalid game mode." << endl;
+    exit(1);
 }
 
 Class MainMenu::ChooseClass()
@@ -56,8 +57,8 @@ Class MainMenu::ChooseClass()
     WarriorSprite.SetPosition(80.0f, 190.0f);
     ArrowSprite.SetPosition(400.0f, 350.0f);
     sf::Text
-        MageText("Mage"),
-        WarriorText("Warrior");
+        MageText("Mage", Font),
+        WarriorText("Warrior", Font);
     MageText.SetPosition(450.0f, 350.0f);
     WarriorText.SetPosition(450.0f, 385.0f);
 
@@ -106,12 +107,13 @@ Class MainMenu::ChooseClass()
 
 GameMode MainMenu::ChooseGameMode()
 {
+    Font.LoadFromFile("Graphics/papyrus.ttf");
     float ArrowY = 350;
     int Command = 1;
     sf::Text
-        NewGame("Nova igra"),
-        LoadGame("Ucitaj igru"),
-        Exit("Izlaz");
+        NewGame("Nova igra", Font),
+        LoadGame("Ucitaj igru", Font),
+        Exit("Izlaz", Font);
     
     NewGame.SetPosition(450, 350);
     LoadGame.SetPosition(450, 385);
@@ -169,5 +171,4 @@ GameMode MainMenu::ChooseGameMode()
         Window.Draw(Exit);
         Window.Display();
     }
-    //ovdje nesmijes biti
 }

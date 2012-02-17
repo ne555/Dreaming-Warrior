@@ -116,6 +116,7 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
         Window.Draw(QuestText);
         Window.Display();
     }
+    return false;
 }
 
 QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)

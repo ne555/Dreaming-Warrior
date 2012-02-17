@@ -43,6 +43,8 @@ inline ItemType GetItemType(int Type)
     case 9:
         return ITEM_SHIELD;
     }
+    cerr << "FATAL: Invalid item type." << endl;
+    exit(1);
 }
 
 inline Class GetPlayerClass(int ID)
@@ -54,6 +56,8 @@ inline Class GetPlayerClass(int ID)
     case 1:
         return CLASS_MAGE;
     }
+    cerr << "FATAL: Invalid class ID." << endl;
+    exit(1);
 }
 
 inline QuestType GetQuestType(int ID)
@@ -77,10 +81,12 @@ inline Attribute GetAttribute(int Atr)
     case 3:
         return ATTACK_POWER;
     case 4:
-        return ARMOR;
+        return DEFENSE_POWER;
     case 5:
         return INT_OR_STR;
     }
+    cerr << "FATAL: Invalid attribute ID." << endl;
+    exit(1);
 }
 
 inline SpellType GetSpellType(int Type)
@@ -92,6 +98,8 @@ inline SpellType GetSpellType(int Type)
     case 1:
         return SPELL_HEAL;
     }
+    cerr << "FATAL: Invalid spell type." << endl;
+    exit(1);
 }
 
 inline int StringToInt(string string)

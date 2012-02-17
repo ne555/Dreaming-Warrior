@@ -53,8 +53,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
-                    VendorEncounter VendorEncounter;
-                    Vendor Vendor = VendorEncounter.MainLoop(Player, *itr);
+                    VendorEncounter VendorEncounter(Player, Window);
+                    Vendor Vendor = VendorEncounter.MainLoop(*itr);
                     Vendors.erase(itr);
                     Vendors.push_back(Vendor);
                     return;
@@ -106,8 +106,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32+1)
                 {
-                    VendorEncounter VendorEncounter;
-                    Vendor Vendor = VendorEncounter.MainLoop(Player, *itr);
+                    VendorEncounter VendorEncounter(Player, Window);
+                    Vendor Vendor = VendorEncounter.MainLoop(*itr);
                     Vendors.erase(itr);
                     Vendors.push_back(Vendor);
                     return;
@@ -159,8 +159,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32+1 && itr->y == Player.GetY()/32)
                 {
-                    VendorEncounter VendorEncounter;
-                    Vendor Vendor = VendorEncounter.MainLoop(Player, *itr);
+                    VendorEncounter VendorEncounter(Player, Window);
+                    Vendor Vendor = VendorEncounter.MainLoop(*itr);
                     Vendors.erase(itr);
                     Vendors.push_back(Vendor);
                     return;
@@ -212,8 +212,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32-1 && itr->y == Player.GetY()/32)
                 {
-                    VendorEncounter VendorEncounter;
-                    Vendor Vendor = VendorEncounter.MainLoop(Player, *itr);
+                    VendorEncounter VendorEncounter(Player, Window);
+                    Vendor Vendor = VendorEncounter.MainLoop(*itr);
                     Vendors.erase(itr);
                     Vendors.push_back(Vendor);
                     return;
