@@ -17,8 +17,6 @@
 #ifndef QUEST_SCREEN_H
 #define QUEST_SCREEN_H
 
-class Player;
-
 #include <SFML\Graphics.hpp>
 #include "player.h"
 
@@ -26,14 +24,17 @@ class QuestScreen
 {
     sf::RenderWindow &Window;
     sf::Event Event;
+    sf::Sprite GUISprite;
+    sf::Font Font;
     Player &player;
 
     int QuestIterator;
+    float ArrowY;
 
     sf::Sprite BackgroundSprite;
     sf::Sprite ArrowSprite;
 
-    void DrawAll();
+    void ReadQuestText();
 public:
     QuestScreen(Player &player, sf::RenderWindow &Window);
     void MainLoop();

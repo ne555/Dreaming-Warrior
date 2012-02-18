@@ -24,12 +24,14 @@ class Player;
 class Combat
 {
     sf::RenderWindow &window;
+    sf::Sprite CreatureSprite;
     Player &player;
     Enemy enemy;
 
     sf::Font Font;
     vector<sf::Text> CombatTexts;
     float TextY;
+    float ArrowY;
 
     void DrawPlayerStats();
     void DrawCommandText(int WhatText);

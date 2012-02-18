@@ -19,7 +19,7 @@
 #include "player.h"
 
 Combat::Combat(sf::RenderWindow &window, Player &player, Enemy enemy) 
-    : window(window), player(player), enemy(enemy), TextY(628)
+    : window(window), player(player), enemy(enemy), TextY(628), ArrowY(165)
 {
 }
 
@@ -30,14 +30,15 @@ return 2; Run
 */
 int Combat::MainLoop()
 {
-    float ArrowY = 60.0f;
-    sf::Texture ArrowTexture, CombatGUI, ParchmentTexture;
+    sf::Texture ArrowTexture, CombatGUI, CreatureTexture;
+    CreatureTexture.LoadFromFile(enemy.Combat);
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     sf::Sprite ArrowSprite(ArrowTexture);
     ArrowSprite.SetPosition(800.0f, ArrowY);
     CombatGUI.LoadFromFile("Graphics/CombatScreen.jpg");
     Font.LoadFromFile("Graphics/papyrus.ttf");
-    //ParchmentTexture.LoadFromFile("Graphics/Parchment.png");
+    CreatureSprite.SetTexture(CreatureTexture);
+    CreatureSprite.SetPosition(320.0f, 100.0f);
 
     sf::Event Event;
 
@@ -50,9 +51,7 @@ int Combat::MainLoop()
         //Glavni Loop
         while(window.PollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
-                window.Close();
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
             {
                 if(Command != 1)
                 {
@@ -100,9 +99,9 @@ int Combat::MainLoop()
         }
         // Pokazi sve na ekranu
         window.Clear();
-        //window.Draw(sf::Sprite(ParchmentTexture));
         window.Draw(sf::Sprite(CombatGUI));
         window.Draw(ArrowSprite);
+        window.Draw(CreatureSprite);
         DrawPlayerStats();
         DrawCommandText(CommandList);
         for(auto itr = CombatTexts.begin(); itr != CombatTexts.end(); ++itr)
@@ -124,12 +123,12 @@ bool Combat::HandleInput(int &CommandList, int &Command, float &ArrowY, bool &Pl
             PlayerMove = false;
             break;
         case 2: // Magija
-            ArrowY = 60.0f;
+            ArrowY = 165.0f;
             Command = 1;
             CommandList = 3;
             break;
         case 3: // Napitak
-            ArrowY = 60.0f;
+            ArrowY = 165.0f;
             Command = 1;
             CommandList = 2;
             break;
@@ -151,22 +150,22 @@ bool Combat::HandleInput(int &CommandList, int &Command, float &ArrowY, bool &Pl
                 PlayerMove = false;
             break;
         case 3: // Natrag
-            ArrowY = 60.0f;
+            ArrowY = 165.0f;
             Command = 1;
             CommandList = 1;
             break;
         }
         break;
     case 3: // Magija Menu
-        if(Command-1 > player.GetSpells().size())
+        if(Command > player.GetSpells().size())
         {
-            ArrowY = 60.0f;
+            ArrowY = 165.0f;
             Command = 1;
             CommandList = 1;
-            break;
+            return false;
         }
         SpellCast(player.GetSpells()[Command-1]);
-        ArrowY = 60.0f;
+        ArrowY = 165.0f;
         Command = 1;
         CommandList = 1;
         PlayerMove = false;
@@ -177,8 +176,16 @@ bool Combat::HandleInput(int &CommandList, int &Command, float &ArrowY, bool &Pl
 
 void Combat::MeleeAttack()
 {
-    // Izracunaj i napravi stetu
-    int Damage = 10;//PH
+    float Damage;
+    switch(player.GetClass())
+    {
+    case CLASS_WARRIOR:
+        Damage = player.GetAttack() + (player.GetIntStr() * 2) + urand(0, player.GetLevel()+2) - enemy.GetDefense();
+        break;
+    case CLASS_MAGE:
+        Damage = player.GetAttack();
+        break;
+    }
     enemy.SetHealth(enemy.GetHealth() - Damage);
 
     // Pokazi text
@@ -189,7 +196,7 @@ void Combat::MeleeAttack()
 void Combat::CreatureAttack()
 {
     // Izracunaj i napravi stetu
-    int Damage = 10; //ph
+    int Damage = urand(enemy.GetAttack(), enemy.GetAttack() + player.GetLevel()) - player.GetDefense();
     player.SetHealth(player.GetHealth() - Damage);
 
     // Pokazi text
@@ -197,26 +204,43 @@ void Combat::CreatureAttack()
     HandleCombatText(CombatString);
 }
 
-/*
-TODO malo randomiziranja i kalkuliranja da ne bude dosadno
-*/
 void Combat::SpellCast(const Spell &Spell)
 {
     if(Spell.Cost > player.GetPower())
     {
-        HandleCombatText("You failed to cast " + Spell.Name + " due lack of mana/power (switch class) [PH]");
+        switch(player.GetClass())
+        {
+        case CLASS_WARRIOR:
+            HandleCombatText("You failed to cast " + Spell.Name + " due lack of stamina");
+            break;
+        case CLASS_MAGE:
+            HandleCombatText("You failed to cast " + Spell.Name + " due lack of mana!");
+            break;
+        }
         return;
+    }
+
+    int Damage;
+
+    switch(player.GetClass())
+    {
+    case CLASS_WARRIOR:
+        Damage = Spell.Value;
+        break;
+    case CLASS_MAGE:
+        Damage = Spell.Value + player.GetIntStr() * 2 + urand(0, player.GetLevel()+2);
+        break;
     }
 
     switch(Spell.Type)
     {
     case SPELL_ATTACK:
-        enemy.SetHealth(enemy.GetHealth() - Spell.Value);
-        HandleCombatText("Your " + Spell.Name + " hits " + enemy.GetName() + " for " + IntToString(Spell.Value) + " damage!");
+        enemy.SetHealth(enemy.GetHealth() - Damage);
+        HandleCombatText("Your " + Spell.Name + " hits " + enemy.GetName() + " for " + IntToString(Damage) + " damage!");
         break;
     case SPELL_HEAL:
-        player.SetHealth(player.GetHealth() + Spell.Value);
-        HandleCombatText("Your " + Spell.Name + " heals you for " + IntToString(Spell.Value) + "!");
+        player.SetHealth(player.GetHealth() + Damage);
+        HandleCombatText("Your " + Spell.Name + " heals you for " + IntToString(Damage) + "!");
         break;
     }
     player.SetPower(player.GetPower() - Spell.Cost);
@@ -224,8 +248,13 @@ void Combat::SpellCast(const Spell &Spell)
 
 bool Combat::RunIfCan()
 {
-    //PH
-    return true;
+    if(urand(0, 2) == 0)
+        return true;
+    else
+    {
+        HandleCombatText("You try to run away but " + enemy.GetName() + " gets in your path!");
+        return false;
+    }
 }
 
 void Combat::DropLoot()
@@ -265,11 +294,11 @@ void Combat::HandleCombatText(string CombatString)
 void Combat::DrawPlayerStats()
 {
     sf::Text 
-        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()), Font),
-        PowerText("", Font),
-        IntStrText("", Font),
-        AttackText("Attack: " + IntToString(player.GetAttack()), Font), 
-        DefenseText("Defense: " + IntToString(player.GetDefense()), Font);
+        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()), Font, 20),
+        PowerText("", Font, 20),
+        IntStrText("", Font, 20),
+        AttackText("Attack: " + IntToString(player.GetAttack()), Font, 20), 
+        DefenseText("Defense: " + IntToString(player.GetDefense()), Font, 20);
 
     if(player.GetClass() == CLASS_WARRIOR)
     {
@@ -282,11 +311,19 @@ void Combat::DrawPlayerStats()
         IntStrText.SetString("Intelligence: " + IntToString(player.GetIntStr()));
     }
 
-    HealthText.SetPosition(50, 50);
-    PowerText.SetPosition(50, 85);
-    AttackText.SetPosition(50, 125);
-    DefenseText.SetPosition(50, 160);
+    HealthText.SetPosition(20.0f, 205.0f);
+    PowerText.SetPosition(20.0f, 240.0f);
+    AttackText.SetPosition(20.0f, 275.0f);
+    DefenseText.SetPosition(20.0f, 310.0f);
+    IntStrText.SetPosition(20.0f, 345.0f);
 
+    HealthText.SetStyle(sf::Text::Bold);
+    PowerText.SetStyle(sf::Text::Bold);
+    AttackText.SetStyle(sf::Text::Bold);
+    DefenseText.SetStyle(sf::Text::Bold);
+    IntStrText.SetStyle(sf::Text::Bold);
+
+    window.Draw(IntStrText);
     window.Draw(HealthText);
     window.Draw(PowerText);
     window.Draw(AttackText);
@@ -300,15 +337,15 @@ void Combat::DrawCommandText(int WhatText)
         case 1:
         {
             sf::Text
-                Fight("Attack", Font),
-                Spell("Spell", Font),
-                Item("Potion", Font),
-                Run("Run", Font);
+                Fight("Attack", Font, 20),
+                Spell("Spell", Font, 20),
+                Item("Potion", Font, 20),
+                Run("Run", Font, 20);
 
-            Fight.SetPosition(850, 60);
-            Spell.SetPosition(850, 95);
-            Item.SetPosition(850, 130);
-            Run.SetPosition(850, 165);
+            Fight.SetPosition(850, 165);
+            Spell.SetPosition(850, 200);
+            Item.SetPosition(850, 235);
+            Run.SetPosition(850, 270);
 
             Fight.SetStyle(sf::Text::Bold);
             Spell.SetStyle(sf::Text::Bold);
@@ -323,28 +360,19 @@ void Combat::DrawCommandText(int WhatText)
         }
         case 2:
         {
-            /*
-            TODO: 
-            bice vise imena potova pa kao za spelove
-            isto tako promjeni nacin na koji se itemi traze u player class, pa nek se traze osim po tipu i po imenu
-            */
             sf::Text
-                Health("Health (x" + IntToString(player.GetHealthPotNum()) + ")", Font),
-                Power("", Font),
-                Return("Return ", Font);
+                Health("Health (x" + IntToString(player.GetHealthPotNum()) + ")", Font, 20),
+                Power("", Font, 20),
+                Return("Return ", Font, 20);
 
             if(player.GetClass() == CLASS_WARRIOR)
                 Power.SetString("Stamina (x" + IntToString(player.GetPowerPotNum()) + ")");
             else
                 Power.SetString("Mana: (x" + IntToString(player.GetPowerPotNum()) + ")");
 
-            Health.SetPosition(850.0f, 60.0f);
-            Power.SetPosition(850.0f, 95.0f);
-            Return.SetPosition(850.0f, 130.0f);
-    
-            Health.SetColor(sf::Color(255, 255, 255));
-            Power.SetColor(sf::Color(255, 255, 255));
-            Return.SetColor(sf::Color(255, 255, 255));
+            Health.SetPosition(850.0f, 165.0f);
+            Power.SetPosition(850.0f, 200.0f);
+            Return.SetPosition(850.0f, 235.0f);
 
             Health.SetStyle(sf::Text::Bold);
             Power.SetStyle(sf::Text::Bold);
@@ -357,21 +385,19 @@ void Combat::DrawCommandText(int WhatText)
         }
         case 3:
         {
-            float PosY = 60.0f;
+            float PosY = 165.0f;
             for(auto itr = player.GetSpells().begin(); itr != player.GetSpells().end(); ++itr)
             {
-                sf::Text SpellText(itr->Name, Font);
+                sf::Text SpellText(itr->Name, Font, 20);
                 SpellText.SetPosition(850.0f, PosY);
                 SpellText.SetStyle(sf::Text::Bold);
-                SpellText.SetColor(sf::Color(255, 255, 255));
                 window.Draw(SpellText);
 
                 PosY += 35;
             }
-            sf::Text Return("Return", Font);
+            sf::Text Return("Return", Font, 20);
             Return.SetPosition(850.0f, PosY);
             Return.SetStyle(sf::Text::Bold);
-            Return.SetColor(sf::Color(255, 255, 255));
             window.Draw(Return);
             break;
         }

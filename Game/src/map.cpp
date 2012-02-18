@@ -14,10 +14,6 @@
     You should have received a copy of the GNU General Public License
     along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
-/*
-TODO: 
-- Ne IsSolid, nego object type
-*/
 #include "game.h"
 #include "database.h"
 
@@ -49,7 +45,6 @@ void Game::DrawAll()
 }
 
 //todo: Pojednostavi.. & loading screen :D
-//todo: render texture neradi na svim hardware, mozda capture image i nju load, a ne tile
 void Game::LoadMap(string PathToMap)
 {
     sf::RenderTexture RenderMapTexture;
@@ -147,20 +142,20 @@ void Game::LoadMap(string PathToMap)
 
     //Ucitaj cudovista
     int ID, Atk, Def, HP, Level, Wealth;
-    int Chance[4];
-    string Item[4];
+    //int Chance[4];
+    //string Item[4];
     string CreatureMapTexture, Combat, Name;
     Enemies.clear();
     /*
     TODO: ove iteme na count i for loop a ne vako ruzno
     */
     File.open(PathToMap + "Enemies.txt");
-    while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth >> x >> y >> CreatureMapTexture 
-        >> Item[0] >> Chance[0] >> Item[1] >> Chance[1] >> Item[2] >> Chance[2] >> Item[3] >> Chance[3])
+    while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth >> x >> y >> CreatureMapTexture >> Combat /*
+        >> Item[0] >> Chance[0] >> Item[1] >> Chance[1] >> Item[2] >> Chance[2] >> Item[3] >> Chance[3]*/)
     {
-        Enemy Enemy(ID, Atk, Def, HP, Level, Name, Wealth, x, y, CreatureMapTexture);
-        for(int a = 0; Item[a] != "NULL"; ++a)
-            Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));
+        Enemy Enemy(ID, Atk, Def, HP, Level, SetSpaces(Name), Wealth, x, y, CreatureMapTexture, Combat);
+        /*for(int a = 0; Item[a] != "NULL"; ++a)
+            Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));*/
         ObjectGrid[y][x] = ENEMY;
         Enemies.push_back(Enemy);
     }
@@ -168,12 +163,11 @@ void Game::LoadMap(string PathToMap)
 
     RandomEncounters.clear();
     File.open(PathToMap + "RandomEncounters.txt");
-    while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth 
-        >> Item[0] >> Chance[0] >> Item[1] >> Chance[1] >> Item[2] >> Chance[2] >> Item[3] >> Chance[3])
+    while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth >> Combat)
     {
-        Enemy Enemy(ID, Atk, Def, HP, Level, Name, Wealth);
-        for(int a = 0; Item[a] != "NULL"; ++a)
-            Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));
+        Enemy Enemy(ID, Atk, Def, HP, Level, SetSpaces(Name), Wealth, Combat);
+        //for(int a = 0; Item[a] != "NULL"; ++a)
+            //Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));
         RandomEncounters.push_back(Enemy);
     }
     File.close();
@@ -205,6 +199,34 @@ void Game::LoadMap(string PathToMap)
             int QuestID;
             File >> QuestID;
             QuestGiver.Quests.push_back(GetQuestFromDatabase(World, QuestID));
+            string NewString;
+            for(auto itr = (--QuestGiver.Quests.end())->Text.begin(); itr != (--QuestGiver.Quests.end())->Text.end(); ++itr)
+            {
+                if(*itr != '$')
+                    NewString += *itr;
+                else
+                    NewString += Player.GetName();
+            }
+            (--QuestGiver.Quests.end())->Text = NewString;
+            NewString.clear();
+            for(auto itr = (--QuestGiver.Quests.end())->Text.begin(); itr != (--QuestGiver.Quests.end())->Text.end(); ++itr)
+            {
+                if(*itr != '#')
+                    NewString += *itr;
+                else
+                {
+                    switch(Player.GetClass())
+                    {
+                    case CLASS_WARRIOR:
+                        NewString += "Warrior";
+                        break;
+                    case CLASS_MAGE:
+                        NewString += "Mage";
+                        break;
+                    }
+                }
+            }
+            (--QuestGiver.Quests.end())->Text = NewString;
         }
         ObjectGrid[y][x] = QUEST;
         QuestGivers.push_back(QuestGiver);

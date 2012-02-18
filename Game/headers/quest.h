@@ -72,7 +72,7 @@ struct Quest
     int ItemReward;
     string Name;
     string Text;
-    vector<QuestObjective> Objectives;
+    vector<QuestObjective> Objectives;//todo samo 1
 };
 
 #endif

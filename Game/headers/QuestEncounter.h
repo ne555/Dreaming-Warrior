@@ -26,6 +26,7 @@ class QuestEncounter
     sf::Event Event;
     sf::Sprite ArrowSprite;
     sf::Sprite GUISprite;
+    sf::Font Font;
     Player &player;
 
     struct _Quest

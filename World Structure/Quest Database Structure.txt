@@ -1,3 +1,7 @@
+$ - Ime
+% - Newline
+# - Class
+
 Generic structure:
 <Quest ID> <QGiver start ID> <QGiver end ID> <Quest Name> <Quest Text> <Level Requirement> <Quest Requirement> <Num Objectives>
 <Objectives> ... <Item Reward ID>

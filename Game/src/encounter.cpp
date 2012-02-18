@@ -242,9 +242,17 @@ void Game::RandomEncounter()
 {
     if(RandomEncounters.empty())
         return;
-    vector<Enemy>::iterator itr = RandomEncounters.begin() + urand(0, RandomEncounters.size()-1);
+    auto itr = RandomEncounters.begin() + urand(0, RandomEncounters.size()-1);
     Combat Combat(Window, Player, *itr);
-    if(!Combat.MainLoop())
+    switch(Combat.MainLoop())
+    {
+    case 0:
         GameOver();
-    Player.UpdateQuestObjective(itr->ID);
+        break;
+    case 1:
+        Player.UpdateQuestObjective(itr->ID);
+        break;
+    case 2:
+        break;
+    }
 }

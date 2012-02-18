@@ -143,7 +143,10 @@ Quest GetQuestFromDatabase(string World, int ID)
     while(File >> QID >> StartCreature >> EndCreature >> Name >> Text >> Level_req >> Quest_req >> Num_Obj)
     {
         if(QID != ID)
-            continue;
+        {
+             File.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+             continue;
+        }
         Quest Quest(ID, StartCreature, EndCreature, SetSpaces(Name), SetSpaces(Text), Level_req, Quest_req, Num_Obj);
         for(int a = 0; a<Num_Obj; ++a)
         {
@@ -183,5 +186,30 @@ Spell GetSpellFromDatabase(string World, int ID)
         return Spell;
     }
     cerr << "FATAL: Invalid spell ID." << endl;
+    exit(1);
+}
+
+//todo ovo treba biti prije loadano u poseban string u questu
+string GetEnemyNameFromDatabase(string Map, int ID)
+{
+    std::ifstream File(Map + "Enemies.txt");
+    int CID;
+    string trash, Name;
+    while(File >> CID >> trash >> trash >> trash >> trash >> Name >> trash >> trash >> trash >> trash
+        >> trash >> trash >> trash >> trash >> trash >> trash >> trash >> trash)
+    {
+        if(CID == ID)
+        {
+            return SetSpaces(Name);
+        }
+    }
+    File.close();
+    File.open(Map + "RandomEncounters.txt");
+    while(File >> CID >> trash >> trash >> trash >> trash >> Name >> trash)
+    {
+        if(CID == ID)
+            return SetSpaces(Name);
+    }
+    cerr << "FATAL: Invalid enemy ID." << endl;
     exit(1);
 }

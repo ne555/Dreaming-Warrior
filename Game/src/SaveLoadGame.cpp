@@ -77,9 +77,9 @@ void Game::SaveMap(string PathToMap)
         File << itr->ID << " " << itr->GetAttack() << " " << itr->GetDefense() 
             << " " << itr->GetHealth() << " " << itr->GetLevel() << " "
             << itr->GetName() << " " << itr->GetWealth() << " " << itr->GetX() << " "
-            << itr->GetY() << " " << itr->MapTextureFileName;
+            << itr->GetY() << " " << itr->MapTextureFileName << " " << itr->Combat;
         int ctr = 4;
-        for(auto liter = itr->Loot.begin(); liter != itr->Loot.end(); ++liter)
+        for(auto liter = itr->Loot.begin(); liter != itr->Loot.end(); ++liter)//todo...
         {
             File << " " <<liter->Item.ID << " " << liter->Chance;
             --ctr;
@@ -155,6 +155,7 @@ void Game::SavePlayer()
     for(unsigned i=0; i<Player.GetQuests().size(); ++i)
     {
         File << " " << Player.GetQuests()[i].ID;
+        File << " " << Player.GetQuests()[i].Objectives.begin()->CurrentProgress;
     }
     //Completed quests
     File << " " << Player.GetCompletedQuests().size();

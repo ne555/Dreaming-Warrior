@@ -113,7 +113,15 @@ inline int StringToInt(string string)
 inline string SetSpaces(string String)
 {
     for(auto itr = String.begin(); itr != String.end(); ++itr)
+    {
         if(*itr == '_')
+        {
             *itr = ' ';
+        }
+        else if(*itr == '%')
+        {
+            *itr = '\n';
+        }
+    }
     return String;
 }

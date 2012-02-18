@@ -18,6 +18,8 @@
 #include "game.h"
 #include "database.h"
 
+//todo napraviti novi text class koji inherita sf::text da bude jednostavniji kod
+
 int main()
 {
     ofstream file("Error Log.txt");

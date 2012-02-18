@@ -16,13 +16,13 @@
 */
 #include "enemy.h"
 
-Enemy::Enemy(int ID, int Atk, int Defense, int Health, int Level, string Name, int Wealth, int x, int y, string MapTexture)
-    : Creature(Atk, Defense, Health, x, y, Level, Name, Wealth), ID(ID), MapTextureFileName(MapTexture)
+Enemy::Enemy(int ID, int Atk, int Defense, int Health, int Level, string Name, int Wealth, int x, int y, string MapTexture, string Combat)
+    : Creature(Atk, Defense, Health, x, y, Level, Name, Wealth), ID(ID), MapTextureFileName(MapTexture), Combat(Combat)
 {
     CreatureMapTexture.LoadFromFile(MapTexture);
 }
 
-Enemy::Enemy(int ID, int Atk, int Defense, int Health, int Level, string Name, int Wealth)
-    : Creature(Atk, Defense, Health, Level, Name, Wealth), ID(ID)
+Enemy::Enemy(int ID, int Atk, int Defense, int Health, int Level, string Name, int Wealth, string Combat)
+    : Creature(Atk, Defense, Health, Level, Name, Wealth), ID(ID), Combat(Combat)
 {
 }

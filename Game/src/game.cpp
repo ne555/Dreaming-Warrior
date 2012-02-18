@@ -143,8 +143,8 @@ int Game::Move(Orientation Direction)
         break;
     }
 
-    //if(urand(0, 1) == 0)
-        //return 1;
+    if(urand(0, 100) < 5)
+       return 1;
 
     return 0;
 }

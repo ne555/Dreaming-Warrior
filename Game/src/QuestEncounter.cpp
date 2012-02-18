@@ -17,6 +17,7 @@
 #include "QuestEncounter.h"
 
 Item GetItemFromDatabase(string World, int ID);
+string GetEnemyNameFromDatabase(string Map, int ID);
 
 /*
 TODO: test za completed/progres/nema quest
@@ -34,16 +35,20 @@ QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window)
 
 bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
 {
-    sf::Text QuestText(Quests[QuestIterator].Quest.Text);
-    QuestText.SetPosition(80.0f, 80.0f);
+    sf::Text QuestText(Quests[QuestIterator].Quest.Text, Font);
+    QuestText.SetPosition(40.0f, 40.0f);
+    QuestText.SetColor(sf::Color(0, 0, 0));
+    QuestText.SetStyle(sf::Text::Bold);
     sf::Text ObjectiveText
-        ("le creature " //TODO ph
+        (GetEnemyNameFromDatabase("SavedGame" + Quests[QuestIterator].Quest.Objectives.begin()->Map, Quests[QuestIterator].Quest.Objectives.begin()->ObjectiveID) + " " //TODO PH LOL KOJA INDIREKCIJA
         + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->CurrentProgress)//PH
-        + "/" + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->ReqProgress)),
-        AcceptText(Quests[QuestIterator].From ? "Accept" : "Complete"),
-        Decline(Quests[QuestIterator].From ? "Decline" : "Back");
+        + "/" + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->ReqProgress), Font),
+        AcceptText(Quests[QuestIterator].From ? "Accept" : "Complete", Font),
+        Decline(Quests[QuestIterator].From ? "Decline" : "Back", Font);
     AcceptText.SetPosition(700.0f, 520.0f);
     Decline.SetPosition(700.0f, 555.0f);
+    AcceptText.SetColor(sf::Color(0, 0, 0));
+    Decline.SetColor(sf::Color(0, 0, 0));
     ObjectiveText.SetPosition(580.0f, 90.0f);
     ArrowSprite.SetPosition(660.0f, 520.0f);
 
@@ -102,7 +107,7 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
                     return false;
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Back))
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
             {
                 return false;
             }
@@ -137,6 +142,8 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
     }
     if(Quests.empty())
         return QuestGiver;
+
+    Font.LoadFromFile("Graphics/papyrus.ttf");
 
     sf::Texture ArrowTexture, GUITexture;
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
@@ -183,8 +190,9 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
         Window.Draw(GUISprite);
         for(auto i = Quests.begin(); i != Quests.end(); ++i)
         {
-            sf::Text QuestName(i->Quest.Name);
+            sf::Text QuestName(i->Quest.Name, Font);
             QuestName.SetPosition(600.0f, QuestNameY);
+            QuestName.SetColor(sf::Color(0, 0, 0));
             QuestNameY += 35;
             Window.Draw(QuestName);
         }

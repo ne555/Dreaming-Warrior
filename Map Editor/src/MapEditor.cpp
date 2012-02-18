@@ -236,6 +236,8 @@ void MapEditor::GrabTile(sf::IntRect ClickPosition)
     }
 }
 
+#include <iostream>
+
 void MapEditor::SetTile(sf::IntRect ClickPosition)
 {
     for(int y=0; y<24; y++)
@@ -244,6 +246,7 @@ void MapEditor::SetTile(sf::IntRect ClickPosition)
         {
             if(RectTable[y][x].Contains(ClickPosition.Left, ClickPosition.Top))
             {
+                std::cout << y << " " << x << std::endl;
                 if(Tileset[TrenutniTile].IsObject)
                     ObjectTable[y][x] = TrenutniTile;
                 else

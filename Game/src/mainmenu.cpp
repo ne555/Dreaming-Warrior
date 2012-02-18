@@ -59,6 +59,8 @@ Class MainMenu::ChooseClass()
     sf::Text
         MageText("Mage", Font),
         WarriorText("Warrior", Font);
+    MageText.SetStyle(sf::Text::Bold);
+    WarriorText.SetStyle(sf::Text::Bold);
     MageText.SetPosition(450.0f, 350.0f);
     WarriorText.SetPosition(450.0f, 385.0f);
 
@@ -118,10 +120,10 @@ GameMode MainMenu::ChooseGameMode()
     NewGame.SetPosition(450, 350);
     LoadGame.SetPosition(450, 385);
     Exit.SetPosition(450, 420);
-    
-    NewGame.SetColor(sf::Color(255, 255, 255));
-    LoadGame.SetColor(sf::Color(255, 255, 255));
-    Exit.SetColor(sf::Color(255, 255, 255));
+
+    NewGame.SetStyle(sf::Text::Bold);
+    LoadGame.SetStyle(sf::Text::Bold);
+    Exit.SetStyle(sf::Text::Bold);
 
     sf::Texture ArrowTexture;
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
