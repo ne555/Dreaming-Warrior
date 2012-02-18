@@ -17,46 +17,88 @@
 #include "VendorEncounter.h"
 
 VendorEncounter::VendorEncounter(Player &player, sf::RenderWindow &Window)
-    : player(player), Window(Window)
+    : player(player), Window(Window), ArrowX(405), ArrowY(370)
 {
-}
-
-sf::Texture VendorEncounter::DrawInterface()
-{
-    sf::RenderTexture ScreenTexture;
-    sf::Texture PlayerTexture, VendorTexture;
-    sf::Text BuyItem("Buy Item", Font), SellItem("Sell Item", Font);
-    switch(player.GetClass())
-    {
-    case CLASS_WARRIOR:
-        PlayerTexture.LoadFromFile("Graphics/Warrior.png");
-        break;
-    case CLASS_MAGE:
-        PlayerTexture.LoadFromFile("Graphics/Mage.png");
-        break;
-    }
 }
 
 Vendor VendorEncounter::MainLoop(Vendor Vendor)
 {
-    sf::Texture ArrowTexture;
-    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     Font.LoadFromFile("Graphics/papyrus.ttf");
+    sf::Text 
+        BuyItem("Buy Item", Font), SellItem("Sell Item", Font), 
+        YourItems("Your items: ", Font), VendorItems("Vendors items: ", Font),
+        Return("Back to Game", Font);
+
+    BuyItem.SetColor(sf::Color::Black);
+    SellItem.SetColor(sf::Color::Black);
+    YourItems.SetColor(sf::Color::Black);
+    VendorItems.SetColor(sf::Color::Black);
+    Return.SetColor(sf::Color::Black);
+
+    BuyItem.SetStyle(sf::Text::Bold);
+    SellItem.SetStyle(sf::Text::Bold);
+    YourItems.SetStyle(sf::Text::Bold);
+    VendorItems.SetStyle(sf::Text::Bold);
+    Return.SetStyle(sf::Text::Bold);
+
+    BuyItem.SetPosition(450.0f, 370.0f);
+    SellItem.SetPosition(450.0f, 405.0f);
+    Return.SetPosition(450.0f, 440.0f);
+    YourItems.SetPosition(100.0f, 80.0f);
+    VendorItems.SetPosition(750.0f, 80.0f);
+
+    sf::Texture ArrowTexture, GUITexture;
+    ArrowTexture.LoadFromFile("Graphics/Arrow2.png");
+    GUITexture.LoadFromFile("Graphics/VendorScreen.png");
+    ArrowSprite.SetTexture(ArrowTexture);
+    ArrowSprite.SetPosition(ArrowX, ArrowY);
+    GUISprite.SetTexture(GUITexture);
+    
+    int Command = 0;
+
     while(Window.IsOpen()) 
     {
         while(Window.PollEvent(Event))
         {
             if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
             {
+                if(Command != 0)
+                {
+                    --Command;
+                    ArrowY -= 35;
+                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
             {
+                if(Command != 2)
+                {
+                    ++Command;
+                    ArrowY += 35;
+                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
+                switch(Command)
+                {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    return Vendor;
+                }
             }
         }
         Window.Clear();
+        Window.Draw(GUISprite);
+        Window.Draw(BuyItem);
+        Window.Draw(Return);
+        Window.Draw(SellItem);
+        Window.Draw(YourItems);
+        Window.Draw(VendorItems);
+        Window.Draw(ArrowSprite);
         Window.Display();
     }
     return Vendor;

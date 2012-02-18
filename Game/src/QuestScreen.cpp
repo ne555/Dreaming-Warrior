@@ -100,8 +100,9 @@ void QuestScreen::MainLoop()
         Window.Draw(GUISprite);
         for(auto i = player.GetQuests().begin(); i != player.GetQuests().end(); ++i)
         {
-            sf::Text QuestName(i->Name);
+            sf::Text QuestName(i->Name, Font);
             QuestName.SetPosition(600.0f, QuestNameY);
+            QuestName.SetColor(sf::Color(0, 0, 0));
             QuestNameY += 35;
             Window.Draw(QuestName);
         }

@@ -252,7 +252,7 @@ bool Combat::RunIfCan()
         return true;
     else
     {
-        HandleCombatText("You try to run away but " + enemy.GetName() + " gets in your path!");
+        HandleCombatText(enemy.GetName() + " gets in your path!");
         return false;
     }
 }

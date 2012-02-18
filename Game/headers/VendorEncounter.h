@@ -24,11 +24,15 @@ class VendorEncounter
 {
     sf::RenderWindow &Window;
     sf::Event Event;
+    sf::Sprite ArrowSprite;
+    sf::Sprite GUISprite;
     Player &player;
 
     sf::Font Font;
 
-    sf::Texture DrawInterface();
+    float ArrowX;
+    float ArrowY;
+
     void DrawItems();
 
 public:

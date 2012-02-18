@@ -33,7 +33,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#define BACKPACK_SIZE 36
+#define BACKPACK_SIZE 30
 #define MAX_SPELLS 5 //PH?
 
 enum ItemType

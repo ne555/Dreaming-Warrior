@@ -33,7 +33,7 @@ class CharacterScreen
 
     sf::Font Font;
 
-    int ItemGrid[6][6];
+    int ItemGrid[6][5];
 
     void DrawTexture();
     void DrawItems();

@@ -46,6 +46,7 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
         AcceptText(Quests[QuestIterator].From ? "Accept" : "Complete", Font),
         Decline(Quests[QuestIterator].From ? "Decline" : "Back", Font);
     AcceptText.SetPosition(700.0f, 520.0f);
+    ObjectiveText.SetColor(sf::Color(0, 0, 0));
     Decline.SetPosition(700.0f, 555.0f);
     AcceptText.SetColor(sf::Color(0, 0, 0));
     Decline.SetColor(sf::Color(0, 0, 0));
