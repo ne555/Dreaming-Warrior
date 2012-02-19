@@ -26,6 +26,9 @@ class VendorEncounter
     sf::Event Event;
     sf::Sprite ArrowSprite;
     sf::Sprite GUISprite;
+    sf::RenderTexture ScreenTexture;
+    sf::Sprite MoneySprite;
+    sf::Text MoneyText;
     Player &player;
 
     sf::Font Font;
@@ -33,7 +36,13 @@ class VendorEncounter
     float ArrowX;
     float ArrowY;
 
-    void DrawItems();
+    int ItemGrid[13][4];
+
+    void DrawTexture();
+    void DrawMessage(string Message);
+    void DrawItems(const Vendor& Vendor);
+    void SellingItemsLoop(Vendor &Vendor);
+    void BuyingItemsLoop(Vendor &Vendor);
 
 public:
     VendorEncounter(Player &Player, sf::RenderWindow &Window);

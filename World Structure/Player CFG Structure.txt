@@ -1,5 +1,3 @@
-<Map> <X> <Y> <Name> <Class> <Level> <Expirience> <Talent Points> <Int/Str> <Health> <Power> <AttackPower> <Armor>
+<Map> <X> <Y> <Wealth> <Name> <Class> <Level> <Expirience> <Talent Points> <Int/Str> <Health> <Power> <AttackPower> <Armor>
 <Num Items> <Item ID> ... <Num Equpied Items> <Item ID> ... <Num Spells> <Spell ID> ... <Num Quests> <Quest ID> <Progress> ...
 <Num Finished Quests> <Quest ID> ...
-
-TODO: Equiped itemi, kompletani questovi

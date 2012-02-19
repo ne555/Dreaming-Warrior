@@ -125,7 +125,7 @@ void Game::SavePlayer()
     ofstream File(World + "/Player.txt");
     File.clear();
     //Basic info
-    File << Player.Map << " " << Player.GetX() << " " << Player.GetY() << " " << Player.GetName() << " ";
+    File << Player.Map << " " << Player.GetX() << " " << Player.GetY() << " " << Player.GetWealth() << " " << Player.GetName() << " ";
     if(Player.GetClass() == CLASS_WARRIOR)
         File << "0 ";
     else

@@ -47,6 +47,16 @@ public:
 
     void SetIntStr(int IntStr) { this->IntStr = IntStr; }
     void UseTalentPoint() { --TalentPoints; }
+    void IncrementExp() 
+    { 
+        Exp += 1; 
+        if(Exp == 10)
+        {
+            SetLevel(GetLevel()+1); 
+            Exp = 0;
+            TalentPoints += 3;
+        }
+    }
 
     const vector<Spell> &GetSpells() const { return Spells; }
     const vector<Item> &GetEquipedItems() const { return EquipedItems; }
@@ -77,7 +87,7 @@ public:
     }
 
     /*
-    TODO: Ove dvije po IDU jer ce biti vise vrsta potova
+    TODO: Ove dvije po IDU jer ce biti vise vrsta potova?
     */
     bool UseHealthPotIfCan()
     {
@@ -142,11 +152,33 @@ public:
             if(itr->Type == Item.Type)
             {
                 Items.push_back(*itr);
+                for(auto atr_itr = itr->Attributes.begin(); atr_itr != itr->Attributes.end(); ++atr_itr)
+                {
+                    switch(atr_itr->Attribute)
+                    {
+                    case HEALTH:
+                        SetMaxHealth(GetMaxHealth() - atr_itr->Value);
+                        continue;
+                    case POWER:
+                        SetMaxPower(GetMaxPower() - atr_itr->Value);
+                        continue;
+                    case ATTACK_POWER:
+                        SetAttack(GetAttack() - atr_itr->Value);
+                        continue;
+                    case DEFENSE_POWER:
+                        SetDefense(GetDefense() - atr_itr->Value);
+                        continue;
+                    case INT_OR_STR:
+                        SetIntStr(GetIntStr() - atr_itr->Value);
+                        continue;
+                    }
+                }
                 EquipedItems.erase(itr);
                 break;
             }
         }
         EquipedItems.push_back(Item);
+        CalculateStatsFromEquip();
     }
 
     void RemoveItem(int Iter)
@@ -159,15 +191,17 @@ public:
     {
         for(auto itr = EquipedItems.begin(); itr != EquipedItems.end(); ++itr)
         {
-            for(auto iter = itr->Attributes.begin(); iter != itr->Attributes.end(); ++itr)
+            for(auto iter = itr->Attributes.begin(); iter != itr->Attributes.end(); ++iter)
             {
                 switch(iter->Attribute)
                 {
                 case HEALTH:
                     SetMaxHealth(GetMaxHealth() + iter->Value);
+                    SetHealth(GetHealth() + iter->Value);
                     continue;
                 case POWER:
                     SetMaxPower(GetMaxPower() + iter->Value);
+                    SetPower(GetPower() + iter->Value);
                     continue;
                 case ATTACK_POWER:
                     SetAttack(GetAttack() + iter->Value);

@@ -99,6 +99,7 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
                             player.AddItem(GetItemFromDatabase("SavedGame",/*TODO [PH]*/Quests[QuestIterator].Quest.ItemReward));
                             player.RemoveQuest(Quests[QuestIterator].Quest.ID);
                             Quests.erase(Quests.begin() + QuestIterator);
+                            player.SetWealth(player.GetWealth() + 20 * player.GetLevel()); //ph
                         }
                         if(Quests.empty())
                             return true;

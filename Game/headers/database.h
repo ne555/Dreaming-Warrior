@@ -42,6 +42,8 @@ inline ItemType GetItemType(int Type)
         return ITEM_WEAPON;
     case 9:
         return ITEM_SHIELD;
+    case 10:
+        return ITEM_FOOD;
     }
     cerr << "FATAL: Invalid item type." << endl;
     exit(1);

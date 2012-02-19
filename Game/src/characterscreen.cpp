@@ -88,8 +88,11 @@ void CharacterScreen::ItemsLoop()
                 switch(player.GetItems()[ItemGrid[IterY][IterX]].Type)
                 {
                 case ITEM_QUEST:
+                    break;
                 case ITEM_POWER_POTION:
                 case ITEM_HEALTH_POTION:
+                case ITEM_FOOD:
+                    player.SetHealth(player.GetHealth() + player.GetItems()[ItemGrid[IterY][IterX]].Value);
                     break;
                 default:
                     player.EquipItem(player.GetItems()[ItemGrid[IterY][IterX]]);
@@ -106,6 +109,7 @@ void CharacterScreen::ItemsLoop()
                             ++i;
                         }
                     }
+                    DrawTexture(); //opet, odvojiti te sheme...
                     break;
                 }
                 IterY = IterX = 0;

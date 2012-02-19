@@ -97,7 +97,7 @@ Item GetItemFromDatabase(string World, int ID)
         ++itr;
         buffer.clear();
         //Check if item is potion
-        if(Item.Type == ITEM_HEALTH_POTION || Item.Type == ITEM_POWER_POTION)
+        if(Item.Type == ITEM_HEALTH_POTION || Item.Type == ITEM_POWER_POTION || Item.Type == ITEM_FOOD)
         {
             while(*itr != ' ')
             {
@@ -196,7 +196,7 @@ string GetEnemyNameFromDatabase(string Map, int ID)
     int CID;
     string trash, Name;
     while(File >> CID >> trash >> trash >> trash >> trash >> Name >> trash >> trash >> trash >> trash
-        >> trash >> trash >> trash >> trash >> trash >> trash >> trash >> trash)
+        >> trash >> trash >> trash >> trash >> trash >> trash >> trash >> trash >> trash)
     {
         if(CID == ID)
         {

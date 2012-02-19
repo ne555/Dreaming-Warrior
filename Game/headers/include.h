@@ -33,8 +33,8 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#define BACKPACK_SIZE 30
-#define MAX_SPELLS 5 //PH?
+#define BACKPACK_SIZE 30 //24??
+#define MAX_SPELLS 5 //PH? nepotrebno
 
 enum ItemType
 {
@@ -49,7 +49,8 @@ enum ItemType
     ITEM_LEGS,
     ITEM_FOOT,
     ITEM_WEAPON,
-    ITEM_SHIELD
+    ITEM_SHIELD,
+    ITEM_FOOD
 };
 
 enum Attribute
@@ -95,19 +96,6 @@ enum GameMode
 {
     NEW_GAME,
     LOAD_GAME
-};
-
-enum ExpForLevel //PH
-{
-    LEVEL_2     = 100,
-    LEVEL_3     = 120,
-    LEVEL_4     = 150,
-    LEVEL_5     = 200,
-    LEVEL_6     = 300,
-    LEVEL_7     = 450,
-    LEVEL_8     = 650,
-    LEVEL_9     = 900,
-    LEVEL_10    = 1200
 };
 
 enum QuestType

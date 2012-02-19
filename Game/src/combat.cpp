@@ -135,6 +135,8 @@ bool Combat::HandleInput(int &CommandList, int &Command, float &ArrowY, bool &Pl
         case 4: // Bijeg
             if(RunIfCan())
                 return true;
+            else
+                PlayerMove = false;
             break;
         }
         break;
@@ -180,12 +182,14 @@ void Combat::MeleeAttack()
     switch(player.GetClass())
     {
     case CLASS_WARRIOR:
-        Damage = player.GetAttack() + (player.GetIntStr() * 2) + urand(0, player.GetLevel()+2) - enemy.GetDefense();
+        Damage = player.GetAttack() + (player.GetIntStr() * 3) + urand(0, player.GetLevel()+2) - enemy.GetDefense();
         break;
     case CLASS_MAGE:
         Damage = player.GetAttack();
         break;
     }
+    if(Damage < 1)
+        Damage = 1;
     enemy.SetHealth(enemy.GetHealth() - Damage);
 
     // Pokazi text
@@ -197,6 +201,8 @@ void Combat::CreatureAttack()
 {
     // Izracunaj i napravi stetu
     int Damage = urand(enemy.GetAttack(), enemy.GetAttack() + player.GetLevel()) - player.GetDefense();
+    if(Damage < 1)
+        Damage = 1;
     player.SetHealth(player.GetHealth() - Damage);
 
     // Pokazi text
@@ -228,7 +234,7 @@ void Combat::SpellCast(const Spell &Spell)
         Damage = Spell.Value;
         break;
     case CLASS_MAGE:
-        Damage = Spell.Value + player.GetIntStr() * 2 + urand(0, player.GetLevel()+2);
+        Damage = Spell.Value + player.GetIntStr() * 2 + urand(0, player.GetLevel()+2) + player.GetAttack();
         break;
     }
 
@@ -249,7 +255,9 @@ void Combat::SpellCast(const Spell &Spell)
 bool Combat::RunIfCan()
 {
     if(urand(0, 2) == 0)
+    {
         return true;
+    }
     else
     {
         HandleCombatText(enemy.GetName() + " gets in your path!");

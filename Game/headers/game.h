@@ -50,10 +50,10 @@ class Game
         {
             PortalRect.Width = 32;
             PortalRect.Height = 32;
-            PortalRect.Left = x;
-            PortalRect.Top = y;
-            PlayerNewX = px;
-            PlayerNewY = py;
+            PortalRect.Left = x*32;
+            PortalRect.Top = y*32;
+            PlayerNewX = px*32;
+            PlayerNewY = py*32;
             PathToMap = Path;
         }
         string PathToMap;

@@ -37,6 +37,7 @@ void Game::Encounter(Orientation Direction)
                     case 0:
                         GameOver();
                     case 1:
+                        Player.IncrementExp();
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
@@ -90,6 +91,7 @@ void Game::Encounter(Orientation Direction)
                     case 0:
                         GameOver();
                     case 1:
+                        Player.IncrementExp();
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
@@ -143,6 +145,7 @@ void Game::Encounter(Orientation Direction)
                     case 0:
                         GameOver();
                     case 1:
+                        Player.IncrementExp();
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
@@ -196,6 +199,7 @@ void Game::Encounter(Orientation Direction)
                     case 0:
                         GameOver();
                     case 1:
+                        Player.IncrementExp();
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
@@ -250,7 +254,9 @@ void Game::RandomEncounter()
         GameOver();
         break;
     case 1:
+        Player.IncrementExp();
         Player.UpdateQuestObjective(itr->ID);
+        RandomEncounters.erase(itr);
         break;
     case 2:
         break;

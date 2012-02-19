@@ -59,14 +59,15 @@ void Game::InitGame(MainMenuData MenuResult)
 
 void Game::GameOver()
 {
+    sf::Font Font;
+    Font.LoadFromFile("Graphics/papyrus.ttf");
     sf::Texture BackgroundTexture;
     sf::Sprite BackgroundSprite;
-    //BackgroundTexture.LoadFromFile();
+    BackgroundTexture.LoadFromFile("Graphics/MainMenu.jpg");
     BackgroundSprite.SetTexture(BackgroundTexture);
-    sf::Text GameOver("Game Over...");
-    GameOver.SetCharacterSize(50); //TODO ?
-    //GameOver.SetFont();
-    GameOver.SetPosition(350, 350);
+    sf::Text GameOver("Game Over...", Font, 90U);
+    GameOver.SetStyle(sf::Text::Bold);
+    GameOver.SetPosition(300, 320);
 
     sf::Event Event;
     while(Window.IsOpen()) 
@@ -143,8 +144,8 @@ int Game::Move(Orientation Direction)
         break;
     }
 
-    //if(urand(0, 100) < 5)
-       //return 1;
+    if(urand(0, 100) < 5)
+       return 1;
 
     return 0;
 }
