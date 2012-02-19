@@ -19,6 +19,12 @@
 VendorEncounter::VendorEncounter(Player &player, sf::RenderWindow &Window)
     : player(player), Window(Window), ArrowX(405), ArrowY(370)
 {
+    ItemName.SetFont(Font);
+    ItemName.SetColor(sf::Color::Black);
+    ItemName.SetPosition(390.0f, 70.0f);
+    ItemName.SetStyle(sf::Text::Bold);
+    ItemName.SetCharacterSize(20);
+    ItemSprite.SetPosition(360.0f, 70.0f);
     ScreenTexture.Create(1024, 768);
 }
 
@@ -141,6 +147,39 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
         DrawItems(Vendor);
         Window.Draw(MoneySprite);
         Window.Draw(MoneyText);
+        if(ItemGrid[IterY][IterX] != -1)
+        {
+            ItemSprite.SetTexture(Vendor.Items[ItemGrid[IterY][IterX]].ItemTexture);
+            switch(Vendor.Items[ItemGrid[IterY][IterX]].Type) //PH
+            {
+            case ITEM_FOOD:
+                ItemName.SetString
+                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    + " health." + '\n' + "Cannot be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            case ITEM_POWER_POTION:
+                ItemName.SetString
+                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    + " power." + '\n' + "Can be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            case ITEM_HEALTH_POTION:
+                ItemName.SetString
+                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    + " health." + '\n' + "Can be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            }
+            Window.Draw(ItemSprite);
+            Window.Draw(ItemName);
+        }
         Window.Display();
     }
 }
@@ -235,6 +274,39 @@ void VendorEncounter::SellingItemsLoop(Vendor &Vendor)
         DrawMessage(Message);
         Window.Draw(MoneySprite);
         Window.Draw(MoneyText);
+        if(ItemGrid[IterY][IterX] != -1)
+        {
+            ItemSprite.SetTexture(player.GetItems()[ItemGrid[IterY][IterX]].ItemTexture);
+            switch(Vendor.Items[ItemGrid[IterY][IterX]].Type) //PH
+            {
+            case ITEM_FOOD:
+                ItemName.SetString
+                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    + " health." + '\n' + "Cannot be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            case ITEM_POWER_POTION:
+                ItemName.SetString
+                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    + " power." + '\n' + "Can be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            case ITEM_HEALTH_POTION:
+                ItemName.SetString
+                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    + " health." + '\n' + "Can be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            }
+            Window.Draw(ItemName);
+            Window.Draw(ItemSprite);
+        }
         Window.Display();
     }
 }
@@ -291,6 +363,7 @@ Vendor VendorEncounter::MainLoop(Vendor Vendor)
     MoneyText.SetPosition(410.0f, 20.0f);
     sf::Texture ArrowTexture, GUITexture, MoneyTexture;
     MoneyTexture.LoadFromFile("Items/Money.png");
+    MoneyText.SetFont(Font);
     MoneySprite.SetTexture(MoneyTexture);
     MoneySprite.SetPosition(380.0f, 20.0f);
     ArrowTexture.LoadFromFile("Graphics/Arrow2.png");

@@ -64,10 +64,10 @@ public:
     void SetX(int x)            { this->x = x; }
     void SetY(int y)            { this->y = y; }
     void SetLevel(int Level)    { this->Level = Level; }
-    void SetMaxHealth(int MaxHealth) { this->MaxHealth = MaxHealth; if(MaxHealth > Health) Health = MaxHealth; }
+    void SetMaxHealth(int MaxHealth) { this->MaxHealth = MaxHealth;}
     void SetMaxPower(int MaxPower) { this->MaxPower = MaxPower; }
     void SetHealth(int Health)  { this->Health = Health; if(this->Health > MaxHealth) this->Health = MaxHealth; }
-    void SetPower(int Power)    { this->Power = Power; }
+    void SetPower(int Power)    { this->Power = Power; if(this->Power > MaxPower) this->Power = MaxPower; }
     void SetAttack(int Atk){ Attack = Atk; }
     void SetDefense(int Defense){ this->Defense = Defense; }
     void SetWealth(int Wealth)  { this->Wealth = Wealth; }

@@ -29,6 +29,8 @@ class VendorEncounter
     sf::RenderTexture ScreenTexture;
     sf::Sprite MoneySprite;
     sf::Text MoneyText;
+    sf::Text ItemName;
+    sf::Sprite ItemSprite;
     Player &player;
 
     sf::Font Font;

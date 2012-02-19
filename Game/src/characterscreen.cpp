@@ -93,6 +93,8 @@ void CharacterScreen::ItemsLoop()
                 case ITEM_HEALTH_POTION:
                 case ITEM_FOOD:
                     player.SetHealth(player.GetHealth() + player.GetItems()[ItemGrid[IterY][IterX]].Value);
+                    player.RemoveItem(ItemGrid[IterY][IterX]);
+                    DrawTexture();
                     break;
                 default:
                     player.EquipItem(player.GetItems()[ItemGrid[IterY][IterX]]);

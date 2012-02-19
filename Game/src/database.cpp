@@ -24,6 +24,29 @@ TODO:
 - Pojednostaviti GetItemFromDatabse()
 */
 
+//PH
+Item GetItemFromDatabase(string World, int ID)
+{
+    Item Item;
+    std::ifstream File(World + "/ItemDatabase.txt");
+    int IID, type, buy, sell, value;
+    string name, icon;
+    while(File >> IID >> type >> name >> icon >> buy >> sell >> value)
+    {
+        if(IID != ID)
+            continue;
+        Item.Name = SetSpaces(name);
+        Item.Type = GetItemType(type);
+        Item.ItemTexture.LoadFromFile(icon);
+        Item.BuyPrice = buy;
+        Item.SellPrice = sell;
+        Item.Value = value;
+        return Item;
+    }
+    cerr << "FATAL: Invalid Item ID." << endl;
+    exit(1);
+}
+/*
 Item GetItemFromDatabase(string World, int ID)
 {
     Item Item;
@@ -133,7 +156,7 @@ Item GetItemFromDatabase(string World, int ID)
     }
     cerr << "FATAL: Invalid item ID." << endl;
     exit(1);
-}
+}*/
 
 Quest GetQuestFromDatabase(string World, int ID)
 {
