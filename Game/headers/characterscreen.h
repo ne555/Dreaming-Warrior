@@ -30,6 +30,9 @@ class CharacterScreen
     sf::Sprite BackgroundSprite;
     sf::Sprite PlayerSprite;
     sf::Sprite ArrowSprite;
+    sf::Sprite ItemSprite;
+
+    sf::Text ItemName;
 
     sf::Font Font;
 

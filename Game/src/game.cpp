@@ -155,6 +155,16 @@ int Game::Move(Orientation Direction)
 
 void Game::GameLoop()
 {
+    sf::Texture HideHack;
+    HideHack.LoadFromFile("Tiles/Hack.png");
+    for(int y=0; y<24; ++y)
+    {
+        for(int x=0; x<32; ++x)
+        {
+            HideMapHack[y][x].SetTexture(HideHack);
+            HideMapHack[y][x].SetPosition(x*32, y*32);
+        }
+    }
     while(Window.IsOpen()) 
     {
         sf::Event Event;

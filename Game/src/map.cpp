@@ -17,6 +17,11 @@
 #include "game.h"
 #include "database.h"
 
+inline int Distance(int x1, int y1, int x2, int y2)
+{
+    return (int)sqrt((float)(x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+}
+
 void Game::DrawAll()
 {
     Window.Draw(sf::Sprite(MapTexture));
@@ -41,6 +46,18 @@ void Game::DrawAll()
         sf::Sprite Sprite(itr->MapTexture);
         Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
         Window.Draw(Sprite);
+    }
+
+    //this is so wrong
+    for(int y=0; y<24; ++y)
+    {
+        for(int x=0; x<32; ++x)
+        {
+            if(Distance(Player.GetX()/32, Player.GetY()/32, x, y) > 3)
+            {
+                Window.Draw(HideMapHack[y][x]);
+            }
+        }
     }
 }
 

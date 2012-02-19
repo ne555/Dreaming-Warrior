@@ -277,31 +277,31 @@ void VendorEncounter::SellingItemsLoop(Vendor &Vendor)
         if(ItemGrid[IterY][IterX] != -1)
         {
             ItemSprite.SetTexture(player.GetItems()[ItemGrid[IterY][IterX]].ItemTexture);
-            switch(Vendor.Items[ItemGrid[IterY][IterX]].Type) //PH
+            switch(player.GetItems()[ItemGrid[IterY][IterX]].Type) //PH
             {
             case ITEM_FOOD:
                 ItemName.SetString
-                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
-                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    (player.GetItems()[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Cannot be used in combat" + '\n'
-                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
-                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                    + "Buy Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_POWER_POTION:
                 ItemName.SetString
-                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
-                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    (player.GetItems()[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " power." + '\n' + "Can be used in combat" + '\n'
-                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
-                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                    + "Buy Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_HEALTH_POTION:
                 ItemName.SetString
-                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
-                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    (player.GetItems()[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Can be used in combat" + '\n'
-                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
-                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                    + "Buy Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             }
             Window.Draw(ItemName);

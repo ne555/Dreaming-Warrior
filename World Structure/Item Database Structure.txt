@@ -1,7 +1,7 @@
 Generic structure:
 <Item ID> <Item Type> <Item Name> <Icon File Name>
 
-Potion structure:
+Potion/Food structure:
 Generic structure + <Buy Price> <Sell Price> <Value>
 
 Quest structure:
@@ -27,7 +27,8 @@ ITEM_HANDS		= 5,
 ITEM_LEGS		= 6,
 ITEM_FOOT		= 7,
 ITEM_MAINHAND		= 8,
-ITEM_SHIELD		= 9
+ITEM_SHIELD		= 9,
+ITEM_FOOD		= 10
 
 Attribute:
 

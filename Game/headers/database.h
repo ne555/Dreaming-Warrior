@@ -14,9 +14,9 @@
     You should have received a copy of the GNU General Public License
     along with Dreaming Warrior.  If not, see <http://www.gnu.org/licenses/>.
 */
-Item GetItemFromDatabase(string World, int ID);
-Quest GetQuestFromDatabase(string World, int ID);
-Spell GetSpellFromDatabase(string World, int ID);
+Item GetItemFromDatabase(const string World, int ID);
+Quest GetQuestFromDatabase(const string World, int ID);
+Spell GetSpellFromDatabase(const string World, int ID);
 
 inline ItemType GetItemType(int Type)
 {

@@ -16,8 +16,8 @@
 */
 #include "QuestEncounter.h"
 
-Item GetItemFromDatabase(string World, int ID);
-string GetEnemyNameFromDatabase(string Map, int ID);
+Item GetItemFromDatabase(const string World, int ID);
+string GetEnemyNameFromDatabase(const string Map, int ID);
 
 /*
 TODO: test za completed/progres/nema quest

@@ -34,10 +34,10 @@ Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack)
     Exp = exp;
     IntStr = int_str;
     TalentPoints = talent_pts;
-    SetHealth(health);
     SetMaxHealth(health);
-    SetPower(power);
+    SetHealth(health);
     SetMaxPower(power);
+    SetPower(power);
     SetWealth(wealth);
     SetAttack(attack);
     SetDefense(Defense);

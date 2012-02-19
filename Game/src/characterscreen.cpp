@@ -21,6 +21,12 @@
 CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
     : Window(Window), player(player)
 {
+    ItemName.SetFont(Font);
+    ItemName.SetColor(sf::Color::Black);
+    ItemName.SetPosition(515.0f, 585.0f);
+    ItemName.SetStyle(sf::Text::Bold);
+    ItemName.SetCharacterSize(20);
+    ItemSprite.SetPosition(480.0f, 585.0f);
     ScreenTexture.Create(1024, 768);
 }
 
@@ -142,12 +148,55 @@ void CharacterScreen::ItemsLoop()
                 return;
             }
         }
-        //drawat statse trenutnog itema :P
         Window.Clear();
         Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
         DrawItems();
         Window.Draw(ArrowSprite);
+        if(ItemGrid[IterY][IterX] != -1)
+        {
+            ItemSprite.SetTexture(player.GetItems()[ItemGrid[IterY][IterX]].ItemTexture);
+            switch(player.GetItems()[ItemGrid[IterY][IterX]].Type) //PH
+            {
+            case ITEM_FOOD:
+                ItemName.SetString
+                    (player.GetItems()[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
+                    + " health." + '\n' + "Cannot be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            case ITEM_POWER_POTION:
+                ItemName.SetString
+                    (player.GetItems()[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
+                    + " power." + '\n' + "Can be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            case ITEM_HEALTH_POTION:
+                ItemName.SetString
+                    (player.GetItems()[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
+                    + " health." + '\n' + "Can be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            }
+            Window.Draw(ItemName);
+            Window.Draw(ItemSprite);
+        }
         Window.Display();
+    }
+}
+
+inline bool IsHealingSpell(SpellType Type)
+{
+    switch(Type)
+    {
+    case SPELL_HEAL:
+        return true;
+    case SPELL_ATTACK:
+        return false;
     }
 }
 
@@ -155,7 +204,17 @@ void CharacterScreen::SpellsLoop()
 {
     if(player.GetSpells().empty())
         return;
+    sf::Texture SpellTexture;
+    SpellTexture.LoadFromFile("Tiles/Spell.png");
+    sf::Sprite SpellSprite(SpellTexture);
+    SpellSprite.SetPosition(480.0f, 585.0f);
+
     int Iterator = 0;
+    sf::Text SpellText("", Font, 20);
+    SpellText.SetColor(sf::Color::Black);
+    SpellText.SetPosition(515.0f, 585.0f);
+    SpellText.SetStyle(sf::Text::Bold);
+
     float ArrowY = 50.0f;
     ArrowSprite.SetPosition(760.0f, ArrowY);
     while(Window.IsOpen()) 
@@ -186,10 +245,24 @@ void CharacterScreen::SpellsLoop()
             }
         }
         Window.Clear();
-        //TODO draw spell detalje ovisno o iteratoru
         Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
         DrawItems();
         Window.Draw(ArrowSprite);
+        Window.Draw(SpellSprite);
+        switch(player.GetSpells()[Iterator].Type)
+        {
+        case SPELL_HEAL:
+            SpellText.SetString(player.GetSpells()[Iterator].Name + '\n' +
+                "Heals caster for " + IntToString(player.GetSpells()[Iterator].Value) + '\n' +
+                "Power Cost: " + IntToString(player.GetSpells()[Iterator].Cost));
+            break;
+        case SPELL_ATTACK:
+            SpellText.SetString(player.GetSpells()[Iterator].Name + '\n' +
+                "Damages enemy for " + IntToString(player.GetSpells()[Iterator].Value) + '\n' +
+                "Power Cost: " + IntToString(player.GetSpells()[Iterator].Cost));
+            break;
+        }
+        Window.Draw(SpellText);
         Window.Display();
     }
 }

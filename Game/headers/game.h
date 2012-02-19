@@ -73,6 +73,7 @@ class Game
     void GameOver();
 
     ObjectType ObjectGrid[24][32];
+    sf::Sprite HideMapHack[24][32]; //this is so wrong
 
 public:
     Game();

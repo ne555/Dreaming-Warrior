@@ -110,16 +110,16 @@ Class MainMenu::ChooseClass()
 GameMode MainMenu::ChooseGameMode()
 {
     Font.LoadFromFile("Graphics/papyrus.ttf");
-    float ArrowY = 350;
+    float ArrowY = 300;
     int Command = 1;
     sf::Text
-        NewGame("Nova igra", Font),
-        LoadGame("Ucitaj igru", Font),
-        Exit("Izlaz", Font);
+        NewGame("New Game", Font),
+        LoadGame("Load Game", Font),
+        Exit("Exit", Font);
     
-    NewGame.SetPosition(450, 350);
-    LoadGame.SetPosition(450, 385);
-    Exit.SetPosition(450, 420);
+    NewGame.SetPosition(400, 300);
+    LoadGame.SetPosition(400, 335);
+    Exit.SetPosition(400, 370);
 
     NewGame.SetStyle(sf::Text::Bold);
     LoadGame.SetStyle(sf::Text::Bold);
@@ -128,7 +128,7 @@ GameMode MainMenu::ChooseGameMode()
     sf::Texture ArrowTexture;
     ArrowTexture.LoadFromFile("Graphics/Arrow.png");
     sf::Sprite ArrowSprite(ArrowTexture);
-    ArrowSprite.SetPosition(400.0f, ArrowY);
+    ArrowSprite.SetPosition(350.0f, ArrowY);
 
     while(Window.IsOpen()) 
     {
@@ -140,7 +140,7 @@ GameMode MainMenu::ChooseGameMode()
                 {
                     --Command;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(400.0f, ArrowY);
+                    ArrowSprite.SetPosition(350.0f, ArrowY);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
@@ -149,7 +149,7 @@ GameMode MainMenu::ChooseGameMode()
                 {
                     ++Command;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(400.0f, ArrowY);
+                    ArrowSprite.SetPosition(350.0f, ArrowY);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))

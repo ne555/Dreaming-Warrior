@@ -25,7 +25,7 @@ TODO:
 */
 
 //PH
-Item GetItemFromDatabase(string World, int ID)
+Item GetItemFromDatabase(const string World, int ID)
 {
     Item Item;
     std::ifstream File(World + "/ItemDatabase.txt");
@@ -47,7 +47,7 @@ Item GetItemFromDatabase(string World, int ID)
     exit(1);
 }
 /*
-Item GetItemFromDatabase(string World, int ID)
+Item GetItemFromDatabase(const string World, int ID)
 {
     Item Item;
     std::ifstream file(World + "/ItemDatabase.txt");
@@ -158,7 +158,7 @@ Item GetItemFromDatabase(string World, int ID)
     exit(1);
 }*/
 
-Quest GetQuestFromDatabase(string World, int ID)
+Quest GetQuestFromDatabase(const string World, int ID)
 {
     std::ifstream File(World + "/QuestDatabase.txt");
     int QID, StartCreature, EndCreature, Level_req, Quest_req, Num_Obj;
@@ -196,7 +196,7 @@ Quest GetQuestFromDatabase(string World, int ID)
     exit(1);
 }
 
-Spell GetSpellFromDatabase(string World, int ID)
+Spell GetSpellFromDatabase(const string World, int ID)
 {
     std::ifstream File(World + "/SpellDatabase.txt");
     int SID, type, LevelReq, Cost, Value;
@@ -213,7 +213,7 @@ Spell GetSpellFromDatabase(string World, int ID)
 }
 
 //todo ovo treba biti prije loadano u poseban string u questu
-string GetEnemyNameFromDatabase(string Map, int ID)
+string GetEnemyNameFromDatabase(const string Map, int ID)
 {
     std::ifstream File(Map + "Enemies.txt");
     int CID;
