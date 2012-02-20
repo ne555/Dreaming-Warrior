@@ -96,8 +96,6 @@ public:
             if(itr->Type == ITEM_HEALTH_POTION)
             {
                 SetHealth(GetHealth()+itr->Value);
-                if(GetHealth() > GetMaxHealth())
-                    SetHealth(GetMaxHealth());
                 Items.erase(itr);
                 return true;
             }
@@ -112,8 +110,6 @@ public:
             if(itr->Type == ITEM_POWER_POTION)
             {
                 SetPower(GetPower() + itr->Value);
-                if(GetPower() > GetMaxPower())
-                    SetPower(GetMaxPower());
                 Items.erase(itr);
                 return true;
             }

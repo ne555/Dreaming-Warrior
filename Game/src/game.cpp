@@ -144,10 +144,10 @@ int Game::Move(Orientation Direction)
         break;
     }
 
-    Player.SetHealth(Player.GetHealth() + 2);
-    Player.SetPower(Player.GetPower() + 2);
+    Player.SetHealth(Player.GetHealth() + 1);
+    Player.SetPower(Player.GetPower() + 1);
 
-    if(urand(0, 100) < 5)
+    if(urand(0, 100) < 50)
        return 1;
 
     return 0;

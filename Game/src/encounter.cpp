@@ -38,6 +38,7 @@ void Game::Encounter(Orientation Direction)
                         GameOver();
                     case 1:
                         Player.IncrementExp();
+                        Player.SetWealth(Player.GetWealth() + itr->GetWealth());
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
@@ -92,6 +93,7 @@ void Game::Encounter(Orientation Direction)
                         GameOver();
                     case 1:
                         Player.IncrementExp();
+                        Player.SetWealth(Player.GetWealth() + itr->GetWealth());
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
@@ -146,6 +148,7 @@ void Game::Encounter(Orientation Direction)
                         GameOver();
                     case 1:
                         Player.IncrementExp();
+                        Player.SetWealth(Player.GetWealth() + itr->GetWealth());
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
@@ -200,6 +203,7 @@ void Game::Encounter(Orientation Direction)
                         GameOver();
                     case 1:
                         Player.IncrementExp();
+                        Player.SetWealth(Player.GetWealth() + itr->GetWealth());
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
                         Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);

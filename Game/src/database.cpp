@@ -35,6 +35,7 @@ Item GetItemFromDatabase(const string World, int ID)
     {
         if(IID != ID)
             continue;
+        Item.ID = IID;
         Item.Name = SetSpaces(name);
         Item.Type = GetItemType(type);
         Item.ItemTexture.LoadFromFile(icon);

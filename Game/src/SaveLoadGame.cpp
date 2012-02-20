@@ -77,22 +77,20 @@ void Game::SaveMap(string PathToMap)
         File << itr->ID << " " << itr->GetAttack() << " " << itr->GetDefense() 
             << " " << itr->GetHealth() << " " << itr->GetLevel() << " "
             << itr->GetName() << " " << itr->GetWealth() << " " << itr->GetX() << " "
-            << itr->GetY() << " " << itr->MapTextureFileName << " " << itr->Combat;
-        int ctr = 4;
-        for(auto liter = itr->Loot.begin(); liter != itr->Loot.end(); ++liter)//todo...
-        {
-            File << " " <<liter->Item.ID << " " << liter->Chance;
-            --ctr;
-        }
-        while(ctr > 0)
-        {
-            File << " NULL 0";
-            --ctr;
-        }
-        File << endl;
+            << itr->GetY() << " " << itr->MapTextureFileName << " " << itr->Combat << endl;
     }
     File.close();
 
+    File.open(PathToMap + "RandomEncounters.txt");
+    File.clear();
+    for(auto itr = RandomEncounters.begin(); itr != RandomEncounters.end(); ++itr)
+    {
+        File << itr->ID << " " << itr->GetAttack() << " " << itr->GetDefense() 
+            << " " << itr->GetHealth() << " " << itr->GetLevel() << " "
+            << itr->GetName() << " " << itr->GetWealth() << " " << itr->Combat << endl;
+    }
+    File.close();
+    /*
     File.open(PathToMap + "Vendors.txt");
     File.clear();
     for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
@@ -104,7 +102,7 @@ void Game::SaveMap(string PathToMap)
         }
         File << endl;
     }
-    File.close();
+    File.close();*/
 
     File.open(PathToMap + "QuestGivers.txt");
     File.clear();

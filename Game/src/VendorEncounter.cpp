@@ -36,7 +36,7 @@ void VendorEncounter::DrawItems(const Vendor& Vendor)
         sf::Sprite ItemSprite(itr->ItemTexture);
         ItemSprite.SetPosition(ItemX, ItemY);
         ItemX += 81;
-        if(ItemX == 324)
+        if(ItemX == 373)
         {
             ItemY += 32;
             ItemX = 49;

@@ -148,7 +148,7 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
     Font.LoadFromFile("Graphics/papyrus.ttf");
 
     sf::Texture ArrowTexture, GUITexture;
-    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
+    ArrowTexture.LoadFromFile("Graphics/Arrow2.png");
     GUITexture.LoadFromFile("Graphics/QuestScreen.jpg");
     ArrowSprite.SetTexture(ArrowTexture);
     ArrowSprite.SetPosition(555.0f, ArrowY);
