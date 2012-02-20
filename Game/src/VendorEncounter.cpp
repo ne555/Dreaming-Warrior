@@ -128,6 +128,11 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
                     Message = "You cannot afford that item!";
                     continue;
                 }
+                if(player.GetItems().size() == MAX_ITEMS)
+                {
+                    Message = "You cannot carry any more items";
+                    continue;
+                }
                 player.SetWealth(player.GetWealth() - Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice);
                 player.AddItem(Vendor.Items[ItemGrid[IterY][IterX]]);
                 //Vendor.Items.erase(Vendor.Items.begin() + ItemGrid[IterY][IterX]);
@@ -157,6 +162,14 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
                     (Vendor.Items[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Cannot be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            case ITEM_MANA_FOOD:
+                ItemName.SetString
+                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    + " power." + '\n' + "Cannot be used in combat" + '\n'
                     + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
                     + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;

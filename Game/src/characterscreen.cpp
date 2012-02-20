@@ -97,6 +97,11 @@ void CharacterScreen::ItemsLoop()
                     break;
                 case ITEM_POWER_POTION:
                 case ITEM_HEALTH_POTION:
+                case ITEM_MANA_FOOD:
+                    player.SetPower(player.GetPower() + player.GetItems()[ItemGrid[IterY][IterX]].Value);
+                    player.RemoveItem(ItemGrid[IterY][IterX]);
+                    DrawTexture();
+                    break;
                 case ITEM_FOOD:
                     player.SetHealth(player.GetHealth() + player.GetItems()[ItemGrid[IterY][IterX]].Value);
                     player.RemoveItem(ItemGrid[IterY][IterX]);
@@ -105,41 +110,20 @@ void CharacterScreen::ItemsLoop()
                 default:
                     player.EquipItem(player.GetItems()[ItemGrid[IterY][IterX]]);
                     player.RemoveItem(ItemGrid[IterY][IterX]);
-                    unsigned i=0;
-                    for(int y=0; y<6; ++y)
-                    {
-                        for(int x=0; x<5; ++x)
-                        {
-                            if(i < player.GetItems().size()-1)
-                                ItemGrid[y][x] = i;
-                            else
-                                ItemGrid[y][x] = -1;
-                            ++i;
-                        }
-                    }
                     DrawTexture(); //opet, odvojiti te sheme...
                     break;
                 }
+                ItemGrid[IterY][IterX] = -1;
                 IterY = IterX = 0;
                 ArrowX = 0; ArrowY = 571;
+                ArrowSprite.SetPosition(0, 571);
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::D))
             {
                 if(ItemGrid[IterY][IterX] == -1)
                     continue;
                 player.RemoveItem(ItemGrid[IterY][IterX]);
-                unsigned i=0;
-                for(int y=0; y<6; ++y)
-                {
-                    for(int x=0; x<5; ++x)
-                    {
-                        if(i < player.GetItems().size()-1)
-                            ItemGrid[y][x] = i;
-                        else
-                            ItemGrid[y][x] = -1;
-                        ++i;
-                    }
-                }
+                ItemGrid[IterY][IterX] = -1;
                 IterY = IterX = 0;
                 ArrowX = 0; ArrowY = 571;
             }
@@ -162,6 +146,14 @@ void CharacterScreen::ItemsLoop()
                     (player.GetItems()[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Cannot be used in combat" + '\n'
+                    + "Buy Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
+                break;
+            case ITEM_MANA_FOOD:
+                ItemName.SetString
+                    (player.GetItems()[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
+                    + " power." + '\n' + "Cannot be used in combat" + '\n'
                     + "Buy Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
                     + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
@@ -308,13 +300,13 @@ void CharacterScreen::StatsLoop()
                     player.SetMaxPower(player.GetMaxPower() + 10);
                     break;
                 case 2:
-                    player.SetAttack(player.GetAttack() + 5);
+                    player.SetAttack(player.GetAttack() + 1);
                     break;
                 case 3:
-                    player.SetDefense(player.GetDefense() + 5);
+                    player.SetDefense(player.GetDefense() + 1);
                     break;
                 case 4:
-                    player.SetIntStr(player.GetIntStr() + 5);
+                    player.SetIntStr(player.GetIntStr() + 1);
                     break;
                 }
                 player.UseTalentPoint();
@@ -349,33 +341,6 @@ void CharacterScreen::DrawItems()
         }
         Window.Draw(ItemSprite);
     }
-    /*for(int a=47; a<395; a+=79)
-    {
-        sf::VertexArray Line(sf::Lines, 2);
-        Line[0].Position = sf::Vector2f(a, 571.0f);
-        Line[0].Color = sf::Color(0, 0, 0);
-        Line[1].Position = sf::Vector2f(a, 763.0f);
-        Line[1].Color = sf::Color(0, 0, 0);
-        Window.Draw(Line);
-    }
-    for(int a=79; a<424; a+=79)
-    {
-        sf::VertexArray Line(sf::Lines, 2);
-        Line[0].Position = sf::Vector2f(a, 571.0f);
-        Line[0].Color = sf::Color(0, 0, 0);
-        Line[1].Position = sf::Vector2f(a, 763.0f);
-        Line[1].Color = sf::Color(0, 0, 0);
-        Window.Draw(Line);
-    }
-    for(int a=571; a<768; a+=32)
-    {
-        sf::VertexArray Line(sf::Lines, 2);
-        Line[0].Position = sf::Vector2f(0.0f, a);
-        Line[0].Color = sf::Color(0, 0, 0);
-        Line[1].Position = sf::Vector2f(395.0f, a);
-        Line[1].Color = sf::Color(0, 0, 0);
-        Window.Draw(Line);
-    }*/
 }
 
 void CharacterScreen::DrawTexture()

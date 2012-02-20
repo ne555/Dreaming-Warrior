@@ -119,7 +119,7 @@ public:
 
     bool AddItem(Item Item, bool IsEquiped = false)
     {
-        if(Items.size() + EquipedItems.size() <= BACKPACK_SIZE)
+        if(Items.size() <= MAX_ITEMS)
         {
             IsEquiped ? EquipedItems.push_back(Item) : Items.push_back(Item);
             return true;

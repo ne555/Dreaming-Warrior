@@ -147,7 +147,7 @@ int Game::Move(Orientation Direction)
     Player.SetHealth(Player.GetHealth() + 1);
     Player.SetPower(Player.GetPower() + 1);
 
-    if(urand(0, 100) < 50)
+    if(urand(0, 100) < 15)
        return 1;
 
     return 0;
@@ -236,6 +236,11 @@ void Game::GameLoop()
             {
                 CharacterScreen Screen(Player, Window);
                 Screen.MainLoop();
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::S))
+            {
+                SaveMap(PathToMap);
+                SavePlayer();
             }
         }
         Window.Clear();

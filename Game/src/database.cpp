@@ -220,7 +220,7 @@ string GetEnemyNameFromDatabase(const string Map, int ID)
     int CID;
     string trash, Name;
     while(File >> CID >> trash >> trash >> trash >> trash >> Name >> trash >> trash >> trash >> trash
-        >> trash >> trash >> trash >> trash >> trash >> trash >> trash >> trash >> trash)
+        >> trash)
     {
         if(CID == ID)
         {

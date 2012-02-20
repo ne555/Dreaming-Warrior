@@ -33,7 +33,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-#define BACKPACK_SIZE 30 //24??
+#define MAX_ITEMS 30
 #define MAX_SPELLS 5 //PH? nepotrebno
 
 enum ItemType
@@ -50,7 +50,8 @@ enum ItemType
     ITEM_FOOT,
     ITEM_WEAPON,
     ITEM_SHIELD,
-    ITEM_FOOD
+    ITEM_FOOD,
+    ITEM_MANA_FOOD
 };
 
 enum Attribute

@@ -144,12 +144,12 @@ bool Combat::HandleInput(int &CommandList, int &Command, float &ArrowY, bool &Pl
         switch(Command)
         {
         case 1: // Health
-            if(player.UseHealthPotIfCan())
-                PlayerMove = false;
+            /*if(*/player.UseHealthPotIfCan();/*)*/
+                //PlayerMove = false;
             break;
         case 2: // Mana
-            if(player.UsePowerPotIfCan())
-                PlayerMove = false;
+            /*if(*/player.UsePowerPotIfCan();/*)*/
+                //PlayerMove = false;
             break;
         case 3: // Natrag
             ArrowY = 165.0f;
@@ -231,7 +231,7 @@ void Combat::SpellCast(const Spell &Spell)
     switch(player.GetClass())
     {
     case CLASS_WARRIOR:
-        Damage = Spell.Value;
+        Damage = Spell.Value + player.GetLevel()*2;
         break;
     case CLASS_MAGE:
         Damage = Spell.Value + player.GetIntStr() * 2 + urand(0, player.GetLevel()+2) + player.GetAttack();
