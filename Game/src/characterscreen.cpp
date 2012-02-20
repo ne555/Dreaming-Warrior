@@ -113,7 +113,18 @@ void CharacterScreen::ItemsLoop()
                     DrawTexture(); //opet, odvojiti te sheme...
                     break;
                 }
-                ItemGrid[IterY][IterX] = -1;
+                i = 0;
+                for(int y=0; y<6; ++y)
+                {
+                    for(int x=0; x<5; ++x)
+                    {
+                        if(i < player.GetItems().size())
+                            ItemGrid[y][x] = i;
+                        else
+                            ItemGrid[y][x] = -1;
+                     ++i;
+                    }
+                }
                 IterY = IterX = 0;
                 ArrowX = 0; ArrowY = 571;
                 ArrowSprite.SetPosition(0, 571);
@@ -123,9 +134,21 @@ void CharacterScreen::ItemsLoop()
                 if(ItemGrid[IterY][IterX] == -1)
                     continue;
                 player.RemoveItem(ItemGrid[IterY][IterX]);
-                ItemGrid[IterY][IterX] = -1;
+                i = 0;
+                for(int y=0; y<6; ++y)
+                {
+                    for(int x=0; x<5; ++x)
+                    {
+                        if(i < player.GetItems().size())
+                            ItemGrid[y][x] = i;
+                        else
+                            ItemGrid[y][x] = -1;
+                     ++i;
+                    }
+                }
                 IterY = IterX = 0;
                 ArrowX = 0; ArrowY = 571;
+                ArrowSprite.SetPosition(0, 571);
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
             {
