@@ -293,6 +293,7 @@ bool Game::CheckPortals(int x, int y)
 
             //Save mapu
             SaveMap(this->PathToMap);
+            SavePlayer();
 
             //Napravi novu mapu
             LoadMap(World + itr->PathToMap);

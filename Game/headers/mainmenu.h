@@ -25,6 +25,7 @@ struct MainMenuData
     string PathToWorld;
     GameMode Mode;
     Class PlayerClass;
+    string PlayerName;
 };
 
 class MainMenu
@@ -36,6 +37,7 @@ class MainMenu
 
     GameMode ChooseGameMode();
     Class ChooseClass();
+    string ChooseName();
 
 public:
     MainMenu(sf::RenderWindow &Window);

@@ -68,6 +68,14 @@ void Game::CopyWorld(const boost::filesystem::path& source, const boost::filesys
     }
 }
 
+string RemoveSpaces(string string)
+{
+    for(auto itr = string.begin(); itr != string.end(); ++itr)
+        if(*itr == ' ')
+            *itr = '_';
+    return string;
+}
+
 void Game::SaveMap(string PathToMap)
 {
     ofstream File(PathToMap + "Enemies.txt");
@@ -76,7 +84,7 @@ void Game::SaveMap(string PathToMap)
     {
         File << itr->ID << " " << itr->GetAttack() << " " << itr->GetDefense() 
             << " " << itr->GetHealth() << " " << itr->GetLevel() << " "
-            << itr->GetName() << " " << itr->GetWealth() << " " << itr->GetX() << " "
+            << RemoveSpaces(itr->GetName()) << " " << itr->GetWealth() << " " << itr->GetX() << " "
             << itr->GetY() << " " << itr->MapTextureFileName << " " << itr->Combat << endl;
     }
     File.close();
@@ -87,7 +95,7 @@ void Game::SaveMap(string PathToMap)
     {
         File << itr->ID << " " << itr->GetAttack() << " " << itr->GetDefense() 
             << " " << itr->GetHealth() << " " << itr->GetLevel() << " "
-            << itr->GetName() << " " << itr->GetWealth() << " " << itr->Combat << endl;
+            << RemoveSpaces(itr->GetName()) << " " << itr->GetWealth() << " " << itr->Combat << endl;
     }
     File.close();
     /*
@@ -123,7 +131,7 @@ void Game::SavePlayer()
     ofstream File(World + "/Player.txt");
     File.clear();
     //Basic info
-    File << Player.Map << " " << Player.GetX() << " " << Player.GetY() << " " << Player.GetWealth() << " " << Player.GetName() << " ";
+    File << Player.Map << " " << Player.GetX() << " " << Player.GetY() << " " << Player.GetWealth() << " " << RemoveSpaces(Player.GetName()) << " ";
     if(Player.GetClass() == CLASS_WARRIOR)
         File << "0 ";
     else

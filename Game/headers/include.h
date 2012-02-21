@@ -17,6 +17,8 @@
 #ifndef INCLUDE_H
 #define INCLUDE_H
 
+#define KROFNA_JE_CAR true
+
 #include <string>
 #include <cstdlib>
 #include <time.h>

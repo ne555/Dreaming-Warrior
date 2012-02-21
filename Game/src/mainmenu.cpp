@@ -32,6 +32,7 @@ MainMenuData MainMenu::MainLoop()
             MenuData.Mode = NEW_GAME;
             MenuData.PathToWorld = "World";
             MenuData.PlayerClass = ChooseClass();
+            MenuData.PlayerName = ChooseName();
             return MenuData;
         }
     case LOAD_GAME:
@@ -43,6 +44,43 @@ MainMenuData MainMenu::MainLoop()
     }
     cerr << "FATAL: Invalid game mode." << endl;
     exit(1);
+}
+
+string MainMenu::ChooseName()
+{
+    string str;
+    sf::Text text("", Font), chsnm("Enter name for your character: ", Font);
+    chsnm.SetColor(sf::Color::Black);
+    chsnm.SetPosition(350, 80);
+    text.SetPosition(350, 150);
+    text.SetColor(sf::Color::Black);
+    sf::Texture txt;
+    txt.LoadFromFile("Graphics/Name.png");
+    sf::Sprite txtspr(txt);
+
+    while(Window.IsOpen()) 
+    {
+        while(Window.PollEvent(Event))
+        {
+            if(Event.Type == sf::Event::TextEntered) 
+            {
+                if(Event.Text.Unicode < 128) 
+                {
+                    str += static_cast<char>(Event.Text.Unicode); 
+                    text.SetString(str);
+                }
+            }
+            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            {
+                return str;
+            }
+        }
+        Window.Clear();
+        Window.Draw(txtspr);
+        Window.Draw(text);
+        Window.Draw(chsnm);
+        Window.Display();
+    }
 }
 
 Class MainMenu::ChooseClass()

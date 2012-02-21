@@ -45,7 +45,7 @@ void Game::InitGame(MainMenuData MenuResult)
         break;
     }
 
-    switch(Player.LoadFromFile(World, MenuResult.PlayerClass, ThisIsHack))
+    switch(Player.LoadFromFile(World, MenuResult.PlayerClass, ThisIsHack, MenuResult.PlayerName))
     {
     case CLASS_WARRIOR:
         PlayerTexture.LoadFromFile("Tiles/Warrior.png");
