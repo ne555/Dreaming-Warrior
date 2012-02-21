@@ -35,6 +35,8 @@ class VendorEncounter
 
     sf::Font Font;
 
+    sf::Text BuyItem, SellItem, YourItems, VendorItems, Return;
+
     float ArrowX;
     float ArrowY;
 

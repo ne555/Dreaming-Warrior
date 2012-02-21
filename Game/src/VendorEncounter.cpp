@@ -19,10 +19,34 @@
 VendorEncounter::VendorEncounter(Player &player, sf::RenderWindow &Window)
     : player(player), Window(Window), ArrowX(405), ArrowY(370)
 {
-    ItemName.SetFont(Font);
     ItemName.SetColor(sf::Color::Black);
-    ItemName.SetPosition(390.0f, 70.0f);
+    BuyItem.SetColor(sf::Color::Black);
+    SellItem.SetColor(sf::Color::Black);
+    YourItems.SetColor(sf::Color::Black);
+    VendorItems.SetColor(sf::Color::Black);
+    Return.SetColor(sf::Color::Black);
+
     ItemName.SetStyle(sf::Text::Bold);
+    BuyItem.SetStyle(sf::Text::Bold);
+    SellItem.SetStyle(sf::Text::Bold);
+    YourItems.SetStyle(sf::Text::Bold);
+    VendorItems.SetStyle(sf::Text::Bold);
+    Return.SetStyle(sf::Text::Bold);
+
+    ItemName.SetPosition(390.0f, 70.0f);
+    BuyItem.SetPosition(450.0f, 370.0f);
+    SellItem.SetPosition(450.0f, 405.0f);
+    Return.SetPosition(450.0f, 440.0f);
+    YourItems.SetPosition(100.0f, 0.0f);
+    VendorItems.SetPosition(750.0f, 0.0f);
+
+    ItemName.SetFont(Font);
+    BuyItem.SetFont(Font);
+    SellItem.SetFont(Font);
+    YourItems.SetFont(Font);
+    VendorItems.SetFont(Font);
+    Return.SetFont(Font);
+
     ItemName.SetCharacterSize(20);
     ItemSprite.SetPosition(360.0f, 70.0f);
     ScreenTexture.Create(1024, 768);
@@ -328,29 +352,6 @@ void VendorEncounter::DrawTexture()
 {
     sf::RenderTexture ScreenTexture;
     ScreenTexture.Create(1024, 768);
-    Font.LoadFromFile("Graphics/papyrus.ttf");
-    sf::Text 
-        BuyItem("Buy Item", Font), SellItem("Sell Item", Font), 
-        YourItems("Your items: ", Font), VendorItems("Vendors items: ", Font),
-        Return("Back to Game", Font);
-
-    BuyItem.SetColor(sf::Color::Black);
-    SellItem.SetColor(sf::Color::Black);
-    YourItems.SetColor(sf::Color::Black);
-    VendorItems.SetColor(sf::Color::Black);
-    Return.SetColor(sf::Color::Black);
-
-    BuyItem.SetStyle(sf::Text::Bold);
-    SellItem.SetStyle(sf::Text::Bold);
-    YourItems.SetStyle(sf::Text::Bold);
-    VendorItems.SetStyle(sf::Text::Bold);
-    Return.SetStyle(sf::Text::Bold);
-
-    BuyItem.SetPosition(450.0f, 370.0f);
-    SellItem.SetPosition(450.0f, 405.0f);
-    Return.SetPosition(450.0f, 440.0f);
-    YourItems.SetPosition(100.0f, 0.0f);
-    VendorItems.SetPosition(750.0f, 0.0f);
 
     ScreenTexture.Draw(BuyItem);
     ScreenTexture.Draw(Return);
@@ -372,6 +373,12 @@ void VendorEncounter::DrawMessage(string Message)
 
 Vendor VendorEncounter::MainLoop(Vendor Vendor)
 {
+    Font.LoadFromFile("Graphics/papyrus.ttf");
+    BuyItem.SetString("Buy Item");
+    SellItem.SetString("Sell Item");
+    YourItems.SetString("Your items: ");
+    VendorItems.SetString("Vendors items: ");
+    Return.SetString("Back to Game");
     DrawTexture();
     MoneyText.SetString(IntToString(player.GetWealth()));
     MoneyText.SetStyle(sf::Text::Bold);
