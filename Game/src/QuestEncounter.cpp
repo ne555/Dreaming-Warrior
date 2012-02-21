@@ -33,6 +33,33 @@ QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window)
 {
 }
 
+void QuestEncounter::Victory() //Hack... popraviti kad budem prepiso igru
+{
+    sf::Texture BackgroundTexture;
+    sf::Sprite BackgroundSprite;
+    BackgroundTexture.LoadFromFile("Graphics/MainMenu.jpg");
+    BackgroundSprite.SetTexture(BackgroundTexture);
+    sf::Text GameOver("The forest is Saved!", Font, 90U);
+    GameOver.SetStyle(sf::Text::Bold);
+    GameOver.SetPosition(280, 320);
+
+    sf::Event Event;
+    while(Window.IsOpen()) 
+    {
+        while(Window.PollEvent(Event))
+        {
+            if(Event.Type == sf::Event::KeyPressed)
+            {
+                exit(0);
+            }
+        }
+        Window.Clear();
+        Window.Draw(BackgroundSprite);
+        Window.Draw(GameOver);
+        Window.Display();
+    }
+}
+
 bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
 {
     sf::Text QuestText(Quests[QuestIterator].Quest.Text, Font);
@@ -98,6 +125,8 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
                             player.AddCompletedQuest(Quests[QuestIterator].Quest.ID);
                             player.AddItem(GetItemFromDatabase("SavedGame",/*TODO [PH]*/Quests[QuestIterator].Quest.ItemReward));
                             player.RemoveQuest(Quests[QuestIterator].Quest.ID);
+                            if(Quests[QuestIterator].Quest.ID == 10) //hack. ovo treba biti elegantnije
+                                Victory();
                             Quests.erase(Quests.begin() + QuestIterator);
                             player.SetWealth(player.GetWealth() + 20 * player.GetLevel()); //ph
                         }

@@ -44,6 +44,7 @@ void Game::InitGame(MainMenuData MenuResult)
         World = "SavedGame";
         break;
     }
+    Font.LoadFromFile("Graphics/papyrus.ttf");
 
     switch(Player.LoadFromFile(World, MenuResult.PlayerClass, ThisIsHack, MenuResult.PlayerName))
     {
@@ -59,8 +60,6 @@ void Game::InitGame(MainMenuData MenuResult)
 
 void Game::GameOver()
 {
-    sf::Font Font;
-    Font.LoadFromFile("Graphics/papyrus.ttf");
     sf::Texture BackgroundTexture;
     sf::Sprite BackgroundSprite;
     BackgroundTexture.LoadFromFile("Graphics/MainMenu.jpg");

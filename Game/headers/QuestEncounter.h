@@ -40,6 +40,7 @@ class QuestEncounter
         //true - QGiver
         bool From;
     };
+    void Victory();
 
     vector<_Quest> Quests;
     int QuestIterator;

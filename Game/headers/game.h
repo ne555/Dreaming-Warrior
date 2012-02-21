@@ -62,6 +62,7 @@ class Game
         int PlayerNewY;
     };
     vector<Portal> Portals;
+    sf::Font Font;
     sf::Texture PlayerTexture;
 
     void LoadMap(string PathToMap);
