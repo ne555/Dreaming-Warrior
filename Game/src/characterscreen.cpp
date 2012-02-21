@@ -156,7 +156,7 @@ void CharacterScreen::ItemsLoop()
             }
         }
         Window.Clear();
-        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(sf::Sprite(ScreenTexture));
         DrawItems();
         Window.Draw(ArrowSprite);
         if(ItemGrid[IterY][IterX] != -1)
@@ -260,7 +260,7 @@ void CharacterScreen::SpellsLoop()
             }
         }
         Window.Clear();
-        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(sf::Sprite(ScreenTexture));
         DrawItems();
         Window.Draw(ArrowSprite);
         Window.Draw(SpellSprite);
@@ -341,7 +341,7 @@ void CharacterScreen::StatsLoop()
             }
         }
         Window.Clear();
-        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(sf::Sprite(ScreenTexture));
         DrawItems();
         Window.Draw(ArrowSprite);
         Window.Display();
@@ -368,6 +368,7 @@ void CharacterScreen::DrawItems()
 
 void CharacterScreen::DrawTexture()
 {
+    sf::RenderTexture ScreenTexture;
     //Graphics
     sf::Texture PlayerTexture, BackgroundTexture;
     sf::Text PlayerText("", Font);
@@ -473,6 +474,7 @@ void CharacterScreen::DrawTexture()
     ScreenTexture.Draw(Quests);
     ScreenTexture.Draw(Exit);
     ScreenTexture.Display();
+    this->ScreenTexture = ScreenTexture.GetTexture();
 }
 
 void CharacterScreen::MainLoop()
@@ -536,7 +538,7 @@ void CharacterScreen::MainLoop()
             }
         }
         Window.Clear();
-        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(sf::Sprite(ScreenTexture));
         Window.Draw(ArrowSprite);
         DrawItems();
         Window.Display();

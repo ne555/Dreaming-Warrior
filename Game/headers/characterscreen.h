@@ -23,7 +23,7 @@
 class CharacterScreen
 {
     sf::RenderWindow &Window;
-    sf::RenderTexture ScreenTexture;
+    sf::Texture ScreenTexture;
     sf::Event Event;
     Player &player;
 
