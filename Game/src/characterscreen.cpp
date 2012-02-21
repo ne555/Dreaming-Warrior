@@ -21,13 +21,60 @@
 CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
     : Window(Window), player(player)
 {
-    ItemName.SetFont(Font);
-    ItemName.SetColor(sf::Color::Black);
     ItemName.SetPosition(515.0f, 585.0f);
+    PointsText.SetPosition(480, 55);
+    HealthText.SetPosition(480, 90);
+    PowerText.SetPosition(480, 125);
+    AttackText.SetPosition(480, 160);
+    DefenseText.SetPosition(480, 195);
+    IntStrText.SetPosition(480, 230);
+    Items.SetPosition(890.0f, 580.0f);
+    Spells.SetPosition(890.0f, 615.0f);
+    Stats.SetPosition(890.0f, 650.0f);
+    Quests.SetPosition(890.0f, 685.0f);
+    Exit.SetPosition(890.0f, 720.0f);
+
+    ItemName.SetColor(sf::Color::Black);
+    PointsText.SetColor(sf::Color::Black);
+    HealthText.SetColor(sf::Color::Black);
+    PowerText.SetColor(sf::Color::Black);
+    AttackText.SetColor(sf::Color::Black);
+    DefenseText.SetColor(sf::Color::Black);
+    IntStrText.SetColor(sf::Color::Black);
+    Items.SetColor(sf::Color::Black);
+    Spells.SetColor(sf::Color::Black);
+    Stats.SetColor(sf::Color::Black);
+    Quests.SetColor(sf::Color::Black);
+    Exit.SetColor(sf::Color::Black);
+
+    ItemName.SetFont(Font);
+    PointsText.SetFont(Font);
+    HealthText.SetFont(Font);
+    PowerText.SetFont(Font);
+    AttackText.SetFont(Font);
+    DefenseText.SetFont(Font);
+    IntStrText.SetFont(Font);
+    Items.SetFont(Font);
+    Spells.SetFont(Font);
+    Stats.SetFont(Font);
+    Quests.SetFont(Font);
+    Exit.SetFont(Font);
+
     ItemName.SetStyle(sf::Text::Bold);
+    PointsText.SetStyle(sf::Text::Bold);
+    HealthText.SetStyle(sf::Text::Bold);
+    PowerText.SetStyle(sf::Text::Bold);
+    AttackText.SetStyle(sf::Text::Bold);
+    DefenseText.SetStyle(sf::Text::Bold);
+    IntStrText.SetStyle(sf::Text::Bold);
+    Items.SetStyle(sf::Text::Bold);
+    Spells.SetStyle(sf::Text::Bold);
+    Stats.SetStyle(sf::Text::Bold);
+    Quests.SetStyle(sf::Text::Bold);
+    Exit.SetStyle(sf::Text::Bold);
+
     ItemName.SetCharacterSize(20);
     ItemSprite.SetPosition(480.0f, 585.0f);
-    ScreenTexture.Create(1024, 768);
 }
 
 void CharacterScreen::ItemsLoop()
@@ -392,15 +439,6 @@ void CharacterScreen::DrawTexture()
     PlayerSprite.SetPosition(30.0f, 60.0f);
     BackgroundSprite.SetTexture(BackgroundTexture);
 
-    //Texts
-    sf::Text Items("Items", Font), Spells("Spells", Font), Stats("Stats", Font), Quests("Quests", Font), Exit("Exit", Font),
-        PointsText("Points left: " + IntToString(player.GetTalentPoints()), Font),
-        HealthText("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()), Font),
-        PowerText("", Font),
-        IntStrText("", Font),
-        AttackText("Attack: " + IntToString(player.GetAttack()), Font), 
-        DefenseText("Defense: " + IntToString(player.GetDefense()), Font);
-
     ScreenTexture.Draw(BackgroundSprite);
 
     float SpellTextY = 50;
@@ -425,41 +463,10 @@ void CharacterScreen::DrawTexture()
         IntStrText.SetString("Intelligence: " + IntToString(player.GetIntStr()));
     }
 
-    PointsText.SetPosition(480, 55);
-    HealthText.SetPosition(480, 90);
-    PowerText.SetPosition(480, 125);
-    AttackText.SetPosition(480, 160);
-    DefenseText.SetPosition(480, 195);
-    IntStrText.SetPosition(480, 230);
-    Items.SetPosition(890.0f, 580.0f);
-    Spells.SetPosition(890.0f, 615.0f);
-    Stats.SetPosition(890.0f, 650.0f);
-    Quests.SetPosition(890.0f, 685.0f);
-    Exit.SetPosition(890.0f, 720.0f);
-
-    PointsText.SetColor(sf::Color(0, 0, 0));
-    HealthText.SetColor(sf::Color(0, 0, 0));
-    PowerText.SetColor(sf::Color(0, 0, 0));
-    AttackText.SetColor(sf::Color(0, 0, 0));
-    DefenseText.SetColor(sf::Color(0, 0, 0));
-    IntStrText.SetColor(sf::Color(0, 0, 0));
-    Items.SetColor(sf::Color(0, 0, 0));
-    Spells.SetColor(sf::Color(0, 0, 0));
-    Stats.SetColor(sf::Color(0, 0, 0));
-    Quests.SetColor(sf::Color(0, 0, 0));
-    Exit.SetColor(sf::Color(0, 0, 0));
-
-    PointsText.SetStyle(sf::Text::Bold);
-    HealthText.SetStyle(sf::Text::Bold);
-    PowerText.SetStyle(sf::Text::Bold);
-    AttackText.SetStyle(sf::Text::Bold);
-    DefenseText.SetStyle(sf::Text::Bold);
-    IntStrText.SetStyle(sf::Text::Bold);
-    Items.SetStyle(sf::Text::Bold);
-    Spells.SetStyle(sf::Text::Bold);
-    Stats.SetStyle(sf::Text::Bold);
-    Quests.SetStyle(sf::Text::Bold);
-    Exit.SetStyle(sf::Text::Bold);
+    PointsText.SetString("Points left: " + IntToString(player.GetTalentPoints()));
+    HealthText.SetString("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()));
+    AttackText.SetString("Attack: " + IntToString(player.GetAttack()));
+    DefenseText.SetString("Defense: " + IntToString(player.GetDefense()));
 
     ScreenTexture.Draw(PlayerText);
     ScreenTexture.Draw(PlayerSprite);
@@ -485,6 +492,11 @@ void CharacterScreen::MainLoop()
     ArrowTexture.LoadFromFile("Graphics/Arrow2.png");
     ArrowSprite.SetTexture(ArrowTexture);
     ArrowSprite.SetPosition(840.0f, 580.0f);
+    Items.SetString("Items");
+    Spells.SetString("Spells");
+    Stats.SetString("Stats");
+    Quests.SetString("Quests");
+    Exit.SetString("Exit"),
     DrawTexture();
     int Command = 1;
     float ArrowY = 580.0f;

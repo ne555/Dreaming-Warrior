@@ -32,7 +32,8 @@ class CharacterScreen
     sf::Sprite ArrowSprite;
     sf::Sprite ItemSprite;
 
-    sf::Text ItemName;
+    sf::Text Items, Spells, Stats, Quests, Exit, PointsText, HealthText, 
+        PowerText, IntStrText, AttackText, DefenseText, ItemName;
 
     sf::Font Font;
 
