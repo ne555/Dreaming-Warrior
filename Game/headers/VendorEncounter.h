@@ -26,7 +26,7 @@ class VendorEncounter
     sf::Event Event;
     sf::Sprite ArrowSprite;
     sf::Sprite GUISprite;
-    sf::RenderTexture ScreenTexture;
+    sf::Texture ScreenTexture;
     sf::Sprite MoneySprite;
     sf::Text MoneyText;
     sf::Text ItemName;

@@ -369,6 +369,7 @@ void CharacterScreen::DrawItems()
 void CharacterScreen::DrawTexture()
 {
     sf::RenderTexture ScreenTexture;
+    ScreenTexture.Create(1024, 768);
     //Graphics
     sf::Texture PlayerTexture, BackgroundTexture;
     sf::Text PlayerText("", Font);

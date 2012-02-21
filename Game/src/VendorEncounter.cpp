@@ -147,7 +147,7 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
         Window.Clear();
         Window.Draw(GUISprite);
         Window.Draw(ArrowSprite);
-        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(sf::Sprite(ScreenTexture));
         DrawMessage(Message);
         DrawItems(Vendor);
         Window.Draw(MoneySprite);
@@ -282,7 +282,7 @@ void VendorEncounter::SellingItemsLoop(Vendor &Vendor)
         Window.Clear();
         Window.Draw(GUISprite);
         Window.Draw(ArrowSprite);
-        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(sf::Sprite(ScreenTexture));
         DrawItems(Vendor);
         DrawMessage(Message);
         Window.Draw(MoneySprite);
@@ -326,6 +326,8 @@ void VendorEncounter::SellingItemsLoop(Vendor &Vendor)
 
 void VendorEncounter::DrawTexture()
 {
+    sf::RenderTexture ScreenTexture;
+    ScreenTexture.Create(1024, 768);
     Font.LoadFromFile("Graphics/papyrus.ttf");
     sf::Text 
         BuyItem("Buy Item", Font), SellItem("Sell Item", Font), 
@@ -356,6 +358,7 @@ void VendorEncounter::DrawTexture()
     ScreenTexture.Draw(YourItems);
     ScreenTexture.Draw(VendorItems);
     ScreenTexture.Display();
+    this->ScreenTexture = ScreenTexture.GetTexture();
 }
 
 void VendorEncounter::DrawMessage(string Message)
@@ -430,7 +433,7 @@ Vendor VendorEncounter::MainLoop(Vendor Vendor)
         Window.Clear();
         Window.Draw(GUISprite);
         DrawItems(Vendor);
-        Window.Draw(sf::Sprite(ScreenTexture.GetTexture()));
+        Window.Draw(sf::Sprite(ScreenTexture));
         Window.Draw(ArrowSprite);
         DrawMessage("How can I help you, " + player.GetName() + "?");
         Window.Draw(MoneySprite);
