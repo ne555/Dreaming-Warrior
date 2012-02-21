@@ -72,6 +72,7 @@ string MainMenu::ChooseName()
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
+                str.erase(str.begin());
                 return str;
             }
         }

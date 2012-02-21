@@ -170,7 +170,7 @@ void Game::GameLoop()
         sf::Event Event;
         while(Window.PollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            if((Event.Type == sf::Event::Closed) || ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape)))
             {
                 SaveMap(PathToMap);
                 SavePlayer();

@@ -182,7 +182,7 @@ void Combat::MeleeAttack()
     switch(player.GetClass())
     {
     case CLASS_WARRIOR:
-        Damage = player.GetAttack() + (player.GetIntStr() * 3) + urand(0, player.GetLevel()+2) - enemy.GetDefense();
+        Damage = player.GetAttack() + (player.GetIntStr() * 3) + urand(0, player.GetLevel()*2) - enemy.GetDefense();
         break;
     case CLASS_MAGE:
         Damage = player.GetAttack();

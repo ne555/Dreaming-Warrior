@@ -31,7 +31,7 @@ Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack, strin
     if(ThisIsHack)
     {
         PlayerClass = ClassHack;
-        SetName(SetSpaces(name));
+        SetName(SetSpaces(Name));
     }
     SetLevel(level);
     Exp = exp;
@@ -72,7 +72,8 @@ Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack, strin
         File >> id;
         AddQuest(GetQuestFromDatabase(World, id));
         File >> id;
-        --Quests.end()->Objectives.begin()->CurrentProgress = id;
+        auto itr = --Quests.end();
+        itr->Objectives.begin()->CurrentProgress = id;
         --x;
     }
     File >> x;
