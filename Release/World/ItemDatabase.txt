@@ -1,0 +1,14 @@
+1 10 Bread Items/Bread.png 5 3 30
+2 10 Meat Items/Meat.png 10 5 50
+3 10 Shroom Items/Shroom.png 20 10 70
+4 1 Lesser_Health_Potion Items/HealthPot1.png 30 15 30
+5 1 Health_Potion Items/HealthPot2.png 40 20 40
+6 1 Greater_Health_Potion Items/HealthPot3.png 50 25 50
+7 2 Lesser_Power_Potion Items/PowerPot1.png 40 15 30
+8 2 Power_Potion Items/PowerPot2.png 50 20 40
+9 2 Greater_Power_Potion Items/PowerPot3.png 60 25 50
+10 11 Bottle_of_Fresh_Water Items/Water.png 50 30 100
+11 10 Roasted_Dragon_Meat Items/DragonMeat.png 50 30 100
+12 10 Huge_Dragon_Steak Items/DragonMeat.png 70 40 150
+13 11 Holy_water Items/Water.png 70 40 150
+14 10 Yellow_mushroom Items/YellowMushroom.png 100 50 200

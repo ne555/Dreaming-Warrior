@@ -1,0 +1,9 @@
+3 32 22 320 5 Green_Guardian 15 Graphics/LargeGreenDragon.png
+3 32 22 320 5 Green_Guardian 15 Graphics/LargeGreenDragon.png
+3 32 22 320 5 Green_Guardian 15 Graphics/LargeGreenDragon.png
+3 32 22 340 5 Blue_Guardian 15 Graphics/LargeBlueDragon.png
+3 32 22 340 5 Blue_Guardian 15 Graphics/LargeBlueDragon.png
+3 32 22 340 5 Blue_Guardian 15 Graphics/LargeBlueDragon.png
+3 32 22 350 5 Red_Guardian 15 Graphics/RedSolider.png
+3 32 22 350 5 Red_Guardian 15 Graphics/RedSolider.png
+3 32 22 350 5 Red_Guardian 15 Graphics/RedSolider.png

@@ -1,0 +1,12 @@
+6 40 30 400 5 Dragon_mage 50 7 13 Creatures/DragonMage.png Graphics/DragonMage.png
+6 40 30 400 5 Dragon_mage 50 8 13 Creatures/DragonMage.png Graphics/DragonMage.png
+6 40 30 400 5 Dragon_mage 50 9 13 Creatures/DragonMage.png Graphics/DragonMage.png
+6 40 30 400 5 Dragon_mage 50 10 15 Creatures/DragonMage.png Graphics/DragonMage.png
+6 40 30 400 5 Dragon_mage 50 9 15 Creatures/DragonMage.png Graphics/DragonMage.png
+6 40 30 400 5 Dragon_mage 50 8 16 Creatures/DragonMage.png Graphics/DragonMage.png
+6 40 30 400 5 Dragon_mage 50 8 18 Creatures/DragonMage2.png Graphics/DragonMage2.png
+6 40 30 400 5 Dragon_mage 50 9 18 Creatures/DragonMage2.png Graphics/DragonMage2.png
+6 40 30 400 5 Dragon_mage 50 11 18 Creatures/DragonMage2.png Graphics/DragonMage2.png
+6 40 30 400 5 Dragon_mage 50 5 18 Creatures/DragonMage2.png Graphics/DragonMage2.png
+6 40 30 400 5 Dragon_mage 50 5 14 Creatures/DragonMage2.png Graphics/DragonMage2.png
+7 45 35 450 6 Master_Dragon_Mage 50 1 12 Creatures/DragonMage2.png Graphics/DragonMage2.png

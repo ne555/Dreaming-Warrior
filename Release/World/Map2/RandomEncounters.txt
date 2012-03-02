@@ -1,0 +1,13 @@
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
+1 25 20 170 3 Green_Dragon_whelp 0 Graphics/GreenWhelp.png
