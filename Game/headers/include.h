@@ -81,7 +81,7 @@ inline string IntToString(int Integer)
 
 inline wstring StringToWString(const string& s)
 {
-    std::wstring temp(s.length(),L' ');
+    wstring temp(s.length(),L' ');
     std::copy(s.begin(), s.end(), temp.begin());
     return temp; 
 }
@@ -89,7 +89,7 @@ inline wstring StringToWString(const string& s)
 
 inline string WStringToString(const string& s)
 {
-    std::string temp(s.length(), ' ');
+    string temp(s.length(), ' ');
     std::copy(s.begin(), s.end(), temp.begin());
     return temp; 
 }
