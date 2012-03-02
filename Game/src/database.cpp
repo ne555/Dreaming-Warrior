@@ -70,11 +70,11 @@ Quest GetQuestFromDatabase(const string World, int ID)
             {
             case 0:
                 File >> map >> obj_id >> count;
-                Quest.Objectives.push_back(QuestObjective(GetQuestType(obj), count, obj_id, map, 0));
+                Quest.Objective = QuestObjective(GetQuestType(obj), count, obj_id, map, 0);
                 break;
             case 1:
                 File >> obj_id >> count;
-                Quest.Objectives.push_back(QuestObjective(GetQuestType(obj), count, obj_id));
+                Quest.Objective = QuestObjective(GetQuestType(obj), count, obj_id);
                 break;
             }
         }

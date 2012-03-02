@@ -111,7 +111,6 @@ enum SpellType
 {
     SPELL_ATTACK,
     SPELL_HEAL
-    //TODO: buff
 };
 
 enum Class
@@ -119,6 +118,5 @@ enum Class
     CLASS_WARRIOR,
     CLASS_MAGE
 };
-
 
 #endif

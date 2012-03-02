@@ -30,9 +30,9 @@ void QuestScreen::ReadQuestText()
     QuestText.SetPosition(40.0f, 40.0f);
     QuestText.SetColor(sf::Color(0, 0, 0));
     sf::Text ObjectiveText
-        (GetEnemyNameFromDatabase("World" + player.GetQuests()[QuestIterator].Objectives.begin()->Map, player.GetQuests()[QuestIterator].Objectives.begin()->ObjectiveID) + " " //TODO ph
-        + IntToString(player.GetQuests()[QuestIterator].Objectives.begin()->CurrentProgress)//PH
-        + "/" + IntToString(player.GetQuests()[QuestIterator].Objectives.begin()->ReqProgress), Font);
+        (GetEnemyNameFromDatabase("World" + player.GetQuests()[QuestIterator].Objective.Map, player.GetQuests()[QuestIterator].Objective.ObjectiveID) + " " //TODO ph
+        + IntToString(player.GetQuests()[QuestIterator].Objective.CurrentProgress)//PH
+        + "/" + IntToString(player.GetQuests()[QuestIterator].Objective.ReqProgress), Font);
     ObjectiveText.SetPosition(580.0f, 90.0f);
     ObjectiveText.SetColor(sf::Color(0, 0, 0));
 

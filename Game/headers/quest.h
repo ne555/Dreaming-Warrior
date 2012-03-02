@@ -19,17 +19,11 @@
 
 #include "Include.h"
 
-/*
-Type: Item gathering or slaying quest
-ID: ID of Item or Enemy required to complete the quest
-ReqProgress: Count of Items or Enemies required
-CurrentProgress: Current Progress
-
-LevelReq: Level required to accept this quest
-QuestReq: Quest required to complete before accepting this quest
-*/
 struct QuestObjective
 {
+    QuestObjective()
+    {
+    }
     QuestObjective(QuestType Type, int ReqProgress, int ObjectiveID, int CurrentProgress = 0)
         : Type(Type), ReqProgress(ReqProgress), ObjectiveID(ObjectiveID), CurrentProgress(CurrentProgress)
     {
@@ -52,16 +46,12 @@ struct Quest
         : ID(ID), StartCreature(StartCreature), EndCreature(EndCreature), Name(Name), 
         Text(Text), LevelReq(LevelReq), QuestReq(QuestReq)
     {
-        Objectives.reserve(NumObjectives);
     }
     
     bool IsComplete()
     {
-        for(unsigned i = 0; i < Objectives.size(); ++i)
-        {
-            if(Objectives[i].CurrentProgress < Objectives[i].ReqProgress)
-                return false;
-        }
+        if(Objective.CurrentProgress < Objective.ReqProgress)
+            return false;
         return true;
     }
     int ID;
@@ -72,7 +62,7 @@ struct Quest
     int ItemReward;
     string Name;
     string Text;
-    vector<QuestObjective> Objectives;//todo samo 1
+    QuestObjective Objective;
 };
 
 #endif

@@ -161,7 +161,7 @@ void Game::SavePlayer()
     for(unsigned i=0; i<Player.GetQuests().size(); ++i)
     {
         File << " " << Player.GetQuests()[i].ID;
-        File << " " << Player.GetQuests()[i].Objectives.begin()->CurrentProgress;
+        File << " " << Player.GetQuests()[i].Objective.CurrentProgress;
     }
     //Completed quests
     File << " " << Player.GetCompletedQuests().size();

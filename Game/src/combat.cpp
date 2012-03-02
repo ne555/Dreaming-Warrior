@@ -144,12 +144,10 @@ bool Combat::HandleInput(int &CommandList, int &Command, float &ArrowY, bool &Pl
         switch(Command)
         {
         case 1: // Health
-            /*if(*/player.UseHealthPotIfCan();/*)*/
-                //PlayerMove = false;
+            player.UseHealthPotIfCan();
             break;
         case 2: // Mana
-            /*if(*/player.UsePowerPotIfCan();/*)*/
-                //PlayerMove = false;
+            player.UsePowerPotIfCan();
             break;
         case 3: // Natrag
             ArrowY = 165.0f;

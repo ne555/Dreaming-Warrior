@@ -73,7 +73,7 @@ Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack, strin
         AddQuest(GetQuestFromDatabase(World, id));
         File >> id;
         auto itr = --Quests.end();
-        itr->Objectives.begin()->CurrentProgress = id;
+        itr->Objective.CurrentProgress = id;
         --x;
     }
     File >> x;

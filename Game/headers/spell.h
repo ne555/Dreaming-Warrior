@@ -36,26 +36,5 @@ struct Spell
     int ID;
     int LevelReq;
 };
-/*
-struct Buff : public Castable
-{
-    Buff(string Name, Attribute Attribute, int Value, int Cost) : Castable(Name, Value, Cost) 
-    {
-        this->Attribute = Attribute;
-    }
-    Attribute Attribute;
-};
-
-struct Spell : public Castable
-{
-    Spell(SpellType Type, string Name, int Value, int Cost, string IconFileName = "NULL") : Castable(Name, Value, Cost)
-    {
-        this->Type = Type;
-        Icon.LoadFromFile(IconFileName);
-    }
-
-    sf::Texture Icon;
-    SpellType Type;
-};*/
 
 #endif

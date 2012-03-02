@@ -67,9 +67,9 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
     QuestText.SetColor(sf::Color(0, 0, 0));
     QuestText.SetStyle(sf::Text::Bold);
     sf::Text ObjectiveText
-        (GetEnemyNameFromDatabase("World" + Quests[QuestIterator].Quest.Objectives.begin()->Map, Quests[QuestIterator].Quest.Objectives.begin()->ObjectiveID) + " " //TODO PH LOL KOJA INDIREKCIJA
-        + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->CurrentProgress)//PH
-        + "/" + IntToString(Quests[QuestIterator].Quest.Objectives.begin()->ReqProgress), Font),
+        (GetEnemyNameFromDatabase("World" + Quests[QuestIterator].Quest.Objective.Map, Quests[QuestIterator].Quest.Objective.ObjectiveID) + " " //TODO PH LOL KOJA INDIREKCIJA
+        + IntToString(Quests[QuestIterator].Quest.Objective.CurrentProgress)//PH
+        + "/" + IntToString(Quests[QuestIterator].Quest.Objective.ReqProgress), Font),
         AcceptText(Quests[QuestIterator].From ? "Accept" : "Complete", Font),
         Decline(Quests[QuestIterator].From ? "Decline" : "Back", Font);
     AcceptText.SetPosition(700.0f, 520.0f);
