@@ -7,10 +7,14 @@ Thanks and Acknowledgements:
 Without you, this project would not be possible
 
 License:
-http://www.gnu.org/copyleft/gpl.html
+Dreaming Warrior source code is licenced under GNU GPL: http://www.gnu.org/copyleft/gpl.html
+All 32x32 tiles (Release/Creatures and Release/Tiles) are work of David Gervais and are under Creative Commons: http://creativecommons.org/licenses/by/3.0/
+All other art (Release/Graphics) is work of Mirela Blaževiæ and is under Creative Commons: http://creativecommons.org/licenses/by/3.0/
 
 System Requirements:
 - 128Mb of RAM or higher
+- Intel or AMD CPU 1.8GHz or better
 - Display Resolution 1024*768 (1280x960 for Map Editor) or higher
-- Microsoft Windows or Linux
+- OpenGL compatibile GPU
+- Microsoft Windows XP or later/Linux/Unix/Mac OS
 - Microsoft Visual C++ 2010 Redistributable Package
