@@ -29,6 +29,7 @@
 
 using std::ofstream;
 using std::string;
+using std::wstring;
 using std::stringstream;
 using std::vector;
 using std::cout;
@@ -76,6 +77,21 @@ inline string IntToString(int Integer)
     stringstream convert;
     convert << Integer;
     return convert.str();
+}
+
+inline wstring StringToWString(const string& s)
+{
+    wstring temp(s.length(),L' ');
+    std::copy(s.begin(), s.end(), temp.begin());
+    return temp; 
+}
+
+
+inline string WStringToString(const string& s)
+{
+    string temp(s.length(), ' ');
+    std::copy(s.begin(), s.end(), temp.begin());
+    return temp; 
 }
 
 enum ObjectType
