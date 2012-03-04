@@ -159,20 +159,14 @@ void Game::LoadMap(string PathToMap)
 
     //Ucitaj cudovista
     int ID, Atk, Def, HP, Level, Wealth;
-    //int Chance[4];
-    //string Item[4];
+    int Chance, ItemID, NumItems = 0;
     string CreatureMapTexture, Combat, Name;
     Enemies.clear();
-    /*
-    TODO: ove iteme na count i for loop a ne vako ruzno
-    */
     File.open(PathToMap + "Enemies.txt");
-    while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth >> x >> y >> CreatureMapTexture >> Combat /*
-        >> Item[0] >> Chance[0] >> Item[1] >> Chance[1] >> Item[2] >> Chance[2] >> Item[3] >> Chance[3]*/)
+    while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth >> x >> y >> CreatureMapTexture >> Combat)
     {
         Enemy Enemy(ID, Atk, Def, HP, Level, SetSpaces(Name), Wealth, x, y, CreatureMapTexture, Combat);
-        /*for(int a = 0; Item[a] != "NULL"; ++a)
-            Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));*/
+        //TODO: Num items, Chance, ID i ucitat ih u loot. Isto tako i u rand encounter
         ObjectGrid[y][x] = ENEMY;
         Enemies.push_back(Enemy);
     }
@@ -183,8 +177,6 @@ void Game::LoadMap(string PathToMap)
     while(File >> ID >> Atk >> Def >> HP >> Level >> Name >> Wealth >> Combat)
     {
         Enemy Enemy(ID, Atk, Def, HP, Level, SetSpaces(Name), Wealth, Combat);
-        //for(int a = 0; Item[a] != "NULL"; ++a)
-            //Enemy.Loot.push_back(Loot(GetItemFromDatabase(World, StringToInt(Item[a])), Chance[a]));
         RandomEncounters.push_back(Enemy);
     }
     File.close();
@@ -285,7 +277,7 @@ bool Game::CheckPortals(int x, int y)
     {
         if(RectPlayer.Intersects(itr->PortalRect))
         {
-            //Pokupi vrjednosti prije nego stara mapa bude unistena i relociraj igraèa
+            //Pokupi vrjednosti prije nego stara mapa bude unistena i relociraj igraï¿½a
             int a = itr->PlayerNewX, b = itr->PlayerNewY;
             Player.Map = World + itr->PathToMap;
             Player.SetX(a);
