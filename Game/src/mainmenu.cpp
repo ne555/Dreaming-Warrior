@@ -48,38 +48,40 @@ MainMenuData MainMenu::MainLoop()
 
 string MainMenu::ChooseName()
 {
-    string str;
-    sf::Text text("", Font), chsnm("Enter name for your character: ", Font);
-    chsnm.SetColor(sf::Color::Black);
-    chsnm.SetPosition(350, 80);
-    text.SetPosition(350, 150);
-    text.SetColor(sf::Color::Black);
-    sf::Texture txt;
-    txt.LoadFromFile("Graphics/Name.png");
-    sf::Sprite txtspr(txt);
+    string PlayerName;
+    sf::Text PlayerNameText("", Font), ChooseNameText("Enter name for your character: ", Font);
+    ChooseNameText.SetColor(sf::Color::Black);
+    ChooseNameText.SetPosition(350, 80);
+    PlayerNameText.SetPosition(350, 150);
+    PlayerNameText.SetColor(sf::Color::Black);
+    sf::Texture BackgroundTexture;
+    BackgroundTexture.LoadFromFile("Graphics/Name.png");
+    sf::Sprite BackgroundSprite(BackgroundTexture);
 
     while(Window.IsOpen()) 
     {
         while(Window.PollEvent(Event))
         {
-            if(Event.Type == sf::Event::TextEntered) 
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Back))
+                PlayerName.erase(PlayerName.end()-1);
+            else if(Event.Type == sf::Event::TextEntered) 
             {
                 if(Event.Text.Unicode < 128) 
                 {
-                    str += static_cast<char>(Event.Text.Unicode); 
-                    text.SetString(str);
+                    PlayerName += static_cast<char>(Event.Text.Unicode); 
+                    PlayerNameText.SetString(PlayerName);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
-                str.erase(str.begin());
-                return str;
+                PlayerName.erase(str.begin());
+                return PlayerName;
             }
         }
         Window.Clear();
-        Window.Draw(txtspr);
-        Window.Draw(text);
-        Window.Draw(chsnm);
+        Window.Draw(BackgroundSprite);
+        Window.Draw(PlayerNameText);
+        Window.Draw(ChooseNameText);
         Window.Display();
     }
 }
