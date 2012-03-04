@@ -37,7 +37,7 @@ using std::cerr;
 using std::endl;
 
 #define MAX_ITEMS 30
-#define MAX_SPELLS 5 //PH? nepotrebno
+#define MAX_SPELLS 7
 
 enum ItemType
 {
