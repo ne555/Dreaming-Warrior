@@ -52,10 +52,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
-                    VendorEncounter VendorEncounter(Player, Window);
-                    Vendor Vendor = VendorEncounter.MainLoop(*itr);
-                    Vendors.erase(itr);
-                    Vendors.push_back(Vendor);
+                    VendorEncounter VendorEncounter(Player, Window, *itr);
+                    VendorEncounter.MainLoop();
                     return;
                 }
             }
@@ -65,10 +63,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
                 {
-                    QuestEncounter QuestEncounter(Player, Window);
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
-                    QuestGivers.erase(itr);
-                    QuestGivers.push_back(QuestGiver);
+                    QuestEncounter QuestEncounter(Player, Window, *itr);
+                    QuestEncounter.MainLoop();
                     return;
                 }
             }
@@ -104,10 +100,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32+1)
                 {
-                    VendorEncounter VendorEncounter(Player, Window);
-                    Vendor Vendor = VendorEncounter.MainLoop(*itr);
-                    Vendors.erase(itr);
-                    Vendors.push_back(Vendor);
+                    VendorEncounter VendorEncounter(Player, Window, *itr);
+                    VendorEncounter.MainLoop();
                     return;
                 }
             }
@@ -117,10 +111,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32+1)
                 {
-                    QuestEncounter QuestEncounter(Player, Window);
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
-                    QuestGivers.erase(itr);
-                    QuestGivers.push_back(QuestGiver);
+                    QuestEncounter QuestEncounter(Player, Window, *itr);
+                    QuestEncounter.MainLoop();
                     return;
                 }
             }
@@ -156,10 +148,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32+1 && itr->y == Player.GetY()/32)
                 {
-                    VendorEncounter VendorEncounter(Player, Window);
-                    Vendor Vendor = VendorEncounter.MainLoop(*itr);
-                    Vendors.erase(itr);
-                    Vendors.push_back(Vendor);
+                    VendorEncounter VendorEncounter(Player, Window, *itr);
+                    VendorEncounter.MainLoop();
                     return;
                 }
             }
@@ -169,10 +159,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32+1 && itr->y == Player.GetY()/32)
                 {
-                    QuestEncounter QuestEncounter(Player, Window);
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
-                    QuestGivers.erase(itr);
-                    QuestGivers.push_back(QuestGiver);
+                    QuestEncounter QuestEncounter(Player, Window, *itr);
+                    QuestEncounter.MainLoop();
                     return;
                 }
             }
@@ -208,10 +196,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32-1 && itr->y == Player.GetY()/32)
                 {
-                    VendorEncounter VendorEncounter(Player, Window);
-                    Vendor Vendor = VendorEncounter.MainLoop(*itr);
-                    Vendors.erase(itr);
-                    Vendors.push_back(Vendor);
+                    VendorEncounter VendorEncounter(Player, Window, *itr);
+                    VendorEncounter.MainLoop();
                     return;
                 }
             }
@@ -221,10 +207,8 @@ void Game::Encounter(Orientation Direction)
             {
                 if(itr->x == Player.GetX()/32-1 && itr->y == Player.GetY()/32)
                 {
-                    QuestEncounter QuestEncounter(Player, Window);
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
-                    QuestGivers.erase(itr);
-                    QuestGivers.push_back(QuestGiver);
+                    QuestEncounter QuestEncounter(Player, Window, *itr);
+                    QuestEncounter.MainLoop();
                     return;
                 }
             }

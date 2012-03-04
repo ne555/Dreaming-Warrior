@@ -16,8 +16,8 @@
 */
 #include "VendorEncounter.h"
 
-VendorEncounter::VendorEncounter(Player &player, sf::RenderWindow &Window)
-    : player(player), Window(Window), ArrowX(405), ArrowY(370)
+VendorEncounter::VendorEncounter(Player &player, sf::RenderWindow &Window, Vendor &vendor)
+    : player(player), vendor(vendor), Window(Window), ArrowX(405), ArrowY(370)
 {
     ItemName.SetColor(sf::Color::Black);
     BuyItem.SetColor(sf::Color::Black);
@@ -52,13 +52,13 @@ VendorEncounter::VendorEncounter(Player &player, sf::RenderWindow &Window)
     ScreenTexture.Create(1024, 768);
 }
 
-void VendorEncounter::DrawItems(const Vendor& Vendor)
+void VendorEncounter::DrawItems()
 {
     int ItemX = 49, ItemY = 70;
     for(auto itr = player.GetItems().begin(); itr != player.GetItems().end(); ++itr)
     {
         sf::Sprite ItemSprite(itr->ItemTexture);
-        ItemSprite.SetPosition(ItemX, ItemY);
+        ItemSprite.SetPosition((float)ItemX, (float)ItemY);
         ItemX += 81;
         if(ItemX == 373)
         {
@@ -69,10 +69,10 @@ void VendorEncounter::DrawItems(const Vendor& Vendor)
     }
 
     ItemX = 685; ItemY = 70;
-    for(auto itr = Vendor.Items.begin(); itr != Vendor.Items.end(); ++itr)
+    for(auto itr = vendor.Items.begin(); itr != vendor.Items.end(); ++itr)
     {
         sf::Sprite ItemSprite(itr->ItemTexture);
-        ItemSprite.SetPosition(ItemX, ItemY);
+        ItemSprite.SetPosition((float)ItemX, (float)ItemY);
         ItemX += 81;
         if(ItemX == 1009)
         {
@@ -83,7 +83,7 @@ void VendorEncounter::DrawItems(const Vendor& Vendor)
     }
 }
 
-void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
+void VendorEncounter::BuyingItemsLoop()
 {
     string Message = "How can I help you, " + player.GetName() + "?";
     unsigned i=0;
@@ -91,7 +91,7 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
     {
         for(int x=0; x<4; ++x)
         {
-            if(i<Vendor.Items.size())
+            if(i < vendor.Items.size())
             {
                 ItemGrid[y][x] = i;
             }
@@ -147,7 +147,7 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
-                if(player.GetWealth() < Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice)
+                if(player.GetWealth() < vendor.Items[ItemGrid[IterY][IterX]].BuyPrice)
                 {
                     Message = "You cannot afford that item!";
                     continue;
@@ -157,8 +157,8 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
                     Message = "You cannot carry any more items";
                     continue;
                 }
-                player.SetWealth(player.GetWealth() - Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice);
-                player.AddItem(Vendor.Items[ItemGrid[IterY][IterX]]);
+                player.SetWealth(player.GetWealth() - vendor.Items[ItemGrid[IterY][IterX]].BuyPrice);
+                player.AddItem(vendor.Items[ItemGrid[IterY][IterX]]);
                 //Vendor.Items.erase(Vendor.Items.begin() + ItemGrid[IterY][IterX]);
                 Message = "It's been pleasure trading with you, " + player.GetName();
                 MoneyText.SetString(IntToString(player.GetWealth()));
@@ -173,45 +173,45 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
         Window.Draw(ArrowSprite);
         Window.Draw(sf::Sprite(ScreenTexture));
         DrawMessage(Message);
-        DrawItems(Vendor);
+        DrawItems();
         Window.Draw(MoneySprite);
         Window.Draw(MoneyText);
         if(ItemGrid[IterY][IterX] != -1)
         {
-            ItemSprite.SetTexture(Vendor.Items[ItemGrid[IterY][IterX]].ItemTexture);
-            switch(Vendor.Items[ItemGrid[IterY][IterX]].Type) //PH
+            ItemSprite.SetTexture(vendor.Items[ItemGrid[IterY][IterX]].ItemTexture);
+            switch(vendor.Items[ItemGrid[IterY][IterX]].Type) //PH
             {
             case ITEM_FOOD:
                 ItemName.SetString
-                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
-                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    (vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Cannot be used in combat" + '\n'
-                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
-                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                    + "Buy Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_MANA_FOOD:
                 ItemName.SetString
-                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
-                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    (vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " power." + '\n' + "Cannot be used in combat" + '\n'
-                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
-                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                    + "Buy Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_POWER_POTION:
                 ItemName.SetString
-                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
-                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    (vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " power." + '\n' + "Can be used in combat" + '\n'
-                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
-                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                    + "Buy Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_HEALTH_POTION:
                 ItemName.SetString
-                    (Vendor.Items[ItemGrid[IterY][IterX]].Name 
-                    + '\n' + "Regenrates " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].Value)
+                    (vendor.Items[ItemGrid[IterY][IterX]].Name 
+                    + '\n' + "Regenrates " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Can be used in combat" + '\n'
-                    + "Buy Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
-                    + "Sell Price: " + IntToString(Vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
+                    + "Buy Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].BuyPrice) + '\n'
+                    + "Sell Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             }
             Window.Draw(ItemSprite);
@@ -221,7 +221,7 @@ void VendorEncounter::BuyingItemsLoop(Vendor &Vendor)
     }
 }
 
-void VendorEncounter::SellingItemsLoop(Vendor &Vendor)
+void VendorEncounter::SellingItemsLoop()
 {
     string Message = "How can I help you, " + player.GetName() + "?";
     unsigned i=0;
@@ -307,7 +307,7 @@ void VendorEncounter::SellingItemsLoop(Vendor &Vendor)
         Window.Draw(GUISprite);
         Window.Draw(ArrowSprite);
         Window.Draw(sf::Sprite(ScreenTexture));
-        DrawItems(Vendor);
+        DrawItems();
         DrawMessage(Message);
         Window.Draw(MoneySprite);
         Window.Draw(MoneyText);
@@ -371,7 +371,7 @@ void VendorEncounter::DrawMessage(string Message)
     Window.Draw(Text);
 }
 
-Vendor VendorEncounter::MainLoop(Vendor Vendor)
+void VendorEncounter::MainLoop()
 {
     Font.LoadFromFile("Graphics/papyrus.ttf");
     BuyItem.SetString("Buy Item");
@@ -423,13 +423,13 @@ Vendor VendorEncounter::MainLoop(Vendor Vendor)
                 switch(Command)
                 {
                 case 0:
-                    BuyingItemsLoop(Vendor);
+                    BuyingItemsLoop();
                     break;
                 case 1:
-                    SellingItemsLoop(Vendor);
+                    SellingItemsLoop();
                     break;
                 case 2:
-                    return Vendor;
+                    return;
                 }
                 Command = 0;
                 ArrowX = 405.0f;
@@ -439,7 +439,7 @@ Vendor VendorEncounter::MainLoop(Vendor Vendor)
         }
         Window.Clear();
         Window.Draw(GUISprite);
-        DrawItems(Vendor);
+        DrawItems();
         Window.Draw(sf::Sprite(ScreenTexture));
         Window.Draw(ArrowSprite);
         DrawMessage("How can I help you, " + player.GetName() + "?");
@@ -447,5 +447,4 @@ Vendor VendorEncounter::MainLoop(Vendor Vendor)
         Window.Draw(MoneyText);
         Window.Display();
     }
-    return Vendor;
 }

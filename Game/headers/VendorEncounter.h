@@ -31,7 +31,9 @@ class VendorEncounter
     sf::Text MoneyText;
     sf::Text ItemName;
     sf::Sprite ItemSprite;
+
     Player &player;
+    Vendor &vendor;
 
     sf::Font Font;
 
@@ -44,13 +46,13 @@ class VendorEncounter
 
     void DrawTexture();
     void DrawMessage(string Message);
-    void DrawItems(const Vendor& Vendor);
-    void SellingItemsLoop(Vendor &Vendor);
-    void BuyingItemsLoop(Vendor &Vendor);
+    void DrawItems();
+    void SellingItemsLoop();
+    void BuyingItemsLoop();
 
 public:
-    VendorEncounter(Player &Player, sf::RenderWindow &Window);
-    Vendor MainLoop(Vendor Vendor);
+    VendorEncounter(Player &Player, sf::RenderWindow &Window, Vendor &vendor);
+    void MainLoop();
 };
 
 #endif

@@ -161,7 +161,7 @@ void Game::GameLoop()
         for(int x=0; x<32; ++x)
         {
             HideMapHack[y][x].SetTexture(HideHack);
-            HideMapHack[y][x].SetPosition(x*32, y*32);
+            HideMapHack[y][x].SetPosition((float)x*32, (float)y*32);
         }
     }
     while(Window.IsOpen()) 

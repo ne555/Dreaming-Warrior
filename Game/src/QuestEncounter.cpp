@@ -28,8 +28,8 @@ i na desnu stranu knjige REWARDS, PROGRESS
 i ako you are not on this quest na input enter aceptat etc etc
 */
 
-QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window)
-    : Window(Window), player(player), QuestIterator(0), ArrowY(100.0f)
+QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window, QuestGiver questGiver)
+    : Window(Window), player(player), questGiver(questGiver), QuestIterator(0), ArrowY(100.0f)
 {
 }
 
@@ -60,7 +60,7 @@ void QuestEncounter::Victory() //Hack... popraviti kad budem prepiso igru
     }
 }
 
-bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
+bool QuestEncounter::ReadQuestText()
 {
     sf::Text QuestText(Quests[QuestIterator].Quest.Text, Font);
     QuestText.SetPosition(40.0f, 40.0f);
@@ -111,11 +111,11 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
                     case true:
                         player.AddQuest(Quests[QuestIterator].Quest);
                         Quests[QuestIterator].From = false;
-                        for(auto itr = QuestGiver.Quests.begin(); itr != QuestGiver.Quests.end(); ++itr)
+                        for(auto itr = questGiver.Quests.begin(); itr != questGiver.Quests.end(); ++itr)
                         {
                             if(itr->ID == Quests[QuestIterator].Quest.ID)
                             {
-                                QuestGiver.Quests.erase(itr);
+                                questGiver.Quests.erase(itr);
                                 return false;
                             }
                         }
@@ -155,9 +155,9 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
     return false;
 }
 
-QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
+void QuestEncounter::MainLoop()
 {
-    for(auto i = QuestGiver.Quests.begin(); i != QuestGiver.Quests.end(); ++i)
+    for(auto i = questGiver.Quests.begin(); i != questGiver.Quests.end(); ++i)
     {
         //Ovaj check je upitan...
         if(player.GetLevel() < i->LevelReq || (!player.HasCompletedQuest(i->QuestReq) && i->QuestReq != -1))
@@ -166,13 +166,13 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
     }
     for(auto i = player.GetQuests().begin(); i != player.GetQuests().end(); ++i)
     {
-        if(i->EndCreature == QuestGiver.ID)
+        if(i->EndCreature == questGiver.ID)
         {
             Quests.push_back(_Quest(*i, false));
         }
     }
     if(Quests.empty())
-        return QuestGiver;
+        return;
 
     Font.LoadFromFile("Graphics/papyrus.ttf");
 
@@ -207,13 +207,13 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
-                if(ReadQuestText(QuestGiver))
-                    return QuestGiver;
+                if(ReadQuestText())
+                    return;
                 ArrowSprite.SetPosition(555.0f, ArrowY);
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
             {
-                return QuestGiver;
+                return;
             }
         }
         float QuestNameY = 100.0f;
@@ -230,5 +230,4 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
         Window.Draw(ArrowSprite);
         Window.Display();
     }
-    return QuestGiver;
 }

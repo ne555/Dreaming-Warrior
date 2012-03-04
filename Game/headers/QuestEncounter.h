@@ -27,7 +27,9 @@ class QuestEncounter
     sf::Sprite ArrowSprite;
     sf::Sprite GUISprite;
     sf::Font Font;
+
     Player &player;
+    QuestGiver questGiver;
 
     struct _Quest
     {
@@ -46,11 +48,11 @@ class QuestEncounter
     int QuestIterator;
     float ArrowY;
 
-    bool ReadQuestText(QuestGiver &QuestGiver);
+    bool ReadQuestText();
 
 public:
-    QuestEncounter(Player &player, sf::RenderWindow &Window);
-    QuestGiver MainLoop(QuestGiver QuestGiver);
+    QuestEncounter(Player &player, sf::RenderWindow &Window, QuestGiver questGiver);
+    void MainLoop();
 };
 
 #endif

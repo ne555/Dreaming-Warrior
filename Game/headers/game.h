@@ -36,8 +36,8 @@ class Game
 
     void DrawAll();
     vector<Enemy> Enemies;
-    vector<Vendor> Vendors;
-    vector<QuestGiver> QuestGivers;
+    list<Vendor> Vendors;
+    list<QuestGiver> QuestGivers;
     vector<Enemy> RandomEncounters;
 
     sf::Texture MapTexture;

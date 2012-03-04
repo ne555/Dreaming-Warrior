@@ -22,6 +22,7 @@
 #include <time.h>
 #include <fstream>
 #include <vector>
+#include <list>
 #include <sstream>
 #include <iostream>
 
@@ -30,6 +31,7 @@ using std::string;
 using std::wstring;
 using std::stringstream;
 using std::vector;
+using std::list;
 using std::cout;
 using std::cerr;
 using std::endl;
