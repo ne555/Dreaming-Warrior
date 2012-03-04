@@ -19,12 +19,7 @@
 #include "spell.h"
 #include "database.h"
 
-/*
-TODO: 
-- Pojednostaviti GetItemFromDatabse()
-*/
-
-//PH
+//TODO: Support for equipment
 Item GetItemFromDatabase(const string World, int ID)
 {
     Item Item;
