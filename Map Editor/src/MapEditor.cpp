@@ -20,9 +20,7 @@ MapEditor::MapEditor(sf::RenderWindow &Window)
 {
     MapWindow = &Window;
     CurrentMapId = 1;
-    std::stringstream convert;
-    convert << CurrentMapId;
-    PathToCurrentMap = "World/Map" + convert.str() + "/";
+    PathToCurrentMap = "World/Map1/";
     MapWindow->SetTitle(PathToCurrentMap + "MapData.txt");
     TrenutniTile = 1;
 	for(int y = 0; y < 24; y++)
@@ -50,7 +48,7 @@ MapEditor::MapEditor(sf::RenderWindow &Window)
         }
     }
     LoadTileset();
-    LoadTable();//PH
+    LoadTable();
 }
 
 void MapEditor::LoadTable()
@@ -105,7 +103,6 @@ void MapEditor::LoadTileset()
     TODO:
     S jedne strane teksture, s druge objekti!!
     Znaci 2 tileset table
-    baci error ako ih bude previse
     TODO: 40*32 + 40*32 px strelica za sljedecu i proslu stranicu tileseta
     */
     File.close();
@@ -206,7 +203,7 @@ void MapEditor::SaveTable()
             File << TextureTable[a][b] << " ";
         }
     }
-    File << std::endl; //Za lakse citanje xD
+    File << std::endl;
     for(int a=0; a<24; a++)
     {
         for(int b=0; b<32; b++)
