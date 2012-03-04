@@ -23,12 +23,10 @@
 
 struct Spell
 {
-    Spell(int ID, SpellType Type, string Name, int LevelReq, int Cost, int Value, string IconFileName = "NULL") 
+    Spell(int ID, SpellType Type, string Name, int LevelReq, int Cost, int Value) 
         : Name(Name), Value(Value), Cost(Cost), Type(Type), ID(ID), LevelReq(LevelReq)
     {
-        Icon.LoadFromFile(IconFileName);
     }
-    sf::Texture Icon;
     SpellType Type;
     string Name;
     int Value;
