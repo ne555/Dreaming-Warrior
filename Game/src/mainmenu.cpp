@@ -62,19 +62,22 @@ string MainMenu::ChooseName()
     {
         while(Window.PollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Back))
+            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Back) && !PlayerName.empty())
+            {
                 PlayerName.erase(PlayerName.end()-1);
+                PlayerNameText.SetString(PlayerName);
+            }
             else if(Event.Type == sf::Event::TextEntered) 
             {
-                if(Event.Text.Unicode < 128) 
+                if(Event.Text.Unicode > 64) 
                 {
+
                     PlayerName += static_cast<char>(Event.Text.Unicode); 
                     PlayerNameText.SetString(PlayerName);
                 }
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
-                PlayerName.erase(str.begin());
                 return PlayerName;
             }
         }
