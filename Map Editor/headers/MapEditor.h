@@ -29,14 +29,12 @@ public:
     MapEditor(sf::RenderWindow &Window);
 
     void SaveTable();
-	void ShowMap();
+    void ShowMap();
 
     struct Tile
     {
-        Tile(sf::Texture _Texture, bool Object)
+        Tile(sf::Texture Texture, bool IsObject) : Texture(Texture), IsObject(IsObject)
         {
-            Texture = _Texture;
-            IsObject = Object;
         }
 
         sf::Texture Texture;
