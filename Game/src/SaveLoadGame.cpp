@@ -98,19 +98,6 @@ void Game::SaveMap(string PathToMap)
             << RemoveSpaces(itr->GetName()) << " " << itr->GetWealth() << " " << itr->Combat << endl;
     }
     File.close();
-    /*
-    File.open(PathToMap + "Vendors.txt");
-    File.clear();
-    for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
-    {
-        File << itr->x << " " << itr->y << " " << itr->TextureFileName << " " << itr->Items.size();
-        for(auto iitr = itr->Items.begin(); iitr != itr->Items.end(); ++iitr)
-        {
-            File << " " << iitr->ID;
-        }
-        File << endl;
-    }
-    File.close();*/
 
     File.open(PathToMap + "QuestGivers.txt");
     File.clear();
