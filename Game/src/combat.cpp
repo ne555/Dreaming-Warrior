@@ -90,7 +90,7 @@ int Combat::MainLoop()
             if(enemy.GetHealth() <= 0)
             {
                 enemy.SetHealth(enemy.GetMaxHealth());
-                DropLoot(); //PH, implementat
+                DropLoot();
                 //dodaj exp, you have reached the level bla bla
                 return 1;
             }
@@ -265,19 +265,10 @@ bool Combat::RunIfCan()
 
 void Combat::DropLoot()
 {
-    /*for(auto itr = Enemy->Loot.begin(); itr != Enemy->Loot.end(); ++itr)
+    player.SetWealth(player.GetWealth() + enemy.GetWealth());
+    for(auto itr = enemy.Loot.begin(); itr != enemy.Loot.end(); ++itr)
     {
-        if(urand(0, itr->Chance) == 0)
-        {
-            Player.SetWealth(Player.GetWealth() + Enemy->GetWealth());
-            // Dobio si bla bla golda!
-            // Sada pokazi iteme i igrac moze izabrati kojeg oce lootat
-            if(!Player.AddItem(itr->Item))
-            {
-                // TODO: Obavjesti igraca da su mu torbe pune
-            }
-        }
-    }*/
+    }
 }
 
 void Combat::HandleCombatText(string CombatString)
