@@ -37,10 +37,7 @@ void Game::Encounter(Orientation Direction)
                     case 0:
                         GameOver();
                     case 1:
-                        Player.IncrementExp();
-                        Player.SetWealth(Player.GetWealth() + itr->GetWealth());
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
-                        Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
                         break;
                     case 2:
@@ -92,10 +89,7 @@ void Game::Encounter(Orientation Direction)
                     case 0:
                         GameOver();
                     case 1:
-                        Player.IncrementExp();
-                        Player.SetWealth(Player.GetWealth() + itr->GetWealth());
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
-                        Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
                         break;
                     case 2:
@@ -147,10 +141,7 @@ void Game::Encounter(Orientation Direction)
                     case 0:
                         GameOver();
                     case 1:
-                        Player.IncrementExp();
-                        Player.SetWealth(Player.GetWealth() + itr->GetWealth());
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
-                        Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
                         break;
                     case 2:
@@ -202,10 +193,7 @@ void Game::Encounter(Orientation Direction)
                     case 0:
                         GameOver();
                     case 1:
-                        Player.IncrementExp();
-                        Player.SetWealth(Player.GetWealth() + itr->GetWealth());
                         ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
-                        Player.UpdateQuestObjective(itr->ID);
                         Enemies.erase(itr);
                         break;
                     case 2:
@@ -258,8 +246,6 @@ void Game::RandomEncounter()
         GameOver();
         break;
     case 1:
-        Player.IncrementExp();
-        Player.UpdateQuestObjective(itr->ID);
         RandomEncounters.erase(itr);
         break;
     case 2:
