@@ -30,8 +30,15 @@ struct Loot
 
 struct Enemy : public Creature
 {
-    Enemy(int ID, int Atk, int Def, int Health, int Level, string Name, int Wealth, int x, int y, string MapTexture, string Combat);
-    Enemy(int ID, int Atk, int Def, int Health, int Level, string Name, int Wealth, string Combat);
+    Enemy(int ID, int Atk, int Def, int Health, int Level, string Name, int Wealth, int x, int y, string MapTexture, string Combat)
+        : Creature(Atk, Def, Health, x, y, Level, Name, Wealth), ID(ID), MapTextureFileName(MapTexture), Combat(Combat)
+    {
+        CreatureMapTexture.LoadFromFile(MapTexture);
+    }
+    Enemy(int ID, int Atk, int Def, int Health, int Level, string Name, int Wealth, string Combat)
+        : Creature(Atk, Def, Health, Level, Name, Wealth), ID(ID), Combat(Combat)
+    {
+    }
 
     sf::Texture CreatureMapTexture;
     string MapTextureFileName;

@@ -266,9 +266,6 @@ bool Combat::RunIfCan()
 void Combat::DropLoot()
 {
     player.SetWealth(player.GetWealth() + enemy.GetWealth());
-    for(auto itr = enemy.Loot.begin(); itr != enemy.Loot.end(); ++itr)
-    {
-    }
 }
 
 void Combat::HandleCombatText(string CombatString)

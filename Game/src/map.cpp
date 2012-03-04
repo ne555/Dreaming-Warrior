@@ -159,7 +159,7 @@ void Game::LoadMap(string PathToMap)
 
     //Ucitaj cudovista
     int ID, Atk, Def, HP, Level, Wealth;
-    int Chance, ItemID, NumItems = 0;
+    //int Chance, ItemID, NumItems = 0;
     string CreatureMapTexture, Combat, Name;
     Enemies.clear();
     File.open(PathToMap + "Enemies.txt");
@@ -277,7 +277,7 @@ bool Game::CheckPortals(int x, int y)
     {
         if(RectPlayer.Intersects(itr->PortalRect))
         {
-            //Relociraj igra�a
+            //Relociraj igraca
             Player.Map = World + itr->PathToMap;
             Player.SetX(itr->PlayerNewX);
             Player.SetY(itr->PlayerNewY);

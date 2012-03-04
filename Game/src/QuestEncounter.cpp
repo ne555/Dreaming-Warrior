@@ -19,21 +19,12 @@
 Item GetItemFromDatabase(const string World, int ID);
 string GetEnemyNameFromDatabase(const string Map, int ID);
 
-/*
-TODO: test za completed/progres/nema quest
-%C i %N u questovima
-to u set spaces staviti
-
-i na desnu stranu knjige REWARDS, PROGRESS
-i ako you are not on this quest na input enter aceptat etc etc
-*/
-
 QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window, QuestGiver questGiver)
     : Window(Window), player(player), questGiver(questGiver), QuestIterator(0), ArrowY(100.0f)
 {
 }
 
-void QuestEncounter::Victory() //Hack... popraviti kad budem prepiso igru
+void QuestEncounter::Victory()
 {
     sf::Texture BackgroundTexture;
     sf::Sprite BackgroundSprite;
@@ -41,7 +32,7 @@ void QuestEncounter::Victory() //Hack... popraviti kad budem prepiso igru
     BackgroundSprite.SetTexture(BackgroundTexture);
     sf::Text GameOver("The forest is Saved!", Font, 90U);
     GameOver.SetStyle(sf::Text::Bold);
-    GameOver.SetPosition(280, 320);
+    GameOver.SetPosition(230, 320);
 
     sf::Event Event;
     while(Window.IsOpen()) 
@@ -123,12 +114,12 @@ bool QuestEncounter::ReadQuestText()
                         if(Quests[QuestIterator].Quest.IsComplete())
                         {
                             player.AddCompletedQuest(Quests[QuestIterator].Quest.ID);
-                            player.AddItem(GetItemFromDatabase("SavedGame",/*TODO [PH]*/Quests[QuestIterator].Quest.ItemReward));
+                            player.AddItem(GetItemFromDatabase("SavedGame",Quests[QuestIterator].Quest.ItemReward));
                             player.RemoveQuest(Quests[QuestIterator].Quest.ID);
-                            if(Quests[QuestIterator].Quest.ID == 10) //hack. ovo treba biti elegantnije
+                            if(Quests[QuestIterator].Quest.ID == 10)
                                 Victory();
                             Quests.erase(Quests.begin() + QuestIterator);
-                            player.SetWealth(player.GetWealth() + 20 * player.GetLevel()); //ph
+                            player.SetWealth(player.GetWealth() + 20 * player.GetLevel());
                         }
                         if(Quests.empty())
                             return true;

@@ -59,8 +59,6 @@ public:
     int GetWealth() const       { return Wealth; }
     string GetName() const      { return Name;}
 
-   // const vector<Buff> &GetBuffs() const { return Buffs; }
-
     void SetX(int x)            { this->x = x; }
     void SetY(int y)            { this->y = y; }
     void SetLevel(int Level)    { this->Level = Level; }
@@ -72,55 +70,6 @@ public:
     void SetDefense(int Defense){ this->Defense = Defense; }
     void SetWealth(int Wealth)  { this->Wealth = Wealth; }
     void SetName(string Name)   { this->Name = Name; }
-    /*
-    void ApplyBuff(Buff Buff)
-    {
-        Buffs.push_back(Buff);
-        switch(Buff.Attribute)
-        {
-        case HEALTH:
-            SetMaxHealth(GetMaxHealth() + Buff.Value);
-            SetHealth(GetHealth() + Buff.Value);
-            break;
-        case POWER:
-            SetMaxPower(GetMaxPower() + Buff.Value);
-            SetPower(GetPower() + Buff.Value);
-            break;
-        case ATTACK_POWER:
-            break;
-        case Defense:
-            break;
-        case INT_OR_STR:
-            break;
-        }
-    }
-
-    void RemoveBuffs()
-    {
-        for(auto itr = Buffs.begin(); itr != Buffs.end(); ++itr)
-        {
-            switch(itr->Attribute)
-            {
-            case HEALTH:
-                SetMaxHealth(GetMaxHealth() - itr->Value);
-                if(GetHealth() > GetMaxHealth())
-                    SetHealth(GetMaxHealth());
-                continue;
-            case POWER:
-                SetMaxPower(GetMaxPower() - itr->Value);
-                if(GetPower() > GetMaxPower())
-                    SetPower(GetMaxPower());
-                continue;
-            case ATTACK_POWER:
-                continue;
-            case Defense:
-                continue;
-            case INT_OR_STR:
-                continue;
-            }
-        }
-        Buffs.clear();
-    }*/
 };
 
 #endif
