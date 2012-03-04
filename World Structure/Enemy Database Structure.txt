@@ -1,15 +1,16 @@
+TODO: Item Loot
+
 Generic structure:
 <Enemy ID> <Attack Power> <Armor> <Health> <Level> <Name> <Wealth> <combat texture file name>
 
 Enemy structure:
-Generic structure + <x> <y> <Map image file name> <Item ID> <Chance> <Item ID> <Chance> <Item ID> <Chance> <Item ID> <Chance>
+Generic structure + <x> <y> <Map image file name>
 
 Random encounter structure:
 Generic structure
 
 Item ID:
 ID of an item looted upon killing the enemy.
-If you do not want to specify 4 items type NULL.
 
 Chance:
 Chance for item to drop.
