@@ -33,7 +33,6 @@ struct Enemy : public Creature
     Enemy(int ID, int Atk, int Def, int Health, int Level, string Name, int Wealth, int x, int y, string MapTexture, string Combat);
     Enemy(int ID, int Atk, int Def, int Health, int Level, string Name, int Wealth, string Combat);
 
-    // i igrac ima slicno
     sf::Texture CreatureMapTexture;
     string MapTextureFileName;
     string Combat;
