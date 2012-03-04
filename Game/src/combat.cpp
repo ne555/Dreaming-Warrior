@@ -89,9 +89,9 @@ int Combat::MainLoop()
             // Provjeri jel neko mrtav
             if(enemy.GetHealth() <= 0)
             {
-                enemy.SetHealth(enemy.GetMaxHealth());
                 DropLoot();
-                //dodaj exp, you have reached the level bla bla
+                player.IncrementExp();
+                player.UpdateQuestObjective(enemy.ID);
                 return 1;
             }
             else if(player.GetHealth() <= 0)
