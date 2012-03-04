@@ -19,8 +19,8 @@
 Item GetItemFromDatabase(const string World, int ID);
 string GetEnemyNameFromDatabase(const string Map, int ID);
 
-QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window, QuestGiver questGiver)
-    : Window(Window), player(player), questGiver(questGiver), QuestIterator(0), ArrowY(100.0f)
+QuestEncounter::QuestEncounter(Player &player, sf::RenderWindow &Window)
+    : Window(Window), player(player), QuestIterator(0), ArrowY(100.0f)
 {
 }
 
@@ -51,7 +51,7 @@ void QuestEncounter::Victory()
     }
 }
 
-bool QuestEncounter::ReadQuestText()
+bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
 {
     sf::Text QuestText(Quests[QuestIterator].Quest.Text, Font);
     QuestText.SetPosition(40.0f, 40.0f);
@@ -59,7 +59,7 @@ bool QuestEncounter::ReadQuestText()
     QuestText.SetStyle(sf::Text::Bold);
     sf::Text ObjectiveText
         (GetEnemyNameFromDatabase("World" + Quests[QuestIterator].Quest.Objective.Map, Quests[QuestIterator].Quest.Objective.ObjectiveID) + " " //TODO PH LOL KOJA INDIREKCIJA
-        + IntToString(Quests[QuestIterator].Quest.Objective.CurrentProgress)//PH
+        + IntToString(Quests[QuestIterator].Quest.Objective.CurrentProgress)
         + "/" + IntToString(Quests[QuestIterator].Quest.Objective.ReqProgress), Font),
         AcceptText(Quests[QuestIterator].From ? "Accept" : "Complete", Font),
         Decline(Quests[QuestIterator].From ? "Decline" : "Back", Font);
@@ -102,11 +102,11 @@ bool QuestEncounter::ReadQuestText()
                     case true:
                         player.AddQuest(Quests[QuestIterator].Quest);
                         Quests[QuestIterator].From = false;
-                        for(auto itr = questGiver.Quests.begin(); itr != questGiver.Quests.end(); ++itr)
+                        for(auto itr = QuestGiver.Quests.begin(); itr != QuestGiver.Quests.end(); ++itr)
                         {
                             if(itr->ID == Quests[QuestIterator].Quest.ID)
                             {
-                                questGiver.Quests.erase(itr);
+                                QuestGiver.Quests.erase(itr);
                                 return false;
                             }
                         }
@@ -114,7 +114,7 @@ bool QuestEncounter::ReadQuestText()
                         if(Quests[QuestIterator].Quest.IsComplete())
                         {
                             player.AddCompletedQuest(Quests[QuestIterator].Quest.ID);
-                            player.AddItem(GetItemFromDatabase("SavedGame",Quests[QuestIterator].Quest.ItemReward));
+                            player.AddItem(GetItemFromDatabase("SavedGame", Quests[QuestIterator].Quest.ItemReward));
                             player.RemoveQuest(Quests[QuestIterator].Quest.ID);
                             if(Quests[QuestIterator].Quest.ID == 10)
                                 Victory();
@@ -146,9 +146,9 @@ bool QuestEncounter::ReadQuestText()
     return false;
 }
 
-void QuestEncounter::MainLoop()
+QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
 {
-    for(auto i = questGiver.Quests.begin(); i != questGiver.Quests.end(); ++i)
+    for(auto i = QuestGiver.Quests.begin(); i != QuestGiver.Quests.end(); ++i)
     {
         //Ovaj check je upitan...
         if(player.GetLevel() < i->LevelReq || (!player.HasCompletedQuest(i->QuestReq) && i->QuestReq != -1))
@@ -157,13 +157,13 @@ void QuestEncounter::MainLoop()
     }
     for(auto i = player.GetQuests().begin(); i != player.GetQuests().end(); ++i)
     {
-        if(i->EndCreature == questGiver.ID)
+        if(i->EndCreature == QuestGiver.ID)
         {
             Quests.push_back(_Quest(*i, false));
         }
     }
     if(Quests.empty())
-        return;
+        return QuestGiver;
 
     Font.LoadFromFile("Graphics/papyrus.ttf");
 
@@ -198,13 +198,13 @@ void QuestEncounter::MainLoop()
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
             {
-                if(ReadQuestText())
-                    return;
+                if(ReadQuestText(QuestGiver))
+                    return QuestGiver;
                 ArrowSprite.SetPosition(555.0f, ArrowY);
             }
             else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
             {
-                return;
+                return QuestGiver;
             }
         }
         float QuestNameY = 100.0f;
@@ -221,4 +221,5 @@ void QuestEncounter::MainLoop()
         Window.Draw(ArrowSprite);
         Window.Display();
     }
+    return QuestGiver;
 }
