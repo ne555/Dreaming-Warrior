@@ -253,7 +253,7 @@ public:
     void UpdateQuestObjective(int ID)
     {
         for(auto itr = Quests.begin(); itr != Quests.end(); ++itr)
-            if(itr->ID == ID)
+            if(itr->Objective.ObjectiveID == ID)
                 if(itr->Objective.ReqProgress != itr->Objective.CurrentProgress)
                     itr->Objective.CurrentProgress += 1;
     }
