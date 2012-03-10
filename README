@@ -1,9 +1,13 @@
 What is this?
-This is a 2D Role-Playing-Game project, written by Mislav Blazevic (https://github.com/krofna) for Software Development Contest, 'Infokup' ( https://www.infokup.hr/ )
+This is a 2D Role-Playing-Game project, written by Mislav Blazevic (https://github.com/krofna) for Student Software Development Contest, 'Infokup' ( https://www.infokup.hr/ )
 It is open source program, and its source is avaliable at https://github.com/krofna/Game-Project/
 
 Where can I download binaries?
 You can find latest stable release in Downloads tab.
+
+How can I compile this?
+Well, this is tricky. I haven't wrote cmake files yet.
+If really want to do this, just include all files to new project, and link against latest SFML.
 
 Thanks and Acknowledgements:
 - Laurent Gomila (https://github.com/laurentgomila) for Simple and Fast Multimedia Library (https://github.com/LaurentGomila/SFML)
@@ -12,7 +16,7 @@ Without you, this project would not be possible
 License:
 Dreaming Warrior source code is licenced under GNU GPL: http://www.gnu.org/copyleft/gpl.html
 All 32x32 tiles (Release/Creatures/ , Release/Tiles/ and Release/Items/) are work of David Gervais and are licensed under a Creative Commons Attribution 3.0 Unported License: http://creativecommons.org/licenses/by/3.0/
-All game art, including but not limited to graphics interface and creatures (Release/Graphics/) is work of Mirela Blaževiæ and is licensed under a Creative Commons Attribution 3.0 Unported License: http://creativecommons.org/licenses/by/3.0/
+All game art, including but not limited to graphics interface and creatures (Release/Graphics/) is work of Mirela Blaï¿½eviï¿½ and is licensed under a Creative Commons Attribution 3.0 Unported License: http://creativecommons.org/licenses/by/3.0/
 
 System Requirements:
 - 128Mb of RAM or higher
