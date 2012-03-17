@@ -21,206 +21,73 @@
 
 void Game::Encounter(Orientation Direction)
 {
+    int x, y;
+
     switch(Direction)
     {
     case NORTH:
-        switch(Player.InteractsWith)
-        {
-        case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
-            {
-                if(itr->GetX() == Player.GetX()/32 && itr->GetY() == Player.GetY()/32-1)
-                {
-                    Combat Combat(Window, Player, *itr);
-                    switch(Combat.MainLoop())
-                    {
-                    case 0:
-                        GameOver();
-                    case 1:
-                        ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
-                        Enemies.erase(itr);
-                        break;
-                    case 2:
-                        break;
-                    }
-                    return;
-                }
-            }
-            break;
-        case VENDOR:
-            for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
-            {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
-                {
-                    VendorEncounter VendorEncounter(Player, Window, *itr);
-                    VendorEncounter.MainLoop();
-                    return;
-                }
-            }
-            break;
-        case QUEST:
-            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
-            {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32-1)
-                {
-                    QuestEncounter QuestEncounter(Player, Window);
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
-                    QuestGivers.erase(itr);
-                    QuestGivers.push_back(QuestGiver);
-                    return;
-                }
-            }
-            break;
-        }
+        x = 0;
+        y = -1;
         break;
     case SOUTH:
-        switch(Player.InteractsWith)
-        {
-        case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
-            {
-                if(itr->GetX() == Player.GetX()/32 && itr->GetY() == Player.GetY()/32+1)
-                {
-                    Combat Combat(Window, Player, *itr);
-                    switch(Combat.MainLoop())
-                    {
-                    case 0:
-                        GameOver();
-                    case 1:
-                        ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
-                        Enemies.erase(itr);
-                        break;
-                    case 2:
-                        break;
-                    }
-                    return;
-                }
-            }
-            break;
-        case VENDOR:
-            for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
-            {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32+1)
-                {
-                    VendorEncounter VendorEncounter(Player, Window, *itr);
-                    VendorEncounter.MainLoop();
-                    return;
-                }
-            }
-            break;
-        case QUEST:
-            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
-            {
-                if(itr->x == Player.GetX()/32 && itr->y == Player.GetY()/32+1)
-                {
-                    QuestEncounter QuestEncounter(Player, Window);
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
-                    QuestGivers.erase(itr);
-                    QuestGivers.push_back(QuestGiver);
-                    return;
-                }
-            }
-            break;
-        }
+        x = 0;
+        y = 1;
         break;
     case WEST:
-        switch(Player.InteractsWith)
-        {
-        case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
-            {
-                if(itr->GetX() == Player.GetX()/32+1 && itr->GetY() == Player.GetY()/32)
-                {
-                    Combat Combat(Window, Player, *itr);
-                    switch(Combat.MainLoop())
-                    {
-                    case 0:
-                        GameOver();
-                    case 1:
-                        ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
-                        Enemies.erase(itr);
-                        break;
-                    case 2:
-                        break;
-                    }
-                    return;
-                }
-            }
-            break;
-        case VENDOR:
-            for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
-            {
-                if(itr->x == Player.GetX()/32+1 && itr->y == Player.GetY()/32)
-                {
-                    VendorEncounter VendorEncounter(Player, Window, *itr);
-                    VendorEncounter.MainLoop();
-                    return;
-                }
-            }
-            break;
-        case QUEST:
-            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
-            {
-                if(itr->x == Player.GetX()/32+1 && itr->y == Player.GetY()/32)
-                {
-                    QuestEncounter QuestEncounter(Player, Window);
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
-                    QuestGivers.erase(itr);
-                    QuestGivers.push_back(QuestGiver);
-                    return;
-                }
-            }
-            break;
-        }
+        x = 1;
+        y = 0;
         break;
     case EAST:
-        switch(Player.InteractsWith)
+        x = -1;
+        y = 0;
+        break;
+    }
+
+    switch(Player.InteractsWith)
+    {
+    case ENEMY:
+        for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
         {
-        case ENEMY:
-            for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
+            if(itr->GetX() == Player.GetX()/32 + x && itr->GetY() == Player.GetY()/32 + y)
             {
-                if(itr->GetX() == Player.GetX()/32-1 && itr->GetY() == Player.GetY()/32)
+                Combat Combat(Window, Player, *itr);
+                switch(Combat.MainLoop())
                 {
-                    Combat Combat(Window, Player, *itr);
-                    switch(Combat.MainLoop())
-                    {
-                    case 0:
-                        GameOver();
-                    case 1:
-                        ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
-                        Enemies.erase(itr);
-                        break;
-                    case 2:
-                        break;
-                    }
-                    return;
+                case 0:
+                    GameOver();
+                case 1:
+                    ObjectGrid[itr->GetY()][itr->GetX()] = NO_OBJECT;
+                    Enemies.erase(itr);
+                    break;
+                case 2:
+                    break;
                 }
+                return;
             }
-            break;
-        case VENDOR:
-            for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
+        }
+        break;
+    case VENDOR:
+        for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
+        {
+            if(itr->x == Player.GetX()/32 + x && itr->y == Player.GetY()/32 + y)
             {
-                if(itr->x == Player.GetX()/32-1 && itr->y == Player.GetY()/32)
-                {
-                    VendorEncounter VendorEncounter(Player, Window, *itr);
-                    VendorEncounter.MainLoop();
-                    return;
-                }
+                VendorEncounter VendorEncounter(Player, Window, *itr);
+                VendorEncounter.MainLoop();
+                return;
             }
-            break;
-        case QUEST:
-            for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
+        }
+        break;
+    case QUEST:
+        for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
+        {
+            if(itr->x == Player.GetX()/32 + x && itr->y == Player.GetY()/32 + y)
             {
-                if(itr->x == Player.GetX()/32-1 && itr->y == Player.GetY()/32)
-                {
-                    QuestEncounter QuestEncounter(Player, Window);
-                    QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
-                    QuestGivers.erase(itr);
-                    QuestGivers.push_back(QuestGiver);
-                    return;
-                }
+                QuestEncounter QuestEncounter(Player, Window);
+                QuestGiver QuestGiver = QuestEncounter.MainLoop(*itr);
+                QuestGivers.erase(itr);
+                QuestGivers.push_back(QuestGiver);
+                return;
             }
-            break;
         }
         break;
     }
