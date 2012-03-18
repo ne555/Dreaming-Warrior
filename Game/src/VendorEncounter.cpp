@@ -19,37 +19,37 @@
 VendorEncounter::VendorEncounter(Player &player, sf::RenderWindow &Window, Vendor &vendor)
     : player(player), vendor(vendor), Window(Window), ArrowX(405), ArrowY(370)
 {
-    ItemName.SetColor(sf::Color::Black);
-    BuyItem.SetColor(sf::Color::Black);
-    SellItem.SetColor(sf::Color::Black);
-    YourItems.SetColor(sf::Color::Black);
-    VendorItems.SetColor(sf::Color::Black);
-    Return.SetColor(sf::Color::Black);
+    ItemName.setColor(sf::Color::Black);
+    BuyItem.setColor(sf::Color::Black);
+    SellItem.setColor(sf::Color::Black);
+    YourItems.setColor(sf::Color::Black);
+    VendorItems.setColor(sf::Color::Black);
+    Return.setColor(sf::Color::Black);
 
-    ItemName.SetStyle(sf::Text::Bold);
-    BuyItem.SetStyle(sf::Text::Bold);
-    SellItem.SetStyle(sf::Text::Bold);
-    YourItems.SetStyle(sf::Text::Bold);
-    VendorItems.SetStyle(sf::Text::Bold);
-    Return.SetStyle(sf::Text::Bold);
+    ItemName.setStyle(sf::Text::Bold);
+    BuyItem.setStyle(sf::Text::Bold);
+    SellItem.setStyle(sf::Text::Bold);
+    YourItems.setStyle(sf::Text::Bold);
+    VendorItems.setStyle(sf::Text::Bold);
+    Return.setStyle(sf::Text::Bold);
 
-    ItemName.SetPosition(390.0f, 70.0f);
-    BuyItem.SetPosition(450.0f, 370.0f);
-    SellItem.SetPosition(450.0f, 405.0f);
-    Return.SetPosition(450.0f, 440.0f);
-    YourItems.SetPosition(100.0f, 0.0f);
-    VendorItems.SetPosition(750.0f, 0.0f);
+    ItemName.setPosition(390.0f, 70.0f);
+    BuyItem.setPosition(450.0f, 370.0f);
+    SellItem.setPosition(450.0f, 405.0f);
+    Return.setPosition(450.0f, 440.0f);
+    YourItems.setPosition(100.0f, 0.0f);
+    VendorItems.setPosition(750.0f, 0.0f);
 
-    ItemName.SetFont(Font);
-    BuyItem.SetFont(Font);
-    SellItem.SetFont(Font);
-    YourItems.SetFont(Font);
-    VendorItems.SetFont(Font);
-    Return.SetFont(Font);
+    ItemName.setFont(Font);
+    BuyItem.setFont(Font);
+    SellItem.setFont(Font);
+    YourItems.setFont(Font);
+    VendorItems.setFont(Font);
+    Return.setFont(Font);
 
-    ItemName.SetCharacterSize(20);
-    ItemSprite.SetPosition(360.0f, 70.0f);
-    ScreenTexture.Create(1024, 768);
+    ItemName.setCharacterSize(20);
+    ItemSprite.setPosition(360.0f, 70.0f);
+    ScreenTexture.create(1024, 768);
 }
 
 void VendorEncounter::DrawItems()
@@ -58,28 +58,28 @@ void VendorEncounter::DrawItems()
     for(auto itr = player.GetItems().begin(); itr != player.GetItems().end(); ++itr)
     {
         sf::Sprite ItemSprite(itr->ItemTexture);
-        ItemSprite.SetPosition((float)ItemX, (float)ItemY);
+        ItemSprite.setPosition((float)ItemX, (float)ItemY);
         ItemX += 81;
         if(ItemX == 373)
         {
             ItemY += 32;
             ItemX = 49;
         }
-        Window.Draw(ItemSprite);
+        Window.draw(ItemSprite);
     }
 
     ItemX = 685; ItemY = 70;
     for(auto itr = vendor.Items.begin(); itr != vendor.Items.end(); ++itr)
     {
         sf::Sprite ItemSprite(itr->ItemTexture);
-        ItemSprite.SetPosition((float)ItemX, (float)ItemY);
+        ItemSprite.setPosition((float)ItemX, (float)ItemY);
         ItemX += 81;
         if(ItemX == 1009)
         {
             ItemY += 32;
             ItemX = 685;
         }
-        Window.Draw(ItemSprite);
+        Window.draw(ItemSprite);
     }
 }
 
@@ -104,48 +104,48 @@ void VendorEncounter::BuyingItemsLoop()
     }
     int IterX = 0, IterY = 0;
     ArrowX = 636; ArrowY = 70;
-    ArrowSprite.SetPosition(ArrowX, ArrowY);
-    while(Window.IsOpen()) 
+    ArrowSprite.setPosition(ArrowX, ArrowY);
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(IterY != 0)
                 {
                     --IterY;
                     ArrowY -= 32;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(IterY != 12)
                 {
                     ++IterY;
                     ArrowY += 32;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Right))
             {
                 if(IterX != 3)
                 {
                     ++IterX;
                     ArrowX += 81;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Left))
             {
                 if(IterX != 0)
                 {
                     --IterX;
                     ArrowX -= 81;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 if(player.GetWealth() < vendor.Items[ItemGrid[IterY][IterX]].BuyPrice)
                 {
@@ -159,30 +159,29 @@ void VendorEncounter::BuyingItemsLoop()
                 }
                 player.SetWealth(player.GetWealth() - vendor.Items[ItemGrid[IterY][IterX]].BuyPrice);
                 player.AddItem(vendor.Items[ItemGrid[IterY][IterX]]);
-                //Vendor.Items.erase(Vendor.Items.begin() + ItemGrid[IterY][IterX]);
                 Message = "It's been pleasure trading with you, " + player.GetName();
-                MoneyText.SetString(IntToString(player.GetWealth()));
+                MoneyText.setString(IntToString(player.GetWealth()));
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
-        Window.Clear();
-        Window.Draw(GUISprite);
-        Window.Draw(ArrowSprite);
-        Window.Draw(sf::Sprite(ScreenTexture));
+        Window.clear();
+        Window.draw(GUISprite);
+        Window.draw(ArrowSprite);
+        Window.draw(sf::Sprite(ScreenTexture));
         DrawMessage(Message);
         DrawItems();
-        Window.Draw(MoneySprite);
-        Window.Draw(MoneyText);
+        Window.draw(MoneySprite);
+        Window.draw(MoneyText);
         if(ItemGrid[IterY][IterX] != -1)
         {
-            ItemSprite.SetTexture(vendor.Items[ItemGrid[IterY][IterX]].ItemTexture);
+            ItemSprite.setTexture(vendor.Items[ItemGrid[IterY][IterX]].ItemTexture);
             switch(vendor.Items[ItemGrid[IterY][IterX]].Type) //PH
             {
             case ITEM_FOOD:
-                ItemName.SetString
+                ItemName.setString
                     (vendor.Items[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Cannot be used in combat" + '\n'
@@ -190,7 +189,7 @@ void VendorEncounter::BuyingItemsLoop()
                     + "Sell Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_MANA_FOOD:
-                ItemName.SetString
+                ItemName.setString
                     (vendor.Items[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " power." + '\n' + "Cannot be used in combat" + '\n'
@@ -198,7 +197,7 @@ void VendorEncounter::BuyingItemsLoop()
                     + "Sell Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_POWER_POTION:
-                ItemName.SetString
+                ItemName.setString
                     (vendor.Items[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " power." + '\n' + "Can be used in combat" + '\n'
@@ -206,7 +205,7 @@ void VendorEncounter::BuyingItemsLoop()
                     + "Sell Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_HEALTH_POTION:
-                ItemName.SetString
+                ItemName.setString
                     (vendor.Items[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Can be used in combat" + '\n'
@@ -214,10 +213,10 @@ void VendorEncounter::BuyingItemsLoop()
                     + "Sell Price: " + IntToString(vendor.Items[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             }
-            Window.Draw(ItemSprite);
-            Window.Draw(ItemName);
+            Window.draw(ItemSprite);
+            Window.draw(ItemName);
         }
-        Window.Display();
+        Window.display();
     }
 }
 
@@ -242,48 +241,48 @@ void VendorEncounter::SellingItemsLoop()
     }
     int IterX = 0, IterY = 0;
     ArrowX = 0; ArrowY = 70;
-    ArrowSprite.SetPosition(ArrowX, ArrowY);
-    while(Window.IsOpen()) 
+    ArrowSprite.setPosition(ArrowX, ArrowY);
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(IterY != 0)
                 {
                     --IterY;
                     ArrowY -= 32;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(IterY != 12)
                 {
                     ++IterY;
                     ArrowY += 32;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Right))
             {
                 if(IterX != 3)
                 {
                     ++IterX;
                     ArrowX += 81;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Left))
             {
                 if(IterX != 0)
                 {
                     --IterX;
                     ArrowX -= 81;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 switch(player.GetItems()[ItemGrid[IterY][IterX]].Type)
                 {
@@ -292,32 +291,31 @@ void VendorEncounter::SellingItemsLoop()
                     break;
                 default:
                     player.SetWealth(player.GetWealth() + player.GetItems()[ItemGrid[IterY][IterX]].SellPrice);
-                    //Vendor.Items.push_back(player.GetItems()[ItemGrid[IterY][IterX]]);
                     player.RemoveItem(ItemGrid[IterY][IterX]);
-                    MoneyText.SetString(IntToString(player.GetWealth()));
+                    MoneyText.setString(IntToString(player.GetWealth()));
                     break;
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
-        Window.Clear();
-        Window.Draw(GUISprite);
-        Window.Draw(ArrowSprite);
-        Window.Draw(sf::Sprite(ScreenTexture));
+        Window.clear();
+        Window.draw(GUISprite);
+        Window.draw(ArrowSprite);
+        Window.draw(sf::Sprite(ScreenTexture));
         DrawItems();
         DrawMessage(Message);
-        Window.Draw(MoneySprite);
-        Window.Draw(MoneyText);
+        Window.draw(MoneySprite);
+        Window.draw(MoneyText);
         if(ItemGrid[IterY][IterX] != -1)
         {
-            ItemSprite.SetTexture(player.GetItems()[ItemGrid[IterY][IterX]].ItemTexture);
+            ItemSprite.setTexture(player.GetItems()[ItemGrid[IterY][IterX]].ItemTexture);
             switch(player.GetItems()[ItemGrid[IterY][IterX]].Type) //PH
             {
             case ITEM_FOOD:
-                ItemName.SetString
+                ItemName.setString
                     (player.GetItems()[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Cannot be used in combat" + '\n'
@@ -325,7 +323,7 @@ void VendorEncounter::SellingItemsLoop()
                     + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_POWER_POTION:
-                ItemName.SetString
+                ItemName.setString
                     (player.GetItems()[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " power." + '\n' + "Can be used in combat" + '\n'
@@ -333,7 +331,7 @@ void VendorEncounter::SellingItemsLoop()
                     + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_HEALTH_POTION:
-                ItemName.SetString
+                ItemName.setString
                     (player.GetItems()[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Can be used in combat" + '\n'
@@ -341,84 +339,84 @@ void VendorEncounter::SellingItemsLoop()
                     + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             }
-            Window.Draw(ItemName);
-            Window.Draw(ItemSprite);
+            Window.draw(ItemName);
+            Window.draw(ItemSprite);
         }
-        Window.Display();
+        Window.display();
     }
 }
 
 void VendorEncounter::DrawTexture()
 {
     sf::RenderTexture ScreenTexture;
-    ScreenTexture.Create(1024, 768);
+    ScreenTexture.create(1024, 768);
 
-    ScreenTexture.Draw(BuyItem);
-    ScreenTexture.Draw(Return);
-    ScreenTexture.Draw(SellItem);
-    ScreenTexture.Draw(YourItems);
-    ScreenTexture.Draw(VendorItems);
-    ScreenTexture.Display();
-    this->ScreenTexture = ScreenTexture.GetTexture();
+    ScreenTexture.draw(BuyItem);
+    ScreenTexture.draw(Return);
+    ScreenTexture.draw(SellItem);
+    ScreenTexture.draw(YourItems);
+    ScreenTexture.draw(VendorItems);
+    ScreenTexture.display();
+    this->ScreenTexture = ScreenTexture.getTexture();
 }
 
 void VendorEncounter::DrawMessage(string Message)
 {
     sf::Text Text(Message, Font);
-    Text.SetPosition(247.0f, 640.0f);
-    Text.SetStyle(sf::Text::Bold);
-    Text.SetColor(sf::Color::Black);
-    Window.Draw(Text);
+    Text.setPosition(247.0f, 640.0f);
+    Text.setStyle(sf::Text::Bold);
+    Text.setColor(sf::Color::Black);
+    Window.draw(Text);
 }
 
 void VendorEncounter::MainLoop()
 {
-    Font.LoadFromFile("Graphics/papyrus.ttf");
-    BuyItem.SetString("Buy Item");
-    SellItem.SetString("Sell Item");
-    YourItems.SetString("Your items: ");
-    VendorItems.SetString("Vendors items: ");
-    Return.SetString("Back to Game");
+    Font.loadFromFile("Graphics/papyrus.ttf");
+    BuyItem.setString("Buy Item");
+    SellItem.setString("Sell Item");
+    YourItems.setString("Your items: ");
+    VendorItems.setString("Vendors items: ");
+    Return.setString("Back to Game");
     DrawTexture();
-    MoneyText.SetString(IntToString(player.GetWealth()));
-    MoneyText.SetStyle(sf::Text::Bold);
-    MoneyText.SetColor(sf::Color::Black);
-    MoneyText.SetPosition(410.0f, 20.0f);
+    MoneyText.setString(IntToString(player.GetWealth()));
+    MoneyText.setStyle(sf::Text::Bold);
+    MoneyText.setColor(sf::Color::Black);
+    MoneyText.setPosition(410.0f, 20.0f);
     sf::Texture ArrowTexture, GUITexture, MoneyTexture;
-    MoneyTexture.LoadFromFile("Items/Money.png");
-    MoneyText.SetFont(Font);
-    MoneySprite.SetTexture(MoneyTexture);
-    MoneySprite.SetPosition(380.0f, 20.0f);
-    ArrowTexture.LoadFromFile("Graphics/Arrow2.png");
-    GUITexture.LoadFromFile("Graphics/VendorScreen.png");
-    ArrowSprite.SetTexture(ArrowTexture);
-    ArrowSprite.SetPosition(ArrowX, ArrowY);
-    GUISprite.SetTexture(GUITexture);
+    MoneyTexture.loadFromFile("Items/Money.png");
+    MoneyText.setFont(Font);
+    MoneySprite.setTexture(MoneyTexture);
+    MoneySprite.setPosition(380.0f, 20.0f);
+    ArrowTexture.loadFromFile("Graphics/Arrow2.png");
+    GUITexture.loadFromFile("Graphics/VendorScreen.png");
+    ArrowSprite.setTexture(ArrowTexture);
+    ArrowSprite.setPosition(ArrowX, ArrowY);
+    GUISprite.setTexture(GUITexture);
     int Command = 0;
 
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(Command != 0)
                 {
                     --Command;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(Command != 2)
                 {
                     ++Command;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 switch(Command)
                 {
@@ -434,17 +432,17 @@ void VendorEncounter::MainLoop()
                 Command = 0;
                 ArrowX = 405.0f;
                 ArrowY = 370.0f;
-                ArrowSprite.SetPosition(ArrowX, ArrowY);
+                ArrowSprite.setPosition(ArrowX, ArrowY);
             }
         }
-        Window.Clear();
-        Window.Draw(GUISprite);
+        Window.clear();
+        Window.draw(GUISprite);
         DrawItems();
-        Window.Draw(sf::Sprite(ScreenTexture));
-        Window.Draw(ArrowSprite);
+        Window.draw(sf::Sprite(ScreenTexture));
+        Window.draw(ArrowSprite);
         DrawMessage("How can I help you, " + player.GetName() + "?");
-        Window.Draw(MoneySprite);
-        Window.Draw(MoneyText);
-        Window.Display();
+        Window.draw(MoneySprite);
+        Window.draw(MoneyText);
+        Window.display();
     }
 }

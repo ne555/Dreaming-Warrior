@@ -25,7 +25,7 @@ struct QuestGiver
     QuestGiver(int ID, int x, int y, string TextureFileName) 
         : ID(ID), x(x), y(y), TextureFileName(TextureFileName)
     {
-        MapTexture.LoadFromFile(TextureFileName);
+        MapTexture.loadFromFile(TextureFileName);
     }
 
     int ID;

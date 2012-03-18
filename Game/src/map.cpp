@@ -24,28 +24,28 @@ inline int Distance(int x1, int y1, int x2, int y2)
 
 void Game::DrawAll()
 {
-    Window.Draw(sf::Sprite(MapTexture));
+    Window.draw(sf::Sprite(MapTexture));
     sf::Sprite PlayerSprite(PlayerTexture);
-    PlayerSprite.SetPosition((float)Player.GetX(), (float)Player.GetY());
-    Window.Draw(PlayerSprite);
+    PlayerSprite.setPosition((float)Player.GetX(), (float)Player.GetY());
+    Window.draw(PlayerSprite);
 
     for(auto itr = Enemies.begin(); itr != Enemies.end(); ++itr)
     {
         sf::Sprite Sprite(itr->CreatureMapTexture);
-        Sprite.SetPosition((float)itr->GetX()*32, (float)itr->GetY()*32);
-        Window.Draw(Sprite);
+        Sprite.setPosition((float)itr->GetX()*32, (float)itr->GetY()*32);
+        Window.draw(Sprite);
     }
     for(auto itr = Vendors.begin(); itr != Vendors.end(); ++itr)
     {
         sf::Sprite Sprite(itr->MapTexture);
-        Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
-        Window.Draw(Sprite);
+        Sprite.setPosition((float)itr->x*32, (float)itr->y*32);
+        Window.draw(Sprite);
     }
     for(auto itr = QuestGivers.begin(); itr != QuestGivers.end(); ++itr)
     {
         sf::Sprite Sprite(itr->MapTexture);
-        Sprite.SetPosition((float)itr->x*32, (float)itr->y*32);
-        Window.Draw(Sprite);
+        Sprite.setPosition((float)itr->x*32, (float)itr->y*32);
+        Window.draw(Sprite);
     }
 
     //this is so wrong
@@ -55,7 +55,7 @@ void Game::DrawAll()
         {
             if(Distance(Player.GetX()/32, Player.GetY()/32, x, y) > 3)
             {
-                Window.Draw(HideMapHack[y][x]);
+                Window.draw(HideMapHack[y][x]);
             }
         }
     }
@@ -65,12 +65,12 @@ void Game::DrawAll()
 void Game::LoadMap(string PathToMap)
 {
     sf::RenderTexture RenderMapTexture;
-    RenderMapTexture.Create(1024, 768);
+    RenderMapTexture.create(1024, 768);
     this->PathToMap = PathToMap;
 
     //Unisti staru mapu
-    Window.Clear();
-    RenderMapTexture.Clear();
+    Window.clear();
+    RenderMapTexture.clear();
     Portals.clear();
     for(int a=0; a<24; ++a)
         for(int b=0; b<32; ++b)
@@ -80,7 +80,7 @@ void Game::LoadMap(string PathToMap)
     {
         Tile(string FileName, bool Solid)
         {
-            Texture.LoadFromFile(FileName);
+            Texture.loadFromFile(FileName);
             IsSolid = Solid;
         }
         sf::Texture Texture;
@@ -145,15 +145,15 @@ void Game::LoadMap(string PathToMap)
             if(Tileset[MapTexture[y][x]].IsSolid)
                 ObjectGrid[y][x] = SOLID_OBJECT;
             sf::Sprite Texture(Tileset[MapTexture[y][x]].Texture);
-            Texture.SetPosition((float)x*32, (float)y*32);
-            RenderMapTexture.Draw(Texture);
+            Texture.setPosition((float)x*32, (float)y*32);
+            RenderMapTexture.draw(Texture);
             if(MapObjects[y][x] == -1)
                 continue;
             if(Tileset[MapObjects[y][x]].IsSolid)
                 ObjectGrid[y][x] = SOLID_OBJECT;
             sf::Sprite Object(Tileset[MapObjects[y][x]].Texture);
-            Object.SetPosition((float)x*32, (float)y*32);
-            RenderMapTexture.Draw(Object);
+            Object.setPosition((float)x*32, (float)y*32);
+            RenderMapTexture.draw(Object);
         }
     }
 
@@ -242,8 +242,8 @@ void Game::LoadMap(string PathToMap)
     }
     File.close();
 
-    RenderMapTexture.Display();
-    this->MapTexture = RenderMapTexture.GetTexture();
+    RenderMapTexture.display();
+    this->MapTexture = RenderMapTexture.getTexture();
 }
 
 bool Game::CheckCollision(int x, int y, Orientation Direction)
@@ -275,7 +275,7 @@ bool Game::CheckPortals(int x, int y)
     sf::IntRect RectPlayer(x, y, 32, 32);
     for(auto itr = Portals.begin(); itr != Portals.end(); ++itr)
     {
-        if(RectPlayer.Intersects(itr->PortalRect))
+        if(RectPlayer.intersects(itr->PortalRect))
         {
             //Relociraj igraca
             Player.Map = World + itr->PathToMap;
@@ -300,7 +300,7 @@ bool Game::UpdateMovement(int x, int y, Orientation Direction)
     if(!CheckCollision(x/32, y/32, Direction))
         return false;
     sf::Sprite Sprite(PlayerTexture);
-    Sprite.SetPosition((float)x, (float)y);
-    Window.Draw(Sprite);
+    Sprite.setPosition((float)x, (float)y);
+    Window.draw(Sprite);
     return true;
 }

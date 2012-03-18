@@ -48,10 +48,10 @@ class Game
     {
         Portal(int x, int y, string Path, int px, int py)
         {
-            PortalRect.Width = 32;
-            PortalRect.Height = 32;
-            PortalRect.Left = x*32;
-            PortalRect.Top = y*32;
+            PortalRect.width = 32;
+            PortalRect.height = 32;
+            PortalRect.left = x*32;
+            PortalRect.top = y*32;
             PlayerNewX = px*32;
             PlayerNewY = py*32;
             PathToMap = Path;

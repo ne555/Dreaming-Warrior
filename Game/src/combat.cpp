@@ -31,14 +31,14 @@ return 2; Run
 int Combat::MainLoop()
 {
     sf::Texture ArrowTexture, CombatGUI, CreatureTexture;
-    CreatureTexture.LoadFromFile(enemy.Combat);
-    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
+    CreatureTexture.loadFromFile(enemy.Combat);
+    ArrowTexture.loadFromFile("Graphics/Arrow.png");
     sf::Sprite ArrowSprite(ArrowTexture);
-    ArrowSprite.SetPosition(800.0f, ArrowY);
-    CombatGUI.LoadFromFile("Graphics/CombatScreen.jpg");
-    Font.LoadFromFile("Graphics/papyrus.ttf");
-    CreatureSprite.SetTexture(CreatureTexture);
-    CreatureSprite.SetPosition(320.0f, 100.0f);
+    ArrowSprite.setPosition(800.0f, ArrowY);
+    CombatGUI.loadFromFile("Graphics/CombatScreen.jpg");
+    Font.loadFromFile("Graphics/papyrus.ttf");
+    CreatureSprite.setTexture(CreatureTexture);
+    CreatureSprite.setPosition(320.0f, 100.0f);
 
     sf::Event Event;
 
@@ -46,37 +46,37 @@ int Combat::MainLoop()
     int Command = 1;
     bool PlayerMove = true;
 
-    while(window.IsOpen()) 
+    while(window.isOpen()) 
     {
         //Glavni Loop
-        while(window.PollEvent(Event))
+        while(window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(Command != 1)
                 {
                     --Command;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(800.0f, ArrowY);
+                    ArrowSprite.setPosition(800.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if((Command != 4 && CommandList == 1) || (Command != 3 && CommandList == 2) || (Command != player.GetSpells().size()+1 && CommandList == 3))
                 {
                     ++Command;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(800.0f, ArrowY);
+                    ArrowSprite.setPosition(800.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 if(HandleInput(CommandList, Command, ArrowY, PlayerMove))
                 {
                     enemy.SetHealth(enemy.GetHealth());
                     return 2;
                 }
-                ArrowSprite.SetPosition(800.0f, ArrowY);
+                ArrowSprite.setPosition(800.0f, ArrowY);
             }
 
             // Neprijatelj na potezu
@@ -98,15 +98,15 @@ int Combat::MainLoop()
                 return 0;
         }
         // Pokazi sve na ekranu
-        window.Clear();
-        window.Draw(sf::Sprite(CombatGUI));
-        window.Draw(ArrowSprite);
-        window.Draw(CreatureSprite);
+        window.clear();
+        window.draw(sf::Sprite(CombatGUI));
+        window.draw(ArrowSprite);
+        window.draw(CreatureSprite);
         DrawPlayerStats();
         DrawCommandText(CommandList);
         for(auto itr = CombatTexts.begin(); itr != CombatTexts.end(); ++itr)
-            window.Draw(*itr);
-        window.Display();
+            window.draw(*itr);
+        window.display();
     }
     return 2;
 }
@@ -271,16 +271,16 @@ void Combat::DropLoot()
 void Combat::HandleCombatText(string CombatString)
 {
     sf::Text CombatText(CombatString, Font, 25);
-    CombatText.SetPosition(247.0f, TextY);
-    CombatText.SetStyle(sf::Text::Bold);
-    CombatText.SetColor(sf::Color(0, 0, 0));
+    CombatText.setPosition(247.0f, TextY);
+    CombatText.setStyle(sf::Text::Bold);
+    CombatText.setColor(sf::Color(0, 0, 0));
     CombatTexts.push_back(CombatText);
     TextY += 30;
     if(CombatTexts.size() > 4)
     {
         CombatTexts.erase(CombatTexts.begin());
         for(auto itr = CombatTexts.begin(); itr != CombatTexts.end(); ++itr)
-            itr->SetPosition(247.0f, itr->GetPosition().y - 30.00f);
+            itr->setPosition(247.0f, itr->getPosition().y - 30.00f);
         TextY -= 30;
     }
 }
@@ -296,32 +296,32 @@ void Combat::DrawPlayerStats()
 
     if(player.GetClass() == CLASS_WARRIOR)
     {
-        PowerText.SetString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
-        IntStrText.SetString("Strenght: " + IntToString(player.GetIntStr()));
+        PowerText.setString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+        IntStrText.setString("Strenght: " + IntToString(player.GetIntStr()));
     }
     else
     {
-        PowerText.SetString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
-        IntStrText.SetString("Intelligence: " + IntToString(player.GetIntStr()));
+        PowerText.setString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+        IntStrText.setString("Intelligence: " + IntToString(player.GetIntStr()));
     }
 
-    HealthText.SetPosition(20.0f, 205.0f);
-    PowerText.SetPosition(20.0f, 240.0f);
-    AttackText.SetPosition(20.0f, 275.0f);
-    DefenseText.SetPosition(20.0f, 310.0f);
-    IntStrText.SetPosition(20.0f, 345.0f);
+    HealthText.setPosition(20.0f, 205.0f);
+    PowerText.setPosition(20.0f, 240.0f);
+    AttackText.setPosition(20.0f, 275.0f);
+    DefenseText.setPosition(20.0f, 310.0f);
+    IntStrText.setPosition(20.0f, 345.0f);
 
-    HealthText.SetStyle(sf::Text::Bold);
-    PowerText.SetStyle(sf::Text::Bold);
-    AttackText.SetStyle(sf::Text::Bold);
-    DefenseText.SetStyle(sf::Text::Bold);
-    IntStrText.SetStyle(sf::Text::Bold);
+    HealthText.setStyle(sf::Text::Bold);
+    PowerText.setStyle(sf::Text::Bold);
+    AttackText.setStyle(sf::Text::Bold);
+    DefenseText.setStyle(sf::Text::Bold);
+    IntStrText.setStyle(sf::Text::Bold);
 
-    window.Draw(IntStrText);
-    window.Draw(HealthText);
-    window.Draw(PowerText);
-    window.Draw(AttackText);
-    window.Draw(DefenseText);
+    window.draw(IntStrText);
+    window.draw(HealthText);
+    window.draw(PowerText);
+    window.draw(AttackText);
+    window.draw(DefenseText);
 }
 
 void Combat::DrawCommandText(int WhatText)
@@ -336,20 +336,20 @@ void Combat::DrawCommandText(int WhatText)
                 Item("Potion", Font, 20),
                 Run("Run", Font, 20);
 
-            Fight.SetPosition(850, 165);
-            Spell.SetPosition(850, 200);
-            Item.SetPosition(850, 235);
-            Run.SetPosition(850, 270);
+            Fight.setPosition(850, 165);
+            Spell.setPosition(850, 200);
+            Item.setPosition(850, 235);
+            Run.setPosition(850, 270);
 
-            Fight.SetStyle(sf::Text::Bold);
-            Spell.SetStyle(sf::Text::Bold);
-            Item.SetStyle(sf::Text::Bold);
-            Run.SetStyle(sf::Text::Bold);
+            Fight.setStyle(sf::Text::Bold);
+            Spell.setStyle(sf::Text::Bold);
+            Item.setStyle(sf::Text::Bold);
+            Run.setStyle(sf::Text::Bold);
 
-            window.Draw(Fight);
-            window.Draw(Spell);
-            window.Draw(Item);
-            window.Draw(Run);
+            window.draw(Fight);
+            window.draw(Spell);
+            window.draw(Item);
+            window.draw(Run);
             break;
         }
         case 2:
@@ -360,21 +360,21 @@ void Combat::DrawCommandText(int WhatText)
                 Return("Return ", Font, 20);
 
             if(player.GetClass() == CLASS_WARRIOR)
-                Power.SetString("Stamina (x" + IntToString(player.GetPowerPotNum()) + ")");
+                Power.setString("Stamina (x" + IntToString(player.GetPowerPotNum()) + ")");
             else
-                Power.SetString("Mana: (x" + IntToString(player.GetPowerPotNum()) + ")");
+                Power.setString("Mana: (x" + IntToString(player.GetPowerPotNum()) + ")");
 
-            Health.SetPosition(850.0f, 165.0f);
-            Power.SetPosition(850.0f, 200.0f);
-            Return.SetPosition(850.0f, 235.0f);
+            Health.setPosition(850.0f, 165.0f);
+            Power.setPosition(850.0f, 200.0f);
+            Return.setPosition(850.0f, 235.0f);
 
-            Health.SetStyle(sf::Text::Bold);
-            Power.SetStyle(sf::Text::Bold);
-            Return.SetStyle(sf::Text::Bold);
+            Health.setStyle(sf::Text::Bold);
+            Power.setStyle(sf::Text::Bold);
+            Return.setStyle(sf::Text::Bold);
 
-            window.Draw(Health);
-            window.Draw(Power);
-            window.Draw(Return);
+            window.draw(Health);
+            window.draw(Power);
+            window.draw(Return);
             break;
         }
         case 3:
@@ -383,16 +383,16 @@ void Combat::DrawCommandText(int WhatText)
             for(auto itr = player.GetSpells().begin(); itr != player.GetSpells().end(); ++itr)
             {
                 sf::Text SpellText(itr->Name, Font, 20);
-                SpellText.SetPosition(850.0f, PosY);
-                SpellText.SetStyle(sf::Text::Bold);
-                window.Draw(SpellText);
+                SpellText.setPosition(850.0f, PosY);
+                SpellText.setStyle(sf::Text::Bold);
+                window.draw(SpellText);
 
                 PosY += 35;
             }
             sf::Text Return("Return", Font, 20);
-            Return.SetPosition(850.0f, PosY);
-            Return.SetStyle(sf::Text::Bold);
-            window.Draw(Return);
+            Return.setPosition(850.0f, PosY);
+            Return.setStyle(sf::Text::Bold);
+            window.draw(Return);
             break;
         }
     }

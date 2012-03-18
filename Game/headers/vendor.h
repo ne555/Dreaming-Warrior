@@ -25,7 +25,7 @@ struct Vendor
     Vendor(int x, int y, string TextureFileName) 
         : x(x), y(y), TextureFileName(TextureFileName)
     {
-        MapTexture.LoadFromFile(TextureFileName);
+        MapTexture.loadFromFile(TextureFileName);
     }
     int x;
     int y;

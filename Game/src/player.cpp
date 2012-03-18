@@ -17,7 +17,7 @@
 #include "player.h"
 #include "database.h"
 
-Class Player::LoadFromFile(string World, Class ClassHack, bool ThisIsHack, string Name)
+Class Player::loadFromFile(string World, Class ClassHack, bool ThisIsHack, string Name)
 {
     std::ifstream File(World + "/Player.txt");
     int x, y, level, exp, int_str, health, power, attack, Defense, id, _class, talent_pts, wealth;

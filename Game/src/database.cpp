@@ -33,7 +33,7 @@ Item GetItemFromDatabase(const string World, int ID)
         Item.ID = IID;
         Item.Name = SetSpaces(name);
         Item.Type = GetItemType(type);
-        Item.ItemTexture.LoadFromFile(icon);
+        Item.ItemTexture.loadFromFile(icon);
         Item.BuyPrice = buy;
         Item.SellPrice = sell;
         Item.Value = value;

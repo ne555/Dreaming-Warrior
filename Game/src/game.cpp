@@ -18,8 +18,8 @@
 
 Game::Game()
 {
-    Window.Create(sf::VideoMode(32*32, 24*32, 32), "Dreaming Warrior", sf::Style::Close);
-    Window.SetFramerateLimit(60);
+    Window.create(sf::VideoMode(32*32, 24*32, 32), "Dreaming Warrior", sf::Style::Close);
+    Window.setFramerateLimit(60);
 }
 
 MainMenuData Game::ShowMenu()
@@ -44,15 +44,15 @@ void Game::InitGame(MainMenuData MenuResult)
         World = "SavedGame";
         break;
     }
-    Font.LoadFromFile("Graphics/papyrus.ttf");
+    Font.loadFromFile("Graphics/papyrus.ttf");
 
-    switch(Player.LoadFromFile(World, MenuResult.PlayerClass, ThisIsHack, MenuResult.PlayerName))
+    switch(Player.loadFromFile(World, MenuResult.PlayerClass, ThisIsHack, MenuResult.PlayerName))
     {
     case CLASS_WARRIOR:
-        PlayerTexture.LoadFromFile("Tiles/Warrior.png");
+        PlayerTexture.loadFromFile("Tiles/Warrior.png");
         break;
     case CLASS_MAGE:
-        PlayerTexture.LoadFromFile("Tiles/Mage.png");
+        PlayerTexture.loadFromFile("Tiles/Mage.png");
         break;
     }
     LoadMap(Player.Map);
@@ -62,26 +62,26 @@ void Game::GameOver()
 {
     sf::Texture BackgroundTexture;
     sf::Sprite BackgroundSprite;
-    BackgroundTexture.LoadFromFile("Graphics/MainMenu.jpg");
-    BackgroundSprite.SetTexture(BackgroundTexture);
+    BackgroundTexture.loadFromFile("Graphics/MainMenu.jpg");
+    BackgroundSprite.setTexture(BackgroundTexture);
     sf::Text GameOver("Game Over...", Font, 90U);
-    GameOver.SetStyle(sf::Text::Bold);
-    GameOver.SetPosition(300, 320);
+    GameOver.setStyle(sf::Text::Bold);
+    GameOver.setPosition(300, 320);
 
     sf::Event Event;
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if(Event.Type == sf::Event::KeyPressed)
+            if(Event.type == sf::Event::KeyPressed)
             {
                 exit(0);
             }
         }
-        Window.Clear();
-        Window.Draw(BackgroundSprite);
-        Window.Draw(GameOver);
-        Window.Display();
+        Window.clear();
+        Window.draw(BackgroundSprite);
+        Window.draw(GameOver);
+        Window.display();
     }
 }
 
@@ -155,27 +155,27 @@ int Game::Move(Orientation Direction)
 void Game::GameLoop()
 {
     sf::Texture HideHack;
-    HideHack.LoadFromFile("Tiles/Hack.png");
+    HideHack.loadFromFile("Tiles/Hack.png");
     for(int y=0; y<24; ++y)
     {
         for(int x=0; x<32; ++x)
         {
-            HideMapHack[y][x].SetTexture(HideHack);
-            HideMapHack[y][x].SetPosition((float)x*32, (float)y*32);
+            HideMapHack[y][x].setTexture(HideHack);
+            HideMapHack[y][x].setPosition((float)x*32, (float)y*32);
         }
     }
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
         sf::Event Event;
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::Closed) || ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape)))
+            if((Event.type == sf::Event::Closed) || ((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape)))
             {
                 SaveMap(PathToMap);
                 SavePlayer();
                 return;
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 switch(Move(NORTH))
                 {
@@ -189,7 +189,7 @@ void Game::GameLoop()
                     break;
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 switch(Move(SOUTH))
                 {
@@ -203,7 +203,7 @@ void Game::GameLoop()
                     break;
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Right))
             {
                 switch(Move(WEST))
                 {
@@ -217,7 +217,7 @@ void Game::GameLoop()
                     break;
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Left))
             {
                 switch(Move(EAST))
                 {
@@ -231,19 +231,19 @@ void Game::GameLoop()
                     break;
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::C))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::C))
             {
                 CharacterScreen Screen(Player, Window);
                 Screen.MainLoop();
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::S))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::S))
             {
                 SaveMap(PathToMap);
                 SavePlayer();
             }
         }
-        Window.Clear();
+        Window.clear();
         DrawAll();
-        Window.Display();
+        Window.display();
     }
 }

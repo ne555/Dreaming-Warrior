@@ -21,60 +21,60 @@
 CharacterScreen::CharacterScreen(Player &player, sf::RenderWindow &Window)
     : Window(Window), player(player)
 {
-    ItemName.SetPosition(515.0f, 585.0f);
-    PointsText.SetPosition(480, 55);
-    HealthText.SetPosition(480, 90);
-    PowerText.SetPosition(480, 125);
-    AttackText.SetPosition(480, 160);
-    DefenseText.SetPosition(480, 195);
-    IntStrText.SetPosition(480, 230);
-    Items.SetPosition(890.0f, 580.0f);
-    Spells.SetPosition(890.0f, 615.0f);
-    Stats.SetPosition(890.0f, 650.0f);
-    Quests.SetPosition(890.0f, 685.0f);
-    Exit.SetPosition(890.0f, 720.0f);
+    ItemName.setPosition(515.0f, 585.0f);
+    PointsText.setPosition(480, 55);
+    HealthText.setPosition(480, 90);
+    PowerText.setPosition(480, 125);
+    AttackText.setPosition(480, 160);
+    DefenseText.setPosition(480, 195);
+    IntStrText.setPosition(480, 230);
+    Items.setPosition(890.0f, 580.0f);
+    Spells.setPosition(890.0f, 615.0f);
+    Stats.setPosition(890.0f, 650.0f);
+    Quests.setPosition(890.0f, 685.0f);
+    Exit.setPosition(890.0f, 720.0f);
 
-    ItemName.SetColor(sf::Color::Black);
-    PointsText.SetColor(sf::Color::Black);
-    HealthText.SetColor(sf::Color::Black);
-    PowerText.SetColor(sf::Color::Black);
-    AttackText.SetColor(sf::Color::Black);
-    DefenseText.SetColor(sf::Color::Black);
-    IntStrText.SetColor(sf::Color::Black);
-    Items.SetColor(sf::Color::Black);
-    Spells.SetColor(sf::Color::Black);
-    Stats.SetColor(sf::Color::Black);
-    Quests.SetColor(sf::Color::Black);
-    Exit.SetColor(sf::Color::Black);
+    ItemName.setColor(sf::Color::Black);
+    PointsText.setColor(sf::Color::Black);
+    HealthText.setColor(sf::Color::Black);
+    PowerText.setColor(sf::Color::Black);
+    AttackText.setColor(sf::Color::Black);
+    DefenseText.setColor(sf::Color::Black);
+    IntStrText.setColor(sf::Color::Black);
+    Items.setColor(sf::Color::Black);
+    Spells.setColor(sf::Color::Black);
+    Stats.setColor(sf::Color::Black);
+    Quests.setColor(sf::Color::Black);
+    Exit.setColor(sf::Color::Black);
 
-    ItemName.SetFont(Font);
-    PointsText.SetFont(Font);
-    HealthText.SetFont(Font);
-    PowerText.SetFont(Font);
-    AttackText.SetFont(Font);
-    DefenseText.SetFont(Font);
-    IntStrText.SetFont(Font);
-    Items.SetFont(Font);
-    Spells.SetFont(Font);
-    Stats.SetFont(Font);
-    Quests.SetFont(Font);
-    Exit.SetFont(Font);
+    ItemName.setFont(Font);
+    PointsText.setFont(Font);
+    HealthText.setFont(Font);
+    PowerText.setFont(Font);
+    AttackText.setFont(Font);
+    DefenseText.setFont(Font);
+    IntStrText.setFont(Font);
+    Items.setFont(Font);
+    Spells.setFont(Font);
+    Stats.setFont(Font);
+    Quests.setFont(Font);
+    Exit.setFont(Font);
 
-    ItemName.SetStyle(sf::Text::Bold);
-    PointsText.SetStyle(sf::Text::Bold);
-    HealthText.SetStyle(sf::Text::Bold);
-    PowerText.SetStyle(sf::Text::Bold);
-    AttackText.SetStyle(sf::Text::Bold);
-    DefenseText.SetStyle(sf::Text::Bold);
-    IntStrText.SetStyle(sf::Text::Bold);
-    Items.SetStyle(sf::Text::Bold);
-    Spells.SetStyle(sf::Text::Bold);
-    Stats.SetStyle(sf::Text::Bold);
-    Quests.SetStyle(sf::Text::Bold);
-    Exit.SetStyle(sf::Text::Bold);
+    ItemName.setStyle(sf::Text::Bold);
+    PointsText.setStyle(sf::Text::Bold);
+    HealthText.setStyle(sf::Text::Bold);
+    PowerText.setStyle(sf::Text::Bold);
+    AttackText.setStyle(sf::Text::Bold);
+    DefenseText.setStyle(sf::Text::Bold);
+    IntStrText.setStyle(sf::Text::Bold);
+    Items.setStyle(sf::Text::Bold);
+    Spells.setStyle(sf::Text::Bold);
+    Stats.setStyle(sf::Text::Bold);
+    Quests.setStyle(sf::Text::Bold);
+    Exit.setStyle(sf::Text::Bold);
 
-    ItemName.SetCharacterSize(20);
-    ItemSprite.SetPosition(480.0f, 585.0f);
+    ItemName.setCharacterSize(20);
+    ItemSprite.setPosition(480.0f, 585.0f);
 }
 
 void CharacterScreen::ItemsLoop()
@@ -92,49 +92,49 @@ void CharacterScreen::ItemsLoop()
         }
     }
     float ArrowX = 0, ArrowY = 571;
-    ArrowSprite.SetPosition(ArrowX, ArrowY);
+    ArrowSprite.setPosition(ArrowX, ArrowY);
     int IterX = 0, IterY = 0;
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(IterY != 0)
                 {
                     IterY -= 1;
                     ArrowY -= 32;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(IterY != 5)
                 {
                     IterY += 1;
                     ArrowY += 32;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Right))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Right))
             {
                 if(IterX != 4)
                 {
                     IterX += 1;
                     ArrowX += 79;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Left))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Left))
             {
                 if(IterX != 0)
                 {
                     IterX -= 1;
                     ArrowX -= 79;
-                    ArrowSprite.SetPosition(ArrowX, ArrowY);
+                    ArrowSprite.setPosition(ArrowX, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 if(ItemGrid[IterY][IterX] == -1)
                     continue;
@@ -174,9 +174,9 @@ void CharacterScreen::ItemsLoop()
                 }
                 IterY = IterX = 0;
                 ArrowX = 0; ArrowY = 571;
-                ArrowSprite.SetPosition(0, 571);
+                ArrowSprite.setPosition(0, 571);
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::D))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::D))
             {
                 if(ItemGrid[IterY][IterX] == -1)
                     continue;
@@ -195,24 +195,24 @@ void CharacterScreen::ItemsLoop()
                 }
                 IterY = IterX = 0;
                 ArrowX = 0; ArrowY = 571;
-                ArrowSprite.SetPosition(0, 571);
+                ArrowSprite.setPosition(0, 571);
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
-        Window.Clear();
-        Window.Draw(sf::Sprite(ScreenTexture));
+        Window.clear();
+        Window.draw(sf::Sprite(ScreenTexture));
         DrawItems();
-        Window.Draw(ArrowSprite);
+        Window.draw(ArrowSprite);
         if(ItemGrid[IterY][IterX] != -1)
         {
-            ItemSprite.SetTexture(player.GetItems()[ItemGrid[IterY][IterX]].ItemTexture);
+            ItemSprite.setTexture(player.GetItems()[ItemGrid[IterY][IterX]].ItemTexture);
             switch(player.GetItems()[ItemGrid[IterY][IterX]].Type) //PH
             {
             case ITEM_FOOD:
-                ItemName.SetString
+                ItemName.setString
                     (player.GetItems()[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Cannot be used in combat" + '\n'
@@ -220,7 +220,7 @@ void CharacterScreen::ItemsLoop()
                     + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_MANA_FOOD:
-                ItemName.SetString
+                ItemName.setString
                     (player.GetItems()[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " power." + '\n' + "Cannot be used in combat" + '\n'
@@ -228,7 +228,7 @@ void CharacterScreen::ItemsLoop()
                     + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_POWER_POTION:
-                ItemName.SetString
+                ItemName.setString
                     (player.GetItems()[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " power." + '\n' + "Can be used in combat" + '\n'
@@ -236,7 +236,7 @@ void CharacterScreen::ItemsLoop()
                     + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             case ITEM_HEALTH_POTION:
-                ItemName.SetString
+                ItemName.setString
                     (player.GetItems()[ItemGrid[IterY][IterX]].Name 
                     + '\n' + "Regenrates " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].Value)
                     + " health." + '\n' + "Can be used in combat" + '\n'
@@ -244,10 +244,10 @@ void CharacterScreen::ItemsLoop()
                     + "Sell Price: " + IntToString(player.GetItems()[ItemGrid[IterY][IterX]].SellPrice));
                 break;
             }
-            Window.Draw(ItemName);
-            Window.Draw(ItemSprite);
+            Window.draw(ItemName);
+            Window.draw(ItemSprite);
         }
-        Window.Display();
+        Window.display();
     }
 }
 
@@ -267,65 +267,65 @@ void CharacterScreen::SpellsLoop()
     if(player.GetSpells().empty())
         return;
     sf::Texture SpellTexture;
-    SpellTexture.LoadFromFile("Tiles/Spell.png");
+    SpellTexture.loadFromFile("Tiles/Spell.png");
     sf::Sprite SpellSprite(SpellTexture);
-    SpellSprite.SetPosition(480.0f, 585.0f);
+    SpellSprite.setPosition(480.0f, 585.0f);
 
     int Iterator = 0;
     sf::Text SpellText("", Font, 20);
-    SpellText.SetColor(sf::Color::Black);
-    SpellText.SetPosition(515.0f, 585.0f);
-    SpellText.SetStyle(sf::Text::Bold);
+    SpellText.setColor(sf::Color::Black);
+    SpellText.setPosition(515.0f, 585.0f);
+    SpellText.setStyle(sf::Text::Bold);
 
     float ArrowY = 50.0f;
-    ArrowSprite.SetPosition(760.0f, ArrowY);
-    while(Window.IsOpen()) 
+    ArrowSprite.setPosition(760.0f, ArrowY);
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(Iterator != 0)
                 {
                     --Iterator;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(760.0f, ArrowY);
+                    ArrowSprite.setPosition(760.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(Iterator != player.GetSpells().size()-1)
                 {
                     ++Iterator;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(760.0f, ArrowY);
+                    ArrowSprite.setPosition(760.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
-        Window.Clear();
-        Window.Draw(sf::Sprite(ScreenTexture));
+        Window.clear();
+        Window.draw(sf::Sprite(ScreenTexture));
         DrawItems();
-        Window.Draw(ArrowSprite);
-        Window.Draw(SpellSprite);
+        Window.draw(ArrowSprite);
+        Window.draw(SpellSprite);
         switch(player.GetSpells()[Iterator].Type)
         {
         case SPELL_HEAL:
-            SpellText.SetString(player.GetSpells()[Iterator].Name + '\n' +
+            SpellText.setString(player.GetSpells()[Iterator].Name + '\n' +
                 "Heals caster for " + IntToString(player.GetSpells()[Iterator].Value) + '\n' +
                 "Power Cost: " + IntToString(player.GetSpells()[Iterator].Cost));
             break;
         case SPELL_ATTACK:
-            SpellText.SetString(player.GetSpells()[Iterator].Name + '\n' +
+            SpellText.setString(player.GetSpells()[Iterator].Name + '\n' +
                 "Damages enemy for " + IntToString(player.GetSpells()[Iterator].Value) + '\n' +
                 "Power Cost: " + IntToString(player.GetSpells()[Iterator].Cost));
             break;
         }
-        Window.Draw(SpellText);
-        Window.Display();
+        Window.draw(SpellText);
+        Window.display();
     }
 }
 
@@ -333,30 +333,30 @@ void CharacterScreen::StatsLoop()
 {
     int Iterator = 0;
     float ArrowY = 95.0f;
-    ArrowSprite.SetPosition(400.0f, ArrowY);
-    while(Window.IsOpen()) 
+    ArrowSprite.setPosition(400.0f, ArrowY);
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(Iterator != 0)
                 {
                     --Iterator;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(400.0f, ArrowY);
+                    ArrowSprite.setPosition(400.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(Iterator != 4)
                 {
                     ++Iterator;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(400.0f, ArrowY);
+                    ArrowSprite.setPosition(400.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 if(player.GetTalentPoints() < 1)
                     continue;
@@ -382,16 +382,16 @@ void CharacterScreen::StatsLoop()
                 player.UseTalentPoint();
                 DrawTexture(); //TODO odvojiti stats textove u vise funkcija radi performansa
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
-        Window.Clear();
-        Window.Draw(sf::Sprite(ScreenTexture));
+        Window.clear();
+        Window.draw(sf::Sprite(ScreenTexture));
         DrawItems();
-        Window.Draw(ArrowSprite);
-        Window.Display();
+        Window.draw(ArrowSprite);
+        Window.display();
     }
 }
 
@@ -402,127 +402,127 @@ void CharacterScreen::DrawItems()
     for(auto itr = player.GetItems().begin(); itr != player.GetItems().end(); ++itr)
     {
         sf::Sprite ItemSprite(itr->ItemTexture);
-        ItemSprite.SetPosition(ItemX, ItemY);
+        ItemSprite.setPosition(ItemX, ItemY);
         ItemX += 79;
         if(ItemX == 442)
         {
             ItemY += 32;
             ItemX = 47;
         }
-        Window.Draw(ItemSprite);
+        Window.draw(ItemSprite);
     }
 }
 
 void CharacterScreen::DrawTexture()
 {
     sf::RenderTexture ScreenTexture;
-    ScreenTexture.Create(1024, 768);
+    ScreenTexture.create(1024, 768);
     //Graphics
     sf::Texture PlayerTexture, BackgroundTexture;
     sf::Text PlayerText("", Font);
     switch(player.GetClass())
     {
     case CLASS_WARRIOR:
-        PlayerTexture.LoadFromFile("Graphics/Warrior.png");
-        PlayerText.SetString(player.GetName() + ", level " + IntToString(player.GetLevel()) + " Warrior");
+        PlayerTexture.loadFromFile("Graphics/Warrior.png");
+        PlayerText.setString(player.GetName() + ", level " + IntToString(player.GetLevel()) + " Warrior");
         break;
     case CLASS_MAGE:
-        PlayerTexture.LoadFromFile("Graphics/Mage.png");
-        PlayerText.SetString(player.GetName() + ", level " + IntToString(player.GetLevel()) + " Mage");
+        PlayerTexture.loadFromFile("Graphics/Mage.png");
+        PlayerText.setString(player.GetName() + ", level " + IntToString(player.GetLevel()) + " Mage");
         break;
     }
-    PlayerText.SetColor(sf::Color(0, 0, 0));
-    PlayerText.SetStyle(sf::Text::Bold);
-    PlayerText.SetPosition(30.0f, 20.0f);
-    BackgroundTexture.LoadFromFile("Graphics/CharacterScreen.jpg");
-    PlayerSprite.SetTexture(PlayerTexture);
-    PlayerSprite.SetPosition(30.0f, 60.0f);
-    BackgroundSprite.SetTexture(BackgroundTexture);
+    PlayerText.setColor(sf::Color(0, 0, 0));
+    PlayerText.setStyle(sf::Text::Bold);
+    PlayerText.setPosition(30.0f, 20.0f);
+    BackgroundTexture.loadFromFile("Graphics/CharacterScreen.jpg");
+    PlayerSprite.setTexture(PlayerTexture);
+    PlayerSprite.setPosition(30.0f, 60.0f);
+    BackgroundSprite.setTexture(BackgroundTexture);
 
-    ScreenTexture.Draw(BackgroundSprite);
+    ScreenTexture.draw(BackgroundSprite);
 
     float SpellTextY = 50;
     for(auto itr = player.GetSpells().begin(); itr != player.GetSpells().end(); ++itr)
     {
         sf::Text SpellText(itr->Name, Font);
-        SpellText.SetPosition(830, SpellTextY);
-        SpellText.SetColor(sf::Color(0, 0, 0));
-        SpellText.SetStyle(sf::Text::Bold);
+        SpellText.setPosition(830, SpellTextY);
+        SpellText.setColor(sf::Color(0, 0, 0));
+        SpellText.setStyle(sf::Text::Bold);
         SpellTextY += 35;
-        ScreenTexture.Draw(SpellText);
+        ScreenTexture.draw(SpellText);
     }
 
     if(player.GetClass() == CLASS_WARRIOR)
     {
-        PowerText.SetString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
-        IntStrText.SetString("Strenght: " + IntToString(player.GetIntStr()));
+        PowerText.setString("Stamina: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+        IntStrText.setString("Strenght: " + IntToString(player.GetIntStr()));
     }
     else
     {
-        PowerText.SetString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
-        IntStrText.SetString("Intelligence: " + IntToString(player.GetIntStr()));
+        PowerText.setString("Mana: " + IntToString(player.GetPower()) + "/" + IntToString(player.GetMaxPower()));
+        IntStrText.setString("Intelligence: " + IntToString(player.GetIntStr()));
     }
 
-    PointsText.SetString("Points left: " + IntToString(player.GetTalentPoints()));
-    HealthText.SetString("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()));
-    AttackText.SetString("Attack: " + IntToString(player.GetAttack()));
-    DefenseText.SetString("Defense: " + IntToString(player.GetDefense()));
+    PointsText.setString("Points left: " + IntToString(player.GetTalentPoints()));
+    HealthText.setString("Health: " + IntToString(player.GetHealth()) + "/" + IntToString(player.GetMaxHealth()));
+    AttackText.setString("Attack: " + IntToString(player.GetAttack()));
+    DefenseText.setString("Defense: " + IntToString(player.GetDefense()));
 
-    ScreenTexture.Draw(PlayerText);
-    ScreenTexture.Draw(PlayerSprite);
-    ScreenTexture.Draw(PointsText);
-    ScreenTexture.Draw(HealthText);
-    ScreenTexture.Draw(PowerText);
-    ScreenTexture.Draw(IntStrText);
-    ScreenTexture.Draw(AttackText);
-    ScreenTexture.Draw(DefenseText);
-    ScreenTexture.Draw(Spells);
-    ScreenTexture.Draw(Stats);
-    ScreenTexture.Draw(Items);
-    ScreenTexture.Draw(Quests);
-    ScreenTexture.Draw(Exit);
-    ScreenTexture.Display();
-    this->ScreenTexture = ScreenTexture.GetTexture();
+    ScreenTexture.draw(PlayerText);
+    ScreenTexture.draw(PlayerSprite);
+    ScreenTexture.draw(PointsText);
+    ScreenTexture.draw(HealthText);
+    ScreenTexture.draw(PowerText);
+    ScreenTexture.draw(IntStrText);
+    ScreenTexture.draw(AttackText);
+    ScreenTexture.draw(DefenseText);
+    ScreenTexture.draw(Spells);
+    ScreenTexture.draw(Stats);
+    ScreenTexture.draw(Items);
+    ScreenTexture.draw(Quests);
+    ScreenTexture.draw(Exit);
+    ScreenTexture.display();
+    this->ScreenTexture = ScreenTexture.getTexture();
 }
 
 void CharacterScreen::MainLoop()
 {
-    Font.LoadFromFile("Graphics/papyrus.ttf");
+    Font.loadFromFile("Graphics/papyrus.ttf");
     sf::Texture ArrowTexture;
-    ArrowTexture.LoadFromFile("Graphics/Arrow2.png");
-    ArrowSprite.SetTexture(ArrowTexture);
-    ArrowSprite.SetPosition(840.0f, 580.0f);
-    Items.SetString("Items");
-    Spells.SetString("Spells");
-    Stats.SetString("Stats");
-    Quests.SetString("Quests");
-    Exit.SetString("Exit"),
+    ArrowTexture.loadFromFile("Graphics/Arrow2.png");
+    ArrowSprite.setTexture(ArrowTexture);
+    ArrowSprite.setPosition(840.0f, 580.0f);
+    Items.setString("Items");
+    Spells.setString("Spells");
+    Stats.setString("Stats");
+    Quests.setString("Quests");
+    Exit.setString("Exit"),
     DrawTexture();
     int Command = 1;
     float ArrowY = 580.0f;
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(Command != 1)
                 {
                     --Command;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(840.0f, ArrowY);
+                    ArrowSprite.setPosition(840.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(Command != 5)
                 {
                     ++Command;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(840.0f, ArrowY);
+                    ArrowSprite.setPosition(840.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 switch(Command)
                 {
@@ -547,13 +547,13 @@ void CharacterScreen::MainLoop()
                 case 5:
                     return;
                 }
-                ArrowSprite.SetPosition(840.0f, ArrowY);
+                ArrowSprite.setPosition(840.0f, ArrowY);
             }
         }
-        Window.Clear();
-        Window.Draw(sf::Sprite(ScreenTexture));
-        Window.Draw(ArrowSprite);
+        Window.clear();
+        Window.draw(sf::Sprite(ScreenTexture));
+        Window.draw(ArrowSprite);
         DrawItems();
-        Window.Display();
+        Window.display();
     }
 }

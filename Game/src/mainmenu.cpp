@@ -19,7 +19,7 @@
 MainMenu::MainMenu(sf::RenderWindow &Window)
     : Window(Window)
 {
-    Background.LoadFromFile("Graphics/MainMenu.jpg");
+    Background.loadFromFile("Graphics/MainMenu.jpg");
 }
 
 MainMenuData MainMenu::MainLoop()
@@ -50,42 +50,42 @@ string MainMenu::ChooseName()
 {
     string PlayerName;
     sf::Text PlayerNameText("", Font), ChooseNameText("Enter name for your character: ", Font);
-    ChooseNameText.SetColor(sf::Color::Black);
-    ChooseNameText.SetPosition(350, 80);
-    PlayerNameText.SetPosition(350, 150);
-    PlayerNameText.SetColor(sf::Color::Black);
+    ChooseNameText.setColor(sf::Color::Black);
+    ChooseNameText.setPosition(350, 80);
+    PlayerNameText.setPosition(350, 150);
+    PlayerNameText.setColor(sf::Color::Black);
     sf::Texture BackgroundTexture;
-    BackgroundTexture.LoadFromFile("Graphics/Name.png");
+    BackgroundTexture.loadFromFile("Graphics/Name.png");
     sf::Sprite BackgroundSprite(BackgroundTexture);
 
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Back) && !PlayerName.empty())
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Back) && !PlayerName.empty())
             {
                 PlayerName.erase(PlayerName.end()-1);
-                PlayerNameText.SetString(PlayerName);
+                PlayerNameText.setString(PlayerName);
             }
-            else if(Event.Type == sf::Event::TextEntered) 
+            else if(Event.type == sf::Event::TextEntered) 
             {
-                if(Event.Text.Unicode > 64) 
+                if(Event.text.unicode > 64) 
                 {
 
-                    PlayerName += static_cast<char>(Event.Text.Unicode); 
-                    PlayerNameText.SetString(PlayerName);
+                    PlayerName += static_cast<char>(Event.text.unicode); 
+                    PlayerNameText.setString(PlayerName);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 return PlayerName;
             }
         }
-        Window.Clear();
-        Window.Draw(BackgroundSprite);
-        Window.Draw(PlayerNameText);
-        Window.Draw(ChooseNameText);
-        Window.Display();
+        Window.clear();
+        Window.draw(BackgroundSprite);
+        Window.draw(PlayerNameText);
+        Window.draw(ChooseNameText);
+        Window.display();
     }
 }
 
@@ -93,67 +93,67 @@ Class MainMenu::ChooseClass()
 {
     Class PlayerClass = CLASS_MAGE;
     sf::Texture MageTexture, WarriorTexture, ArrowTexture;
-    MageTexture.LoadFromFile("Graphics/Mage.png");
-    WarriorTexture.LoadFromFile("Graphics/Warrior.png");
-    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
+    MageTexture.loadFromFile("Graphics/Mage.png");
+    WarriorTexture.loadFromFile("Graphics/Warrior.png");
+    ArrowTexture.loadFromFile("Graphics/Arrow.png");
     sf::Sprite MageSprite(MageTexture), WarriorSprite(WarriorTexture), ArrowSprite(ArrowTexture);
-    MageSprite.SetPosition(80.0f, 190.0f);
-    WarriorSprite.SetPosition(80.0f, 190.0f);
-    ArrowSprite.SetPosition(400.0f, 350.0f);
+    MageSprite.setPosition(80.0f, 190.0f);
+    WarriorSprite.setPosition(80.0f, 190.0f);
+    ArrowSprite.setPosition(400.0f, 350.0f);
     sf::Text
         MageText("Mage", Font),
         WarriorText("Warrior", Font);
-    MageText.SetStyle(sf::Text::Bold);
-    WarriorText.SetStyle(sf::Text::Bold);
-    MageText.SetPosition(450.0f, 350.0f);
-    WarriorText.SetPosition(450.0f, 385.0f);
+    MageText.setStyle(sf::Text::Bold);
+    WarriorText.setStyle(sf::Text::Bold);
+    MageText.setPosition(450.0f, 350.0f);
+    WarriorText.setPosition(450.0f, 385.0f);
 
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(PlayerClass != CLASS_MAGE)
                 {
                     PlayerClass = CLASS_MAGE;
-                    ArrowSprite.SetPosition(400.0f, 350.0f);
+                    ArrowSprite.setPosition(400.0f, 350.0f);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(PlayerClass != CLASS_WARRIOR)
                 {
                     PlayerClass = CLASS_WARRIOR;
-                    ArrowSprite.SetPosition(400.0f, 385.0f);
+                    ArrowSprite.setPosition(400.0f, 385.0f);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 return PlayerClass;
             }
         }
-        Window.Clear();
-        Window.Draw(sf::Sprite(Background));
+        Window.clear();
+        Window.draw(sf::Sprite(Background));
         switch(PlayerClass)
         {
         case CLASS_MAGE:
-            Window.Draw(MageSprite);
+            Window.draw(MageSprite);
             break;
         case CLASS_WARRIOR:
-            Window.Draw(WarriorSprite);
+            Window.draw(WarriorSprite);
             break;
         }
-        Window.Draw(MageText);
-        Window.Draw(WarriorText);
-        Window.Draw(ArrowSprite);
-        Window.Display();
+        Window.draw(MageText);
+        Window.draw(WarriorText);
+        Window.draw(ArrowSprite);
+        Window.display();
     }
 }
 
 GameMode MainMenu::ChooseGameMode()
 {
-    Font.LoadFromFile("Graphics/papyrus.ttf");
+    Font.loadFromFile("Graphics/papyrus.ttf");
     float ArrowY = 300;
     int Command = 1;
     sf::Text
@@ -161,42 +161,42 @@ GameMode MainMenu::ChooseGameMode()
         LoadGame("Load Game", Font),
         Exit("Exit", Font);
     
-    NewGame.SetPosition(400, 300);
-    LoadGame.SetPosition(400, 335);
-    Exit.SetPosition(400, 370);
+    NewGame.setPosition(400, 300);
+    LoadGame.setPosition(400, 335);
+    Exit.setPosition(400, 370);
 
-    NewGame.SetStyle(sf::Text::Bold);
-    LoadGame.SetStyle(sf::Text::Bold);
-    Exit.SetStyle(sf::Text::Bold);
+    NewGame.setStyle(sf::Text::Bold);
+    LoadGame.setStyle(sf::Text::Bold);
+    Exit.setStyle(sf::Text::Bold);
 
     sf::Texture ArrowTexture;
-    ArrowTexture.LoadFromFile("Graphics/Arrow.png");
+    ArrowTexture.loadFromFile("Graphics/Arrow.png");
     sf::Sprite ArrowSprite(ArrowTexture);
-    ArrowSprite.SetPosition(350.0f, ArrowY);
+    ArrowSprite.setPosition(350.0f, ArrowY);
 
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(Command != 1)
                 {
                     --Command;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(350.0f, ArrowY);
+                    ArrowSprite.setPosition(350.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(Command != 3)
                 {
                     ++Command;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(350.0f, ArrowY);
+                    ArrowSprite.setPosition(350.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 switch(Command)
                 {
@@ -209,12 +209,12 @@ GameMode MainMenu::ChooseGameMode()
                 }
             }
         }
-        Window.Clear();
-        Window.Draw(sf::Sprite(Background));
-        Window.Draw(ArrowSprite);
-        Window.Draw(NewGame);
-        Window.Draw(LoadGame);
-        Window.Draw(Exit);
-        Window.Display();
+        Window.clear();
+        Window.draw(sf::Sprite(Background));
+        Window.draw(ArrowSprite);
+        Window.draw(NewGame);
+        Window.draw(LoadGame);
+        Window.draw(Exit);
+        Window.display();
     }
 }

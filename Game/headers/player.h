@@ -35,7 +35,7 @@ class Player : public Creature
     int TalentPoints;
 
 public:
-    Class LoadFromFile(string World, Class ClassHack, bool ThisIsHack, string Name);
+    Class loadFromFile(string World, Class ClassHack, bool ThisIsHack, string Name);
 
     ObjectType InteractsWith;
     string Map;

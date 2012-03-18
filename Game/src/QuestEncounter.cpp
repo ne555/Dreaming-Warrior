@@ -28,71 +28,71 @@ void QuestEncounter::Victory()
 {
     sf::Texture BackgroundTexture;
     sf::Sprite BackgroundSprite;
-    BackgroundTexture.LoadFromFile("Graphics/MainMenu.jpg");
-    BackgroundSprite.SetTexture(BackgroundTexture);
+    BackgroundTexture.loadFromFile("Graphics/MainMenu.jpg");
+    BackgroundSprite.setTexture(BackgroundTexture);
     sf::Text GameOver("The forest is Saved!", Font, 90U);
-    GameOver.SetStyle(sf::Text::Bold);
-    GameOver.SetPosition(230, 320);
+    GameOver.setStyle(sf::Text::Bold);
+    GameOver.setPosition(230, 320);
 
     sf::Event Event;
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if(Event.Type == sf::Event::KeyPressed)
+            if(Event.type == sf::Event::KeyPressed)
             {
                 exit(0);
             }
         }
-        Window.Clear();
-        Window.Draw(BackgroundSprite);
-        Window.Draw(GameOver);
-        Window.Display();
+        Window.clear();
+        Window.draw(BackgroundSprite);
+        Window.draw(GameOver);
+        Window.display();
     }
 }
 
 bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
 {
     sf::Text QuestText(Quests[QuestIterator].Quest.Text, Font);
-    QuestText.SetPosition(40.0f, 40.0f);
-    QuestText.SetColor(sf::Color(0, 0, 0));
-    QuestText.SetStyle(sf::Text::Bold);
+    QuestText.setPosition(40.0f, 40.0f);
+    QuestText.setColor(sf::Color(0, 0, 0));
+    QuestText.setStyle(sf::Text::Bold);
     sf::Text ObjectiveText
         (GetEnemyNameFromDatabase("World" + Quests[QuestIterator].Quest.Objective.Map, Quests[QuestIterator].Quest.Objective.ObjectiveID) + " " //TODO PH LOL KOJA INDIREKCIJA
         + IntToString(Quests[QuestIterator].Quest.Objective.CurrentProgress)
         + "/" + IntToString(Quests[QuestIterator].Quest.Objective.ReqProgress), Font),
         AcceptText(Quests[QuestIterator].From ? "Accept" : "Complete", Font),
         Decline(Quests[QuestIterator].From ? "Decline" : "Back", Font);
-    AcceptText.SetPosition(700.0f, 520.0f);
-    ObjectiveText.SetColor(sf::Color(0, 0, 0));
-    Decline.SetPosition(700.0f, 555.0f);
-    AcceptText.SetColor(sf::Color(0, 0, 0));
-    Decline.SetColor(sf::Color(0, 0, 0));
-    ObjectiveText.SetPosition(580.0f, 90.0f);
-    ArrowSprite.SetPosition(660.0f, 520.0f);
+    AcceptText.setPosition(700.0f, 520.0f);
+    ObjectiveText.setColor(sf::Color(0, 0, 0));
+    Decline.setPosition(700.0f, 555.0f);
+    AcceptText.setColor(sf::Color(0, 0, 0));
+    Decline.setColor(sf::Color(0, 0, 0));
+    ObjectiveText.setPosition(580.0f, 90.0f);
+    ArrowSprite.setPosition(660.0f, 520.0f);
 
     bool Accept = false;
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(Accept)
                 {
                     Accept = false;
-                    ArrowSprite.SetPosition(660.0f, 520.0f);
+                    ArrowSprite.setPosition(660.0f, 520.0f);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(!Accept)
                 {
                     Accept = true;
-                    ArrowSprite.SetPosition(660.0f, 555.0f);
+                    ArrowSprite.setPosition(660.0f, 555.0f);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 switch(Accept)
                 {
@@ -129,19 +129,19 @@ bool QuestEncounter::ReadQuestText(QuestGiver &QuestGiver)
                     return false;
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return false;
             }
         }
-        Window.Clear();
-        Window.Draw(GUISprite);
-        Window.Draw(ArrowSprite);
-        Window.Draw(AcceptText);
-        Window.Draw(Decline);
-        Window.Draw(ObjectiveText);
-        Window.Draw(QuestText);
-        Window.Display();
+        Window.clear();
+        Window.draw(GUISprite);
+        Window.draw(ArrowSprite);
+        Window.draw(AcceptText);
+        Window.draw(Decline);
+        Window.draw(ObjectiveText);
+        Window.draw(QuestText);
+        Window.display();
     }
     return false;
 }
@@ -165,61 +165,61 @@ QuestGiver QuestEncounter::MainLoop(QuestGiver QuestGiver)
     if(Quests.empty())
         return QuestGiver;
 
-    Font.LoadFromFile("Graphics/papyrus.ttf");
+    Font.loadFromFile("Graphics/papyrus.ttf");
 
     sf::Texture ArrowTexture, GUITexture;
-    ArrowTexture.LoadFromFile("Graphics/Arrow2.png");
-    GUITexture.LoadFromFile("Graphics/QuestScreen.jpg");
-    ArrowSprite.SetTexture(ArrowTexture);
-    ArrowSprite.SetPosition(555.0f, ArrowY);
-    GUISprite.SetTexture(GUITexture);
+    ArrowTexture.loadFromFile("Graphics/Arrow2.png");
+    GUITexture.loadFromFile("Graphics/QuestScreen.jpg");
+    ArrowSprite.setTexture(ArrowTexture);
+    ArrowSprite.setPosition(555.0f, ArrowY);
+    GUISprite.setTexture(GUITexture);
 
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(QuestIterator != 0)
                 {
                     --QuestIterator;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(555.0f, ArrowY);
+                    ArrowSprite.setPosition(555.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(QuestIterator != Quests.size()-1)
                 {
                     ++QuestIterator;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(555.0f, ArrowY);
+                    ArrowSprite.setPosition(555.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 if(ReadQuestText(QuestGiver))
                     return QuestGiver;
-                ArrowSprite.SetPosition(555.0f, ArrowY);
+                ArrowSprite.setPosition(555.0f, ArrowY);
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return QuestGiver;
             }
         }
         float QuestNameY = 100.0f;
-        Window.Clear();
-        Window.Draw(GUISprite);
+        Window.clear();
+        Window.draw(GUISprite);
         for(auto i = Quests.begin(); i != Quests.end(); ++i)
         {
             sf::Text QuestName(i->Quest.Name, Font);
-            QuestName.SetPosition(600.0f, QuestNameY);
-            QuestName.SetColor(sf::Color(0, 0, 0));
+            QuestName.setPosition(600.0f, QuestNameY);
+            QuestName.setColor(sf::Color(0, 0, 0));
             QuestNameY += 35;
-            Window.Draw(QuestName);
+            Window.draw(QuestName);
         }
-        Window.Draw(ArrowSprite);
-        Window.Display();
+        Window.draw(ArrowSprite);
+        Window.display();
     }
     return QuestGiver;
 }

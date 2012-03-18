@@ -27,86 +27,86 @@ QuestScreen::QuestScreen(Player &player, sf::RenderWindow &Window)
 void QuestScreen::ReadQuestText()
 {
     sf::Text QuestText(player.GetQuests()[QuestIterator].Text, Font);
-    QuestText.SetPosition(40.0f, 40.0f);
-    QuestText.SetColor(sf::Color(0, 0, 0));
+    QuestText.setPosition(40.0f, 40.0f);
+    QuestText.setColor(sf::Color(0, 0, 0));
     sf::Text ObjectiveText
         (GetEnemyNameFromDatabase("World" + player.GetQuests()[QuestIterator].Objective.Map, player.GetQuests()[QuestIterator].Objective.ObjectiveID) + " " //TODO ph
         + IntToString(player.GetQuests()[QuestIterator].Objective.CurrentProgress)//PH
         + "/" + IntToString(player.GetQuests()[QuestIterator].Objective.ReqProgress), Font);
-    ObjectiveText.SetPosition(580.0f, 90.0f);
-    ObjectiveText.SetColor(sf::Color(0, 0, 0));
+    ObjectiveText.setPosition(580.0f, 90.0f);
+    ObjectiveText.setColor(sf::Color(0, 0, 0));
 
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
-        Window.Clear();
-        Window.Draw(GUISprite);
-        Window.Draw(ObjectiveText);
-        Window.Draw(QuestText);
-        Window.Display();
+        Window.clear();
+        Window.draw(GUISprite);
+        Window.draw(ObjectiveText);
+        Window.draw(QuestText);
+        Window.display();
     }
     return;
 }
 
 void QuestScreen::MainLoop()
 {
-    Font.LoadFromFile("Graphics/papyrus.ttf");
+    Font.loadFromFile("Graphics/papyrus.ttf");
     sf::Texture ArrowTexture, GUITexture;
-    ArrowTexture.LoadFromFile("Graphics/Arrow2.png");
-    GUITexture.LoadFromFile("Graphics/QuestScreen.jpg");
-    ArrowSprite.SetTexture(ArrowTexture);
-    ArrowSprite.SetPosition(555.0f, ArrowY);
-    GUISprite.SetTexture(GUITexture);
+    ArrowTexture.loadFromFile("Graphics/Arrow2.png");
+    GUITexture.loadFromFile("Graphics/QuestScreen.jpg");
+    ArrowSprite.setTexture(ArrowTexture);
+    ArrowSprite.setPosition(555.0f, ArrowY);
+    GUISprite.setTexture(GUITexture);
 
-    while(Window.IsOpen()) 
+    while(Window.isOpen()) 
     {
-        while(Window.PollEvent(Event))
+        while(Window.pollEvent(Event))
         {
-            if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Up))
+            if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Up))
             {
                 if(QuestIterator != 0)
                 {
                     --QuestIterator;
                     ArrowY -= 35;
-                    ArrowSprite.SetPosition(555.0f, ArrowY);
+                    ArrowSprite.setPosition(555.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Down))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Down))
             {
                 if(QuestIterator != player.GetQuests().size())
                 {
                     ++QuestIterator;
                     ArrowY += 35;
-                    ArrowSprite.SetPosition(555.0f, ArrowY);
+                    ArrowSprite.setPosition(555.0f, ArrowY);
                 }
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Return))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Return))
             {
                 ReadQuestText();
             }
-            else if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
+            else if((Event.type == sf::Event::KeyPressed) && (Event.key.code == sf::Keyboard::Escape))
             {
                 return;
             }
         }
         float QuestNameY = 100.0f;
-        Window.Clear();
-        Window.Draw(GUISprite);
+        Window.clear();
+        Window.draw(GUISprite);
         for(auto i = player.GetQuests().begin(); i != player.GetQuests().end(); ++i)
         {
             sf::Text QuestName(i->Name, Font);
-            QuestName.SetPosition(600.0f, QuestNameY);
-            QuestName.SetColor(sf::Color(0, 0, 0));
+            QuestName.setPosition(600.0f, QuestNameY);
+            QuestName.setColor(sf::Color(0, 0, 0));
             QuestNameY += 35;
-            Window.Draw(QuestName);
+            Window.draw(QuestName);
         }
-        Window.Draw(ArrowSprite);
-        Window.Display();
+        Window.draw(ArrowSprite);
+        Window.display();
     }
 }
