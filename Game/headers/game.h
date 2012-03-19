@@ -32,7 +32,7 @@ class Game
     Player Player;
 
     void RandomEncounter();
-    void Encounter(Orientation Direction);
+    void Encounter(int x, int y);
 
     void DrawAll();
     vector<Enemy> Enemies;

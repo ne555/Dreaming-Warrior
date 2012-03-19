@@ -19,30 +19,8 @@
 #include "VendorEncounter.h"
 #include "QuestEncounter.h"
 
-void Game::Encounter(Orientation Direction)
+void Game::Encounter(int x, int y)
 {
-    int x, y;
-
-    switch(Direction)
-    {
-    case NORTH:
-        x = 0;
-        y = -1;
-        break;
-    case SOUTH:
-        x = 0;
-        y = 1;
-        break;
-    case WEST:
-        x = 1;
-        y = 0;
-        break;
-    case EAST:
-        x = -1;
-        y = 0;
-        break;
-    }
-
     switch(Player.InteractsWith)
     {
     case ENEMY:

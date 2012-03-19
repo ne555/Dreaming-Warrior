@@ -185,7 +185,7 @@ void Game::GameLoop()
                     RandomEncounter();
                     break;
                 case 2:
-                    Encounter(NORTH);
+                    Encounter(0, -1);
                     break;
                 }
             }
@@ -199,7 +199,7 @@ void Game::GameLoop()
                     RandomEncounter();
                     break;
                 case 2:
-                    Encounter(SOUTH);
+                    Encounter(0, 1);
                     break;
                 }
             }
@@ -213,7 +213,7 @@ void Game::GameLoop()
                     RandomEncounter();
                     break;
                 case 2:
-                    Encounter(WEST);
+                    Encounter(1, 0);
                     break;
                 }
             }
@@ -227,7 +227,7 @@ void Game::GameLoop()
                     RandomEncounter();
                     break;
                 case 2:
-                    Encounter(EAST);
+                    Encounter(-1, 0);
                     break;
                 }
             }
